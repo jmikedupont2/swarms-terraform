@@ -1,4 +1,7 @@
 variable security_group_id {}
+variable name {
+  default = "swarms"
+}
 variable  vpc_id {
   default = "vpc-04f28c9347af48b55"
 }
@@ -6,51 +9,42 @@ variable  vpc_id {
 variable key_name {
   default = "mdupont-deployer-key"
 }
-variable instance_type {
- # default = "t3.micro"
-}
-
-provider "aws" {
-  region = "us-east-1"
-}
+# dont use this 
+variable instance_type {}
 
 locals {
   ami = "ami-0e2c8caa4b6378d8c"
-  name   = "swarms"
+#  name   = "swarms"
   region = "us-east-1"
   ec2_subnet_id = "subnet-057c90cfe7b2e5646"
   vpc_id = "vpc-04f28c9347af48b55"
   iam_instance_profile_name = "swarms-20241213150629570500000003"
   tags = {
     project="swarms"
+    instance_type = var.instance_type
+    name = var.name
   }
 }
 
 
 
 resource "aws_launch_template" "ec2_launch_template" {
-  name_prefix           = "${local.name}-launch-template-"
+  name_prefix           = "${var.name}-launch-template-"
   image_id              = local.ami
-  #  instance_type        = "t3.large"
   key_name = var.key_name
-  instance_type        = var.instance_type#"t3.micro"
-#  vpc_security_group_ids          = [var.security_group_id]
+  instance_type        = var.instance_type
   network_interfaces {
     associate_public_ip_address = true
     delete_on_termination = true
     security_groups          = [var.security_group_id]
   }
-  
+ 
   iam_instance_profile {
     name = local.iam_instance_profile_name #aws_iam_instance_profile.ec2_instance_profile.name
   }
-
-#  key_name = "your-key-pair" # Replace with your key pair name
-
   lifecycle {
     create_before_destroy = true
   }
-
   block_device_mappings {
     device_name = "/dev/sda1"
     ebs {
