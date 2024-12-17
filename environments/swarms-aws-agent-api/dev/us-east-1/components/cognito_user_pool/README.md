@@ -1,3 +1,14 @@
+# manual setup
+
+1. Created auth client here
+https://console.cloud.google.com/auth/clients/
+
+2. stored password in 
+```
+export TF_VAR_google_oauth_client_id=DDDDD
+export TF_VAR_google_oauth_client_secret=XXXX
+```
+
 # This is a complete example
 
 ```

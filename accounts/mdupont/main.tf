@@ -1,3 +1,6 @@
+variable "google_oauth_client_secret" {}
+variable "google_oauth_client_id" {} 
+
 module cognito {
   aws_account  =var.aws_account_id
   myemail ="jmdupont"
@@ -12,6 +15,8 @@ module cognito {
   source = "../../environments/swarms-aws-agent-api/dev/us-east-1/components/cognito_user_pool"
   #source = "~/2024/12/17/cognito/terraform-aws-cognito-user-pool/examples/complete/"
   #source = "git::https://github.com/meta-introspector/terraform-aws-cognito-user-pool.git?ref=feature/meta-meme"
+  google_oauth_client_secret=var.google_oauth_client_secret
+  google_oauth_client_id=var.google_oauth_client_id
 }
 output cognito{
   value = module.cognito

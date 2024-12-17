@@ -1,3 +1,5 @@
+variable "google_oauth_client_secret" {}
+variable "google_oauth_client_id" {} 
 variable aws_region {} # us-east-1
 variable aws_account {}
 variable myemail {}
@@ -166,7 +168,6 @@ module "aws_cognito_user_pool_complete_example" {
   # clients
   clients = [
     {
-      allowed_oauth_flows                  = []
       allowed_oauth_flows_user_pool_client = false
       allowed_oauth_scopes                 = []
       callback_urls                        = ["https://${local.mydomain_dot_com}/callback"]
@@ -190,9 +191,21 @@ module "aws_cognito_user_pool_complete_example" {
       ui_customization_image_file = filebase64("logo.png")
     },
     {
-      allowed_oauth_flows                  = []
-      allowed_oauth_flows_user_pool_client = false
-      allowed_oauth_scopes                 = []
+      allowed_oauth_flows                  = [
+         "code",
+         "implicit"
+      ]
+      allowed_oauth_flows_user_pool_client = true
+      allowed_oauth_scopes                 = [
+        "aws.cognito.signin.user.admin",
+        "email",
+        "https://introspector.meme/sample-scope-1",
+        "https://introspector.meme/sample-scope-2",
+        "openid",
+        "phone",
+        "profile",
+
+      ]
       callback_urls                        = ["https://${local.mydomain_dot_com}/callback"]
       default_redirect_uri                 = "https://${local.mydomain_dot_com}/callback"
       explicit_auth_flows                  = []
@@ -200,7 +213,11 @@ module "aws_cognito_user_pool_complete_example" {
       logout_urls                          = []
       name                                 = "test2"
       read_attributes                      = []
-      supported_identity_providers         = []
+      supported_identity_providers         = [
+        "COGNITO",
+        "Google",
+
+      ]
       write_attributes                     = []
       refresh_token_validity               = 30
     },
@@ -267,7 +284,9 @@ module "aws_cognito_user_pool_complete_example" {
 
       provider_details = {
         authorize_scopes              = "email"
+	#export TF_VAR_google_oauth_client_id=XXXX
         client_id                     = var.google_oauth_client_id    # This should be retrieved from AWS Secret Manager, otherwise Terraform will force an in-place replacement becuase is treated as a sensitive value
+	# export TF_VAR_google_oauth_client_secret=YYY
         client_secret                 = var.google_oauth_client_secret #"your client_secret" # # This should be retrieved from AWS Secret Manager, otherwise Terraform will force an in-place replacement becuase is treated as a sensitive value
         attributes_url_add_attributes = "true"
         authorize_url                 = "https://accounts.google.com/o/oauth2/v2/auth"
