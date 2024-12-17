@@ -169,7 +169,16 @@ module "aws_cognito_user_pool_complete_example" {
   clients = [
     {
       allowed_oauth_flows_user_pool_client = false
-      allowed_oauth_scopes                 = []
+      allowed_oauth_scopes                 = [
+        "aws.cognito.signin.user.admin",
+        "email",
+        "https://introspector.meme/sample-scope-1",
+        "https://introspector.meme/sample-scope-2",
+        "openid",
+        "phone",
+        "profile",
+
+      ]
       callback_urls                        = ["https://${local.mydomain_dot_com}/callback"]
       default_redirect_uri                 = "https://${local.mydomain_dot_com}/callback"
       explicit_auth_flows                  = []
@@ -177,7 +186,11 @@ module "aws_cognito_user_pool_complete_example" {
       logout_urls                          = []
       name                                 = "test1"
       read_attributes                      = ["email"]
-      supported_identity_providers         = []
+      supported_identity_providers         = [
+	 "COGNITO",
+         "Google",
+
+      ]
       write_attributes                     = []
       access_token_validity                = 1
       id_token_validity                    = 1
@@ -195,7 +208,7 @@ module "aws_cognito_user_pool_complete_example" {
          "code",
          "implicit"
       ]
-      allowed_oauth_flows_user_pool_client = true
+      allowed_oauth_flows_user_pool_client = false # FIXME why?
       allowed_oauth_scopes                 = [
         "aws.cognito.signin.user.admin",
         "email",
@@ -224,7 +237,16 @@ module "aws_cognito_user_pool_complete_example" {
     {
       allowed_oauth_flows                  = ["code", "implicit"]
       allowed_oauth_flows_user_pool_client = true
-      allowed_oauth_scopes                 = ["email", "openid"]
+      allowed_oauth_scopes                 = [
+        "aws.cognito.signin.user.admin",
+        "email",
+        "https://introspector.meme/sample-scope-1",
+        "https://introspector.meme/sample-scope-2",
+        "openid",
+        "phone",
+        "profile",
+
+      ]
       callback_urls                        = ["https://${local.mydomain_dot_com}/callback"]
       default_redirect_uri                 = "https://${local.mydomain_dot_com}/callback"
       explicit_auth_flows                  = ["CUSTOM_AUTH_FLOW_ONLY", "ADMIN_NO_SRP_AUTH"]
