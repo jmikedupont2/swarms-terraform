@@ -53,7 +53,7 @@ module "aws_cognito_user_pool_complete_example" {
     post_confirmation              = "arn:aws:lambda:${var.aws_region}:${var.aws_account}:function:post_confirmation"
     pre_authentication             = "arn:aws:lambda:${var.aws_region}:${var.aws_account}:function:pre_authentication"
     pre_sign_up                    = "arn:aws:lambda:${var.aws_region}:${var.aws_account}:function:pre_sign_up"
-    pre_token_generation           = "arn:aws:lambda:${var.aws_region}:${var.aws_account}:function:pre_token_generation"
+#    pre_token_generation           = "arn:aws:lambda:${var.aws_region}:${var.aws_account}:function:pre_token_generation"
     user_migration                 = "arn:aws:lambda:${var.aws_region}:${var.aws_account}:function:user_migration"
     verify_auth_challenge_response = "arn:aws:lambda:${var.aws_region}:${var.aws_account}:function:verify_auth_challenge_response"
     #kms_key_id                     = aws_kms_key.lambda-custom-sender.arn
