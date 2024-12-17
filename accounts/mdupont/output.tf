@@ -6,9 +6,9 @@ output "iam_user" {
   value                      = var.iam_user
 }
 
-output "table_name" {
-  value                      = var.table_name
-}
+#output "table_name" {
+#  value                      = var.table_name
+#}
 
 output "project_name" {
   value                      = var.project_name
@@ -19,15 +19,18 @@ output "aws_caller_identity_account_id" {
 }
 
 output "aws_s3_bucket_logging_name" {
-  value                      = data.aws_s3_bucket.terraform_logging.bucket
+  # value                      = data.aws_s3_bucket.terraform_logging.bucket
+  value                      = null
 }
 
 output "aws_s3_bucket_state_name" {
-  value                      = data.aws_s3_bucket.terraform_state.bucket
+  #value                      = data.aws_s3_bucket.terraform_state.bucket
+  value                      = null
 }
 
 output "aws_cloudtrail_service_account_id" {
-  value                      = data.aws_cloudtrail_service_account.main.id
+  #value                      = data.aws_cloudtrail_service_account.main.id
+  value                      = null
 }
 
   
