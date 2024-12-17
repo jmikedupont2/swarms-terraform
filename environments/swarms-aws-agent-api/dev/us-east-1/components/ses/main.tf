@@ -4,10 +4,10 @@ variable "group_name" {}
 variable "verify_dkim" {}
 variable "domain" {} 
 
-resource "aws_route53_zone" "private_dns_zone" {
-  name = var.domain
-  tags = module.this.tags
-}
+#resource "aws_route53_zone" "private_dns_zone" {
+#  name = var.domain
+#  tags = module.this.tags
+#}
 
 module "ses" {
   source = "git::https://github.com/cloudposse/terraform-aws-ses.git"

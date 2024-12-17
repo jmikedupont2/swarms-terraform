@@ -3,12 +3,21 @@ variable "google_oauth_client_id" {}
 
 module ses {
   verify_dkim=true
-  # use another domain for the email so we dont have the root on ses yet
-  domain="mail.introspector.meme"
-  verify_domain =true
+  domain="introspector.meme" # put the mail at the top level
+  #verify_domain =true
+  verify_domain =false # not on aws
   group_name="introspector"
   source = "../../environments/swarms-aws-agent-api/dev/us-east-1/components/ses"
 }
+
+# module ses_verification {
+#   verify_dkim=true
+#   domain="introspector.meme" # put the mail at the top level
+#   #verify_domain =true
+#   verify_domain =false # not on aws
+#   group_name="introspector"
+#   source = "../../environments/swarms-aws-agent-api/dev/us-east-1/components/ses_verify"
+# }
 
 module cognito {
   aws_account  =var.aws_account_id
