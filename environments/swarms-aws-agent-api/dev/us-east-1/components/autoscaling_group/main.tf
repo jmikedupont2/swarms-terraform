@@ -1,5 +1,5 @@
 variable aws_iam_instance_profile_ssm_arn {}
-variable target_group_arn{}
+#variable target_group_arn{}
 variable name {}
 variable instance_type {}
 variable launch_template_id {}
@@ -58,11 +58,11 @@ module "autoscaling" {
   }
 
   #    target_group_arn = 
-  traffic_source_attachments = {
-    ex-alb = {
-      traffic_source_identifier = var.target_group_arn
-      traffic_source_type       = "elbv2" # default
-    }
-  }
+  # traffic_source_attachments = {
+  #   ex-alb = {
+  #     traffic_source_identifier = var.target_group_arn
+  #     traffic_source_type       = "elbv2" # default
+  #   }
+  # }
 
 }
