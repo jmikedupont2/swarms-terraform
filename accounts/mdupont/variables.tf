@@ -1,12 +1,17 @@
-  variable "project_name" {
-    type    = string
-    default = "swarms"
-  }
+variable "project_name" {
+  type    = string
+  default = "meta-meme"
+}
+
+variable "profile" {
+  type    = string
+  default = "default"
+}
 
 variable "aws_region" {
-    type    = string
-    default = "us-east-1"
-  }
+  type    = string
+  default = "us-east-1"
+}
 
   variable "aws_account_id" {
     type        = string
@@ -18,10 +23,10 @@ variable "aws_region" {
     default = "mdupont"
   }
 
-  variable "table_name" {
-    type    = string
-    default = "swarms"
-  }
+#  variable "table_name" {
+#    type    = string
+#    default = "meta-meme"
+#  }
 
   variable "lock_resource" {
     type    = string

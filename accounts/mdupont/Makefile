@@ -1,3 +1,4 @@
 make :
-	#tofu init
+	tofu init
 	tofu plan
+	tofu apply
