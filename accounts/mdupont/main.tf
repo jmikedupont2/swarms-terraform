@@ -13,3 +13,7 @@ module cognito {
   #source = "~/2024/12/17/cognito/terraform-aws-cognito-user-pool/examples/complete/"
   #source = "git::https://github.com/meta-introspector/terraform-aws-cognito-user-pool.git?ref=feature/meta-meme"
 }
+output cognito{
+  value = module.cognito
+  sensitive = true
+}

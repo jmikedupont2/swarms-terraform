@@ -23,3 +23,6 @@ terraform  for ubuntu python uvicorn fastapi nginx systemd server with custom gi
 8. create lambda_workers on queue
 9. create resource_launchers to create new resources.
 10. packer ami for ubuntu python uvicorn fastapi nginx systemd server with custom git modules
+11. setup cicd
+12. create jobt to generate diagrams and documentation from site
+13. use swarms agent to improve code
