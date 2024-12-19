@@ -1,0 +1,194 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
+#1. create an interface to import these constants from other modules in a clean way
+locals {
+  ami = "ami-0e2c8caa4b6378d8c"
+  name   = "swarms"
+  region = "us-east-1"
+  ec2_subnet_id = "subnet-057c90cfe7b2e5646"
+  vpc_id = "vpc-04f28c9347af48b55"
+  tags = {
+    project="swarms"
+  }
+}
+
+module "security_group_instance" {
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "~> 5.0"
+  name        = "${local.name}-ec2"
+  description = "Security Group for EC2 Instance"
+  vpc_id = local.vpc_id
+  ingress_with_cidr_blocks = [
+     {
+       from_port   = 443
+       to_port     = 443
+       protocol    = "tcp"
+       cidr_blocks = "0.0.0.0/0"
+     },
+    {
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
+
+  egress_rules = ["all-all"]
+  tags = local.tags
+}
+
+module "ec2" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  associate_public_ip_address = true # for now
+  name =  local.name
+  ami   = local.ami # data.aws_ami.ubuntu.id
+  instance_type = "t3.large"
+  create_iam_instance_profile = true
+  iam_role_description        = "IAM role for EC2 instance"
+  iam_role_policies = {
+    AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+  }
+  vpc_security_group_ids = [module.security_group_instance.security_group_id]
+
+  root_block_device = [
+    {
+      encrypted   = true
+      volume_size = 30
+      volume_type           = "gp3"
+    }
+  ]
+
+  user_data = <<-EOF
+#!/bin/bash
+export HOME=/root
+apt update
+apt-get install -y ec2-instance-connect git virtualenv
+
+if [ ! -d "/opt/swarms/" ];
+  then
+  git clone https://github.com/jmikedupont2/swarms "/opt/swarms/"
+fi    
+cd "/opt/swarms/" || exit 1 # "we need swarms"
+export BRANCH=feature/ec2
+git checkout --force  $BRANCH
+bash -x /opt/swarms/api/install.sh
+              EOF
+  tags = local.tags  
+  create_spot_instance = true
+  subnet_id     = local.ec2_subnet_id
+}
+
+# create an autoscaling group
+# create a launch template
+# create a lambda function to trigger the launching of new instances
+
+
+To create a clean interface for importing constants from other modules in Terraform, you can follow the structure outlined below. This involves the use of variables and outputs to encapsulate the constants while maintaining modularity. Here's a concise example:
+
+### 1. Define Variables in a `variables.tf` File
+
+```hcl
+variable "ami" {
+  description = "AMI ID for the EC2 instance"
+  type        = string
+}
+
+variable "name" {
+  description = "Name for the resources"
+  type        = string
+}
+
+variable "region" {
+  description = "AWS region"
+  type        = string
+}
+
+variable "ec2_subnet_id" {
+  description = "Subnet ID for the EC2 instance"
+  type        = string
+}
+
+variable "vpc_id" {
+  description = "VPC ID where resources are deployed"
+  type        = string
+}
+
+variable "tags" {
+  description = "Tags to assign to resources"
+  type        = map(string)
+}
+```
+
+### 2. Create a `locals.tf` File to Define Constants
+
+```hcl
+locals {
+  ami          = "ami-0e2c8caa4b6378d8c"
+  name         = "swarms"
+  region       = "us-east-1"
+  ec2_subnet_id = "subnet-057c90cfe7b2e5646"
+  vpc_id       = "vpc-04f28c9347af48b55"
+  tags         = {
+    project = "swarms"
+  }
+}
+```
+
+### 3. Outputs for Constants in an `outputs.tf` File
+
+```hcl
+output "ami" {
+  value = local.ami
+}
+
+output "name" {
+  value = local.name
+}
+
+output "region" {
+  value = local.region
+}
+
+output "ec2_subnet_id" {
+  value = local.ec2_subnet_id
+}
+
+output "vpc_id" {
+  value = local.vpc_id
+}
+
+output "tags" {
+  value = local.tags
+}
+```
+
+### 4. Import Variables in Other Modules
+
+In your main module or other resource modules, import these variables as shown below:
+
+```hcl
+module "constants" {
+  source = "./path-to-constants-module"  # replace with the actual path
+}
+
+# Use them as follows
+module "security_group_instance" {
+  source = "terraform-aws-modules/security-group/aws"
+  name   = "${module.constants.name}-ec2"
+  vpc_id = module.constants.vpc_id
+  # ... other configurations
+}
+
+module "ec2" {
+  ami   = module.constants.ami
+  name  = module.constants.name
+  subnet_id = module.constants.ec2_subnet_id
+  # ... other configurations
+}
+```
+
+### Summary
+
+This structure ensures that you can import and use constants across your Terraform module cleanly without hardcoding values in multiple places. Each module can reference these shared values as needed for configurations.
