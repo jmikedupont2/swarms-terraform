@@ -1,8 +1,8 @@
 locals {
   #ami_name = "ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"
   ami_name  = "ubuntu-minimal/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-minimal-*"
-  #  dns = "api.swarms.ai"
-  dns = "api.arianakrasniqi.com"
+  dns = "api.swarms.ai"
+  #dns = "api.arianakrasniqi.com"
   account = "916723593639"
   region  = "us-east-2"
 }
@@ -93,6 +93,16 @@ module github {
   aws_account_id = local.account
   aws_region  = local.region
 #  github_token = var.github_token
-
+  repos = toset([
+    "terraform-aws-oidc-github",
+    "swarms",
+    "swarms-terraform"
+  ])
 }
 
+
+# now create the ssm document
+module call_swarms {
+  source = "../../environments/call-swarms"
+
+}
