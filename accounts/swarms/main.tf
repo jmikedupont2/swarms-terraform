@@ -7,6 +7,22 @@ locals {
   region  = "us-east-2"
 }
 
+
+variable "owner" {
+  description = "GitHub owner used to configure the provider"
+  default        = "jmikedupont2"
+}
+
+variable "github_token" {
+  description = "GitHub access token used to configure the provider"
+  type        = string
+}
+
+provider "github" {
+  owner = var.owner
+  token = var.github_token
+}
+
 #resource aws_route53_zone test{
 #  name = local.dns
 #}
@@ -32,17 +48,20 @@ output region {
 }
 
 #SLOW
- data "aws_ami" "ami" {
-   most_recent      = true
-   name_regex       = "^${local.ami_name}"
- }
+# data "aws_ami" "ami" {
+#   most_recent      = true
+#   name_regex       = "^${local.ami_name}"
+# }
+locals {
+ami_id = "ami-0325b9a2dfb474b2d"
+}
 
 module "swarms_api" {
   source = "../../environments/swarms-aws-agent-api/dev/us-east-1"
   domain = local.dns
-  ami_id = data.aws_ami.ami.id
-  #"ami-0ad5d6c7069ce56ac"
-  #ami_id = "ami-0ad5d6c7069ce56ac"
+  #ami_id = data.aws_ami.ami.id
+  ami_id = local.ami_id
+  
 
   name = "swarms"
   tags = {project="swarms"}
@@ -52,7 +71,8 @@ module "swarms_api" {
 module "swarmdeploy" {
   source = "../../environments/swarms-deploy/dev/us-east-1"
   domain = local.dns
-  ami_id = data.aws_ami.ami.id
+  #ami_id = data.aws_ami.ami.id
+  ami_id = local.ami_id
   name = "swarmdeploy"
   tags = {project="swarmdeploy"}  
   vpc_id = "vpc-0b4cedd083227068d"
@@ -64,3 +84,15 @@ module "swarmdeploy" {
 output api {
   value = module.swarms_api
 }
+
+
+
+# setup the github tokens
+module github {
+  source = "./github"
+  aws_account_id = local.account
+  aws_region  = local.region
+#  github_token = var.github_token
+
+}
+

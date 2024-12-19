@@ -160,5 +160,10 @@ swarms.ai. 3600 IN TXT "google-site-verification=VlUvNHJo0LQzJzm7SIwMzYLB7-Rexx4
 ```
 
 # tofu apply
+The new apply
 
-`tofu apply`
+```
+tofu plan   -var "github_token=$(gh auth token)"
+tofu apply   -var "github_token=$(gh auth token)" 
+
+```
