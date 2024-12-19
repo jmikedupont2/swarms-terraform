@@ -549,3 +549,10 @@ output "vpc_flow_log_cloudwatch_iam_role_arn" {
 #   description = "ID of the security group"
 #   value       = module.vpc_endpoints.security_group_id
 # }
+output ec2_public_subnet_id_2 {
+  value = module.vpc.public_subnets[1]
+}
+
+output ec2_public_subnet_id_1 {
+  value = module.vpc.public_subnets[0]
+}

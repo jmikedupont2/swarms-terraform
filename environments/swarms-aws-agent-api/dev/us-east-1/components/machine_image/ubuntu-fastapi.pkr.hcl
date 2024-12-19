@@ -1,29 +1,38 @@
 packer {
   required_plugins {
-    aws = {
-      source  = "hashicorp/aws"
-      version = ">= 3.0.0"
+    amazon = {
+      version = ">= 1.2.8"
+      source  = "github.com/hashicorp/amazon"
     }
   }
 }
 
 source "amazon-ebs" "ubuntu" {
-  ami_name      = "ubuntu-fastapi-{{timestamp}}"
-  instance_type = "t2.micro" 
-  region        = "us-east-1" 
-  source_ami    = "ami-0c55b159cbfafe1f0" # Ubuntu 20.04 LTS
+  ami_name      = "ubuntu-swarms-{{timestamp}}"
+  instance_type = "t2.medium"
+  region        = "us-east-2"
+  source_ami    = "ami-0325b9a2dfb474b2d" # Ubuntu 20.04 LTS
   ssh_username  = "ubuntu"
-  
+  launch_block_device_mappings {
+    device_name = "/dev/sda1"
+    volume_size = 30
+    volume_type = "gp3"
+    delete_on_termination = true
+  }  
+}
+
+build {
   provisioner "shell" {
     inline = [
       "sudo apt-get update",
       "sudo apt-get install -y python3 python3-pip git",
-      "pip3 install fastapi uvicorn", 
-      "git clone https://github.com/yourusername/your-fastapi-module.git /app"
+      "export HOME=/root",
+      "sudo apt-get install -y ec2-instance-connect git virtualenv",
+      "sudo git clone https://github.com/jmikedupont2/swarms '/opt/swarms/'",
+      "cd /opt/swarms/; sudo git checkout --force feature/ec2",
+      "sudo bash -x /opt/swarms/api/install.sh"
     ]
   }
-}
 
-build {
   sources = ["source.amazon-ebs.ubuntu"]
 }

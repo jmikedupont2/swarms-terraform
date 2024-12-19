@@ -1,60 +1,16 @@
+variable aws_iam_instance_profile_ssm_arn {}
 variable target_group_arn{}
-#variable security_group_id {}
 variable name {}
-variable instance_type {
- # default = "t3.micro"
-}
-
-variable launch_template_id {
-
-}
-variable  image_id {
-  default = "ami-0e2c8caa4b6378d8c"
-}
-variable  vpc_id {
-  default = "vpc-04f28c9347af48b55"
-}
-#provider "aws" {
-#  region = "us-east-1"
-#}
+variable instance_type {}
+variable launch_template_id {}
+variable image_id {}
+variable vpc_id {}
+variable tags {}
+variable ec2_subnet_id {}
 
 locals {
-  ami = "ami-0e2c8caa4b6378d8c"
- # name   = "swarms"
-  region = "us-east-1"
-  ec2_subnet_id = "subnet-057c90cfe7b2e5646"
-
-  #iam_instance_profile_name = "swarms-20241213150629570500000003"
-  iam_instance_profile_arn = aws_iam_instance_profile.ssm.arn
-  tags = {
-    project="swarms"
-  }
-
+  iam_instance_profile_arn = var.aws_iam_instance_profile_ssm_arn
   instance_type = var.instance_type
-}
-
-resource "aws_iam_instance_profile" "ssm" {
-  name = "ssm-${var.name}"
-  role = aws_iam_role.ssm.name
-  tags = local.tags
-}
-resource "aws_iam_role" "ssm" {
-  name = "ssm-${var.name}"
-  tags = local.tags
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Action = "sts:AssumeRole",
-        Principal = {
-          Service = "ec2.amazonaws.com"
-        },
-        Effect = "Allow",
-        Sid    = ""
-      }
-    ]
-  })
 }
 
 module "autoscaling" {
@@ -73,7 +29,7 @@ module "autoscaling" {
   launch_template_id   = var.launch_template_id
   launch_template_version   = "$Latest"
 
-  vpc_zone_identifier = [local.ec2_subnet_id]
+  vpc_zone_identifier = [var.ec2_subnet_id]
 
   instance_market_options = {
     market_type = "spot"
@@ -88,7 +44,6 @@ module "autoscaling" {
   ]
   instance_type = var.instance_type
   image_id = var.image_id
-
   
   create_iam_instance_profile = true
   iam_role_name               = "ssm-${var.name}"
@@ -110,4 +65,66 @@ module "autoscaling" {
     }
   }
 
+    # Target scaling policy schedule based on average CPU load
+  scaling_policies = {
+    avg-cpu-policy-greater-than-50 = {
+      policy_type               = "TargetTrackingScaling"
+      estimated_instance_warmup = 1200
+      target_tracking_configuration = {
+        predefined_metric_specification = {
+          predefined_metric_type = "ASGAverageCPUUtilization"
+        }
+        target_value = 50.0
+      }
+    },
+    predictive-scaling = {
+      policy_type = "PredictiveScaling"
+      predictive_scaling_configuration = {
+        mode                         = "ForecastAndScale"
+        scheduling_buffer_time       = 10
+        max_capacity_breach_behavior = "IncreaseMaxCapacity"
+        max_capacity_buffer          = 10
+        metric_specification = {
+          target_value = 32
+          predefined_scaling_metric_specification = {
+            predefined_metric_type = "ASGAverageCPUUtilization"
+            resource_label         = "testLabel"
+          }
+          predefined_load_metric_specification = {
+            predefined_metric_type = "ASGTotalCPUUtilization"
+            resource_label         = "testLabel"
+          }
+        }
+      }
+    }
+    # request-count-per-target = {
+    #   policy_type               = "TargetTrackingScaling"
+    #   estimated_instance_warmup = 120
+    #   target_tracking_configuration = {
+    #     predefined_metric_specification = {
+    #       predefined_metric_type = "ALBRequestCountPerTarget"
+    #       resource_label         = "swarms1"
+    # 	  #"${module.alb.arn_suffix}/${module.alb.target_groups["ex_asg"].arn_suffix}"
+    #     }
+    #     target_value = 800
+    #   }
+    # }
+    scale-out = {
+      name                      = "scale-out"
+      adjustment_type           = "ExactCapacity"
+      policy_type               = "StepScaling"
+      estimated_instance_warmup = 120
+      step_adjustment = [
+        {
+          scaling_adjustment          = 1
+          metric_interval_lower_bound = 0
+          metric_interval_upper_bound = 10
+        },
+        {
+          scaling_adjustment          = 2
+          metric_interval_lower_bound = 10
+        }
+      ]
+    }
+  }
 }

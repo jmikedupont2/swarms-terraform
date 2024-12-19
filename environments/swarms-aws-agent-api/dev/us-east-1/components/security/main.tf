@@ -1,24 +1,12 @@
-variable  vpc_id {
-  default = "vpc-04f28c9347af48b55"
-}
-
-locals {
-  ami = "ami-0e2c8caa4b6378d8c"
-  name   = "swarms"
-  region = "us-east-1"
-  ec2_subnet_id = "subnet-057c90cfe7b2e5646"
-
-  tags = {
-    project="swarms"
-  }
-
-}
+variable  vpc_id { }
+variable  tags { }
+variable  name { }
 
 module "asg_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 5.0"
 
-  name        = "${local.name}-external"
+  name        = "${var.name}-external"
   description = "external group"
   vpc_id      = var.vpc_id
 
@@ -31,14 +19,14 @@ module "asg_sg" {
 
   egress_rules = ["all-all"]
 
-  tags = local.tags
+  tags = var.tags
 }
 
 module "asg_sg_internal" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 5.0"
 
-  name        = "${local.name}-internal"
+  name        = "${var.name}-internal"
   description = "An internal security group"
   vpc_id      = var.vpc_id
   # see ~/2024/12/13/terraform-aws-security-group/examples/complete/main.tf
@@ -51,7 +39,7 @@ module "asg_sg_internal" {
   ]
   egress_rules = ["all-all"]
 
-  tags = local.tags
+  tags = var.tags
 }
 
 output "security_group_id" {

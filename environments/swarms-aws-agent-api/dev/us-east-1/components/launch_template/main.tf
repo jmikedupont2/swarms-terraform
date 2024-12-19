@@ -1,36 +1,27 @@
+variable install_script {}
+variable iam_instance_profile_name {}
 variable security_group_id {}
-variable name {
-  default = "swarms"
-}
-variable  vpc_id {
-  default = "vpc-04f28c9347af48b55"
-}
-
+variable name {}
+variable  vpc_id {}
+variable  ami_id {}
+variable  tags {}
 variable key_name {
   default = "mdupont-deployer-key"
 }
+
 # dont use this 
 variable instance_type {}
 
 locals {
-  ami = "ami-0e2c8caa4b6378d8c"
-#  name   = "swarms"
-  region = "us-east-1"
-  ec2_subnet_id = "subnet-057c90cfe7b2e5646"
-  vpc_id = "vpc-04f28c9347af48b55"
-  iam_instance_profile_name = "swarms-20241213150629570500000003"
   tags = {
     project="swarms"
     instance_type = var.instance_type
     name = var.name
   }
 }
-
-
-
 resource "aws_launch_template" "ec2_launch_template" {
   name_prefix           = "${var.name}-launch-template-"
-  image_id              = local.ami
+  image_id              = var.ami_id
   key_name = var.key_name
   instance_type        = var.instance_type
   network_interfaces {
@@ -40,7 +31,8 @@ resource "aws_launch_template" "ec2_launch_template" {
   }
  
   iam_instance_profile {
-    name = local.iam_instance_profile_name #aws_iam_instance_profile.ec2_instance_profile.name
+    #   iam_instance_profile_arn = aws_iam_instance_profile.ssm.arn
+    name = var.iam_instance_profile_name #aws_iam_instance_profile.ec2_instance_profile.name
   }
   lifecycle {
     create_before_destroy = true
@@ -72,10 +64,11 @@ resource "aws_launch_template" "ec2_launch_template" {
   export BRANCH=feature/ec2
   git stash
   git checkout --force $BRANCH
-  bash -x /opt/swarms/api/install.sh
+  git pull # get the latest version
+  bash -x ${var.install_script}
   EOF
     )
-  tags = local.tags  
+  tags = var.tags  
 }
 
 

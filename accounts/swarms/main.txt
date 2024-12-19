@@ -1,0 +1,1769 @@
+mdupont@mdupont-G470:~/2024/12/swarms-terraform/accounts/swarms$ tofu apply
+module.swarms_api.module.vpc.data.aws_availability_zones.available: Reading...
+module.swarms_api.module.alb.module.alb.data.aws_partition.current: Reading...
+module.swarms_api.module.asg_dynamic["t3.medium"].module.autoscaling.data.aws_partition.current: Reading...
+module.swarms_api.module.kp.aws_key_pair.mdupont-deployer: Refreshing state... [id=mdupont-deployer-key]
+module.swarms_api.data.aws_ami.ami: Reading...
+module.swarms_api.module.alb.module.acm.aws_route53_record.validation[0]: Refreshing state... [id=Z05433953QQ7Q4A095TXN__2d35674ee842f81e6c1d4b1ff81bf202.api.swarms.ai._CNAME]
+module.swarms_api.module.alb.aws_route53_zone.primary: Refreshing state... [id=Z05433953QQ7Q4A095TXN]
+module.swarms_api.module.vpc.module.vpc.aws_vpc.this[0]: Refreshing state... [id=vpc-0474ec5cd8a0dd94b]
+module.swarms_api.module.alb.module.alb.data.aws_partition.current: Read complete after 0s [id=aws]
+module.swarms_api.module.asg_dynamic["t3.medium"].module.autoscaling.data.aws_partition.current: Read complete after 0s [id=aws]
+module.swarms_api.module.alb.module.acm.aws_acm_certificate.this[0]: Refreshing state... [id=arn:aws:acm:us-east-2:767503528736:certificate/e4c7475f-9b0a-471f-b02c-134759b27668]
+module.swarms_api.module.alb.data.aws_availability_zones.available: Reading...
+module.swarms_api.module.asg_dynamic["t3.medium"].aws_iam_role.ssm: Refreshing state... [id=ssm-swarms-size-t3.medium]
+module.swarms_api.module.asg_dynamic["t3.medium"].module.autoscaling.data.aws_iam_policy_document.assume_role_policy[0]: Reading...
+module.swarms_api.module.asg_dynamic["t3.medium"].module.autoscaling.data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=1256122602]
+module.swarms_api.module.asg_dynamic["t3.medium"].module.autoscaling.aws_iam_role.this[0]: Refreshing state... [id=ssm-swarms-size-t3.medium-20241216190828467900000002]
+module.swarms_api.module.alb.data.aws_availability_zones.available: Read complete after 0s [id=us-east-2]
+module.swarms_api.module.vpc.data.aws_availability_zones.available: Read complete after 0s [id=us-east-2]
+module.swarms_api.module.asg_dynamic["t3.medium"].aws_iam_instance_profile.ssm: Refreshing state... [id=ssm-swarms-size-t3.medium]
+module.swarms_api.module.asg_dynamic["t3.medium"].module.autoscaling.aws_iam_instance_profile.this[0]: Refreshing state... [id=ssm-swarms-size-t3.medium-20241216190828732900000006]
+module.swarms_api.module.asg_dynamic["t3.medium"].module.autoscaling.aws_iam_role_policy_attachment.this["AmazonSSMManagedInstanceCore"]: Refreshing state... [id=ssm-swarms-size-t3.medium-20241216190828467900000002-20241216190828805000000007]
+module.swarms_api.module.vpc.module.vpc.aws_default_route_table.default[0]: Refreshing state... [id=rtb-0834ea0a1cb0b3e20]
+module.swarms_api.module.vpc.module.vpc.aws_default_security_group.this[0]: Refreshing state... [id=sg-09e45cb7d4cd6e40f]
+module.swarms_api.module.vpc.module.vpc.aws_internet_gateway.this[0]: Refreshing state... [id=igw-094056be43e3ff84b]
+module.swarms_api.module.vpc.module.vpc.aws_default_network_acl.this[0]: Refreshing state... [id=acl-0757b0776826bfbf8]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.public[0]: Refreshing state... [id=rtb-01ab4dcce11853b1d]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-0bc4a9913a3ce2359]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.public[2]: Refreshing state... [id=subnet-02678c830b74a5b5d]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-0c0af7a5f74ac54cc]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.private[0]: Refreshing state... [id=rtb-078545b8b8efb0295]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.private[2]: Refreshing state... [id=rtb-062a89232fc0355b2]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.private[1]: Refreshing state... [id=rtb-0513c8c9e488570c3]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-03f08e37b2201be9c]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-0e6c2fef4377b5590]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.private[2]: Refreshing state... [id=subnet-0bbfe21680e03572b]
+module.swarms_api.module.vpc.module.vpc.aws_route.public_internet_gateway[0]: Refreshing state... [id=r-rtb-01ab4dcce11853b1d1080289494]
+module.swarms_api.module.alb.aws_lb_target_group.this: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-2:767503528736:targetgroup/swarms2024121619084133320000000c/001ec925380d4bcd]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.public[2]: Refreshing state... [id=rtbassoc-037ae6ac8e6a6692b]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-07c9642c84441a2c1]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-08546098c2d85fd6f]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-02e71f6004f433e3e]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.private[2]: Refreshing state... [id=rtbassoc-082b7f543579d5f38]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-05cfcd90f6d653fe1]
+module.swarms_api.data.aws_ami.ami: Still reading... [10s elapsed]
+module.swarms_api.data.aws_ami.ami: Read complete after 13s [id=ami-0ad5d6c7069ce56ac]
+
+OpenTofu used the selected providers to generate the following execution plan. Resource actions are indicated with
+the following symbols:
+  + create
+  - destroy
+
+OpenTofu will perform the following actions:
+
+  # module.swarms_api.module.lt_dynamic["t3.medium"].aws_launch_template.ec2_launch_template will be created
+  + resource "aws_launch_template" "ec2_launch_template" {
+      + arn             = (known after apply)
+      + default_version = (known after apply)
+      + id              = (known after apply)
+      + image_id        = 
+      + instance_type   = "t3.medium"
+      + key_name        = "mdupont-deployer-key"
+      + latest_version  = (known after apply)
+      + name            = (known after apply)
+      + name_prefix     = "swarms-size-t3.medium-launch-template-"
+      + tags            = {
+          + "instance_type" = "t3.medium"
+          + "name"          = "swarms-size-t3.medium"
+          + "project"       = "swarms"
+        }
+      + tags_all        = {
+          + "instance_type" = "t3.medium"
+          + "name"          = "swarms-size-t3.medium"
+          + "project"       = "swarms"
+        }
+      + user_data       = "IyEvYmluL2Jhc2gKZXhwb3J0IEhPTUU9L3Jvb3QKYXB0IHVwZGF0ZQphcHQtZ2V0IGluc3RhbGwgLXkgZWMyLWluc3RhbmNlLWNvbm5lY3QgZ2l0IHZpcnR1YWxlbnYKc25hcCBpbnN0YWxsIGFtYXpvbi1zc20tYWdlbnQgLS1jbGFzc2ljIHx8IGVjaG8gb29wczEKc25hcCBzdGFydCBhbWF6b24tc3NtLWFnZW50IHx8IGVjaG8gb29wczIKYXB0LWdldCBpbnN0YWxsIC15IC0tbm8taW5zdGFsbC1yZWNvbW1lbmRzIGNhLWNlcnRpZmljYXRlcz0yMDIzMDMxMSBjdXJsPTcuODguMS0xMCtkZWIxMnU3IHwgIGVjaG8gb29wcwpjdXJsIC1PICJodHRwczovL3MzLmFtYXpvbmF3cy5jb20vYW1hem9uY2xvdWR3YXRjaC1hZ2VudC91YnVudHUvJChkcGtnIC0tcHJpbnQtYXJjaGl0ZWN0dXJlKS9sYXRlc3QvYW1hem9uLWNsb3Vkd2F0Y2gtYWdlbnQuZGViIgpkcGtnIC1pIC1FIGFtYXpvbi1jbG91ZHdhdGNoLWFnZW50LmRlYgogCmlmIFsgISAtZCAiL29wdC9zd2FybXMvIiBdOyB0aGVuCiAgZ2l0IGNsb25lIGh0dHBzOi8vZ2l0aHViLmNvbS9qbWlrZWR1cG9udDIvc3dhcm1zICIvb3B0L3N3YXJtcy8iCmZpCmNkICIvb3B0L3N3YXJtcy8iIHx8IGV4aXQgMQpleHBvcnQgQlJBTkNIPWZlYXR1cmUvZWMyCmdpdCBzdGFzaApnaXQgY2hlY2tvdXQgLS1mb3JjZSAkQlJBTkNICmJhc2ggLXggL29wdC9zd2FybXMvYXBpL2luc3RhbGwuc2gK"
+
+      + block_device_mappings {
+          + device_name = "/dev/sda1"
+
+          + ebs {
+              + encrypted   = "true"
+              + iops        = (known after apply)
+              + throughput  = (known after apply)
+              + volume_size = 30
+              + volume_type = "gp3"
+            }
+        }
+
+      + iam_instance_profile {
+          + name = "swarms-20241213150629570500000003"
+        }
+
+      + network_interfaces {
+          + associate_public_ip_address = "true"
+          + delete_on_termination       = "true"
+          + security_groups             = (known after apply)
+        }
+    }
+
+  # module.swarms_api.module.alb.module.acm.aws_acm_certificate.this[0] will be destroyed
+  # (because aws_acm_certificate.this is not in configuration)
+  - resource "aws_acm_certificate" "this" {
+      - arn                       = "arn:aws:acm:us-east-2:767503528736:certificate/e4c7475f-9b0a-471f-b02c-134759b27668" -> null
+      - domain_name               = "api.swarms.ai" -> null
+      - domain_validation_options = [
+          - {
+              - domain_name           = "*.api.swarms.ai"
+              - resource_record_name  = "_2d35674ee842f81e6c1d4b1ff81bf202.api.swarms.ai."
+              - resource_record_type  = "CNAME"
+              - resource_record_value = "_14001873a994d4ba61251844ed588611.zfyfvmchrl.acm-validations.aws."
+            },
+          - {
+              - domain_name           = "api.swarms.ai"
+              - resource_record_name  = "_2d35674ee842f81e6c1d4b1ff81bf202.api.swarms.ai."
+              - resource_record_type  = "CNAME"
+              - resource_record_value = "_14001873a994d4ba61251844ed588611.zfyfvmchrl.acm-validations.aws."
+            },
+        ] -> null
+      - id                        = "arn:aws:acm:us-east-2:767503528736:certificate/e4c7475f-9b0a-471f-b02c-134759b27668" -> null
+      - key_algorithm             = "RSA_2048" -> null
+      - pending_renewal           = false -> null
+      - renewal_eligibility       = "INELIGIBLE" -> null
+      - renewal_summary           = [] -> null
+      - status                    = "PENDING_VALIDATION" -> null
+      - subject_alternative_names = [
+          - "*.api.swarms.ai",
+          - "api.swarms.ai",
+        ] -> null
+      - tags                      = {} -> null
+      - tags_all                  = {} -> null
+      - type                      = "AMAZON_ISSUED" -> null
+      - validation_emails         = [] -> null
+      - validation_method         = "DNS" -> null
+
+      - options {
+          - certificate_transparency_logging_preference = "ENABLED" -> null
+        }
+    }
+
+  # module.swarms_api.module.alb.module.acm.aws_route53_record.validation[0] will be destroyed
+  # (because aws_route53_record.validation is not in configuration)
+  - resource "aws_route53_record" "validation" {
+      - allow_overwrite                  = true -> null
+      - fqdn                             = "_2d35674ee842f81e6c1d4b1ff81bf202.api.swarms.ai" -> null
+      - id                               = "Z05433953QQ7Q4A095TXN__2d35674ee842f81e6c1d4b1ff81bf202.api.swarms.ai._CNAME" -> null
+      - multivalue_answer_routing_policy = false -> null
+      - name                             = "_2d35674ee842f81e6c1d4b1ff81bf202.api.swarms.ai" -> null
+      - records                          = [
+          - "_14001873a994d4ba61251844ed588611.zfyfvmchrl.acm-validations.aws.",
+        ] -> null
+      - ttl                              = 60 -> null
+      - type                             = "CNAME" -> null
+      - zone_id                          = "Z05433953QQ7Q4A095TXN" -> null
+    }
+
+  # module.swarms_api.module.alb.module.alb.aws_lb.this[0] will be created
+  + resource "aws_lb" "this" {
+      + arn                                                          = (known after apply)
+      + arn_suffix                                                   = (known after apply)
+      + client_keep_alive                                            = 7200
+      + desync_mitigation_mode                                       = "defensive"
+      + dns_name                                                     = (known after apply)
+      + drop_invalid_header_fields                                   = true
+      + enable_deletion_protection                                   = false
+      + enable_http2                                                 = true
+      + enable_tls_version_and_cipher_suite_headers                  = false
+      + enable_waf_fail_open                                         = false
+      + enable_xff_client_port                                       = false
+      + enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      + id                                                           = (known after apply)
+      + idle_timeout                                                 = 60
+      + internal                                                     = (known after apply)
+      + ip_address_type                                              = (known after apply)
+      + load_balancer_type                                           = "application"
+      + name                                                         = "swarms-api"
+      + name_prefix                                                  = (known after apply)
+      + preserve_host_header                                         = false
+      + security_groups                                              = (known after apply)
+      + subnets                                                      = [
+          + "1",
+        ]
+      + tags                                                         = {
+          + "Example"               = "ex-swarms"
+          + "Name"                  = "ex-swarms"
+          + "Repository"            = "https://github.com/terraform-aws-modules/terraform-aws-alb"
+          + "terraform-aws-modules" = "alb"
+        }
+      + tags_all                                                     = {
+          + "Example"               = "ex-swarms"
+          + "Name"                  = "ex-swarms"
+          + "Repository"            = "https://github.com/terraform-aws-modules/terraform-aws-alb"
+          + "terraform-aws-modules" = "alb"
+        }
+      + vpc_id                                                       = (known after apply)
+      + xff_header_processing_mode                                   = "append"
+      + zone_id                                                      = (known after apply)
+
+      + timeouts {}
+    }
+
+  # module.swarms_api.module.asg_dynamic["t3.medium"].module.autoscaling.aws_autoscaling_group.this[0] will be created
+  + resource "aws_autoscaling_group" "this" {
+      + arn                              = (known after apply)
+      + availability_zones               = (known after apply)
+      + default_cooldown                 = (known after apply)
+      + desired_capacity                 = 1
+      + force_delete                     = false
+      + force_delete_warm_pool           = false
+      + health_check_grace_period        = 300
+      + health_check_type                = "EC2"
+      + id                               = (known after apply)
+      + ignore_failed_scaling_activities = false
+      + load_balancers                   = (known after apply)
+      + max_size                         = 5
+      + metrics_granularity              = "1Minute"
+      + min_size                         = 1
+      + name                             = (known after apply)
+      + name_prefix                      = "swarms-size-t3.medium-"
+      + predicted_capacity               = (known after apply)
+      + protect_from_scale_in            = false
+      + service_linked_role_arn          = (known after apply)
+      + target_group_arns                = (known after apply)
+      + termination_policies             = []
+      + vpc_zone_identifier              = [
+          + "subnet-057c90cfe7b2e5646",
+        ]
+      + wait_for_capacity_timeout        = "10m"
+      + warm_pool_size                   = (known after apply)
+
+      + launch_template {
+          + id      = (known after apply)
+          + name    = (known after apply)
+          + version = "$Latest"
+        }
+
+      + tag {
+          + key                 = "Name"
+          + propagate_at_launch = true
+          + value               = "swarms-size-t3.medium"
+        }
+
+      + timeouts {}
+    }
+
+  # module.swarms_api.module.asg_dynamic["t3.medium"].module.autoscaling.aws_autoscaling_traffic_source_attachment.this["ex-alb"] will be created
+  + resource "aws_autoscaling_traffic_source_attachment" "this" {
+      + autoscaling_group_name = (known after apply)
+      + id                     = (known after apply)
+
+      + traffic_source {
+          + identifier = "arn:aws:elasticloadbalancing:us-east-2:767503528736:targetgroup/swarms2024121619084133320000000c/001ec925380d4bcd"
+          + type       = "elbv2"
+        }
+    }
+
+  # module.swarms_api.module.security.module.asg_sg.aws_security_group.this_name_prefix[0] will be created
+  + resource "aws_security_group" "this_name_prefix" {
+      + arn                    = (known after apply)
+      + description            = "external group"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "swarms-external-"
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name"    = "swarms-external"
+          + "project" = "swarms"
+        }
+      + tags_all               = {
+          + "Name"    = "swarms-external"
+          + "project" = "swarms"
+        }
+      + vpc_id                 = "vpc-04f28c9347af48b55"
+
+      + timeouts {
+          + create = "10m"
+          + delete = "15m"
+        }
+    }
+
+  # module.swarms_api.module.security.module.asg_sg.aws_security_group_rule.egress_rules[0] will be created
+  + resource "aws_security_group_rule" "egress_rules" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + description              = "All protocols"
+      + from_port                = -1
+      + id                       = (known after apply)
+      + ipv6_cidr_blocks         = [
+          + "::/0",
+        ]
+      + prefix_list_ids          = []
+      + protocol                 = "-1"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = -1
+      + type                     = "egress"
+    }
+
+  # module.swarms_api.module.security.module.asg_sg.aws_security_group_rule.ingress_rules[0] will be created
+  + resource "aws_security_group_rule" "ingress_rules" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + description              = "HTTPS"
+      + from_port                = 443
+      + id                       = (known after apply)
+      + ipv6_cidr_blocks         = []
+      + prefix_list_ids          = []
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 443
+      + type                     = "ingress"
+    }
+
+  # module.swarms_api.module.security.module.asg_sg.aws_security_group_rule.ingress_rules[1] will be created
+  + resource "aws_security_group_rule" "ingress_rules" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + description              = "HTTP"
+      + from_port                = 80
+      + id                       = (known after apply)
+      + ipv6_cidr_blocks         = []
+      + prefix_list_ids          = []
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 80
+      + type                     = "ingress"
+    }
+
+  # module.swarms_api.module.security.module.asg_sg_internal.aws_security_group.this_name_prefix[0] will be created
+  + resource "aws_security_group" "this_name_prefix" {
+      + arn                    = (known after apply)
+      + description            = "An internal security group"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "swarms-internal-"
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name"    = "swarms-internal"
+          + "project" = "swarms"
+        }
+      + tags_all               = {
+          + "Name"    = "swarms-internal"
+          + "project" = "swarms"
+        }
+      + vpc_id                 = "vpc-04f28c9347af48b55"
+
+      + timeouts {
+          + create = "10m"
+          + delete = "15m"
+        }
+    }
+
+  # module.swarms_api.module.security.module.asg_sg_internal.aws_security_group_rule.egress_rules[0] will be created
+  + resource "aws_security_group_rule" "egress_rules" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + description              = "All protocols"
+      + from_port                = -1
+      + id                       = (known after apply)
+      + ipv6_cidr_blocks         = [
+          + "::/0",
+        ]
+      + prefix_list_ids          = []
+      + protocol                 = "-1"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = -1
+      + type                     = "egress"
+    }
+
+  # module.swarms_api.module.security.module.asg_sg_internal.aws_security_group_rule.ingress_with_source_security_group_id[0] will be created
+  + resource "aws_security_group_rule" "ingress_with_source_security_group_id" {
+      + description              = "Ingress Rule"
+      + from_port                = 80
+      + id                       = (known after apply)
+      + prefix_list_ids          = []
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 80
+      + type                     = "ingress"
+    }
+
+
+
+
+mdupont@mdupont-G470:~/2024/12/swarms-terraform/accounts/swarms$ tofu apply -auto-approve
+module.swarms_api.module.alb.module.route53.data.aws_route53_zone.primary: Reading...
+module.swarms_api.module.alb.module.alb.data.aws_partition.current: Reading...
+module.swarms_api.module.vpc.data.aws_availability_zones.available: Reading...
+module.swarms_api.module.alb.data.aws_availability_zones.available: Reading...
+module.swarms_api.module.kp.aws_key_pair.mdupont-deployer: Refreshing state... [id=mdupont-deployer-key]
+module.swarms_api.module.vpc.module.vpc.aws_vpc.this[0]: Refreshing state... [id=vpc-0b4cedd083227068d]
+module.swarms_api.module.alb.module.alb.data.aws_partition.current: Read complete after 0s [id=aws]
+module.swarms_api.module.alb.data.aws_availability_zones.available: Read complete after 0s [id=us-east-2]
+module.swarms_api.module.vpc.data.aws_availability_zones.available: Read complete after 0s [id=us-east-2]
+module.swarms_api.module.alb.module.route53.data.aws_route53_zone.primary: Read complete after 0s [id=Z04162952OP7P14Z97UWY]
+module.swarms_api.module.vpc.module.vpc.aws_default_route_table.default[0]: Refreshing state... [id=rtb-053dc8c3d37f2f58f]
+module.swarms_api.module.vpc.module.vpc.aws_default_security_group.this[0]: Refreshing state... [id=sg-0a42c3ef338285431]
+module.swarms_api.module.vpc.module.vpc.aws_default_network_acl.this[0]: Refreshing state... [id=acl-07d9084294e0492bd]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.private[1]: Refreshing state... [id=rtb-0bbc3caa1cdc40cd0]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.private[0]: Refreshing state... [id=rtb-033eec802f743baca]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.private[2]: Refreshing state... [id=rtb-081f2bb265d2703ee]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.public[2]: Refreshing state... [id=subnet-027f4abd09a6543f0]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.public[0]: Refreshing state... [id=rtb-0445a2ea1c510657b]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-04b3bdd4b0dc877f0]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-051fecdee9028af79]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-0de17633cfb166d29]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-0ea44af2f97e12b1a]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.private[2]: Refreshing state... [id=subnet-0e926a2b5ae3f5acc]
+module.swarms_api.module.vpc.module.vpc.aws_internet_gateway.this[0]: Refreshing state... [id=igw-022da11de86f41ae0]
+module.swarms_api.module.security.module.asg_sg_internal.aws_security_group.this_name_prefix[0]: Refreshing state... [id=sg-0516329c97694b300]
+module.swarms_api.module.security.module.asg_sg.aws_security_group.this_name_prefix[0]: Refreshing state... [id=sg-09e0227357b33ab1e]
+module.swarms_api.module.alb.module.tg.aws_lb_target_group.this: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-2:916723593639:targetgroup/swarms2024121620041957850000000a/e915743119e96771]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-000d8799150d904e6]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.public[2]: Refreshing state... [id=rtbassoc-0b047c79fe554852d]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-033c4fa608f79a594]
+module.swarms_api.module.vpc.module.vpc.aws_route.public_internet_gateway[0]: Refreshing state... [id=r-rtb-0445a2ea1c510657b1080289494]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-06f87a2b8106090d9]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.private[2]: Refreshing state... [id=rtbassoc-0657562cf0177710a]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-085a04c2858a3164e]
+module.swarms_api.module.security.module.asg_sg_internal.aws_security_group_rule.egress_rules[0]: Refreshing state... [id=sgrule-1938904650]
+module.swarms_api.module.security.module.asg_sg.aws_security_group_rule.ingress_rules[0]: Refreshing state... [id=sgrule-2188377888]
+module.swarms_api.module.security.module.asg_sg.aws_security_group_rule.ingress_rules[1]: Refreshing state... [id=sgrule-1557830365]
+module.swarms_api.module.security.module.asg_sg.aws_security_group_rule.egress_rules[0]: Refreshing state... [id=sgrule-2310235202]
+module.swarms_api.module.security.module.asg_sg_internal.aws_security_group_rule.ingress_with_source_security_group_id[0]: Refreshing state... [id=sgrule-513653582]
+module.swarms_api.module.lt_dynamic["t3.medium"].aws_launch_template.ec2_launch_template: Refreshing state... [id=lt-0ef5358bfbb143f2d]
+
+OpenTofu used the selected providers to generate the following execution plan. Resource actions are indicated with
+the following symbols:
+  + create
+
+OpenTofu will perform the following actions:
+
+  # module.swarms_api.module.alb.module.alb.aws_lb.this[0] will be created
+  + resource "aws_lb" "this" {
+      + arn                                                          = (known after apply)
+      + arn_suffix                                                   = (known after apply)
+      + client_keep_alive                                            = 7200
+      + desync_mitigation_mode                                       = "defensive"
+      + dns_name                                                     = (known after apply)
+      + drop_invalid_header_fields                                   = true
+      + enable_deletion_protection                                   = false
+      + enable_http2                                                 = true
+      + enable_tls_version_and_cipher_suite_headers                  = false
+      + enable_waf_fail_open                                         = false
+      + enable_xff_client_port                                       = false
+      + enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      + id                                                           = (known after apply)
+      + idle_timeout                                                 = 60
+      + internal                                                     = (known after apply)
+      + ip_address_type                                              = (known after apply)
+      + load_balancer_type                                           = "application"
+      + name                                                         = "swarms-api"
+      + name_prefix                                                  = (known after apply)
+      + preserve_host_header                                         = false
+      + security_groups                                              = [
+          + "sg-09e0227357b33ab1e",
+        ]
+      + subnets                                                      = [
+          + "1",
+        ]
+      + tags                                                         = {
+          + "Example"               = "ex-swarms"
+          + "Name"                  = "ex-swarms"
+          + "Repository"            = "https://github.com/terraform-aws-modules/terraform-aws-alb"
+          + "terraform-aws-modules" = "alb"
+        }
+      + tags_all                                                     = {
+          + "Example"               = "ex-swarms"
+          + "Name"                  = "ex-swarms"
+          + "Repository"            = "https://github.com/terraform-aws-modules/terraform-aws-alb"
+          + "terraform-aws-modules" = "alb"
+        }
+      + vpc_id                                                       = (known after apply)
+      + xff_header_processing_mode                                   = "append"
+      + zone_id                                                      = (known after apply)
+
+      + timeouts {}
+    }
+
+  # module.swarms_api.module.alb.module.route53.aws_route53_record.api-cname will be created
+  + resource "aws_route53_record" "api-cname" {
+      + allow_overwrite = (known after apply)
+      + fqdn            = (known after apply)
+      + id              = (known after apply)
+      + name            = "api.swarms.ai"
+      + records         = (known after apply)
+      + ttl             = 5
+      + type            = "CNAME"
+      + zone_id         = "Z04162952OP7P14Z97UWY"
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+module.swarms_api.module.alb.module.alb.aws_lb.this[0]: Creating...
+╷
+│ Error: creating ELBv2 application Load Balancer (swarms-api): operation error Elastic Load Balancing v2: CreateLoadBalancer, https response error StatusCode: 400, RequestID: 33d4b4ca-900e-4148-989a-932978bd7bfc, InvalidSubnet: The subnet ID '1' is not valid
+│ 
+│   with module.swarms_api.module.alb.module.alb.aws_lb.this[0],
+│   on .terraform/modules/swarms_api.alb.alb/main.tf line 12, in resource "aws_lb" "this":
+│   12: resource "aws_lb" "this" {
+│ 
+╵
+mdupont@mdupont-G470:~/2024/12/swarms-terraform/accounts/swarms$ tofu apply -auto-approve
+╷
+│ Error: Reference to undeclared module
+│ 
+│   on ../../environments/swarms-aws-agent-api/dev/us-east-1/main.tf line 107, in output "alb":
+│  107:   value = module.alb
+│ 
+│ No module call named "alb" is declared in module.swarms_api.
+╵
+mdupont@mdupont-G470:~/2024/12/swarms-terraform/accounts/swarms$ tofu apply -auto-approve
+╷
+│ Error: Reference to undeclared module
+│ 
+│   on ../../environments/swarms-aws-agent-api/dev/us-east-1/main.tf line 107, in output "alb":
+│  107:   value = module.alb
+│ 
+│ No module call named "alb" is declared in module.swarms_api.
+╵
+mdupont@mdupont-G470:~/2024/12/swarms-terraform/accounts/swarms$ 
+mdupont@mdupont-G470:~/2024/12/swarms-terraform/accounts/swarms$ tofu apply -auto-approve
+module.swarms_api.module.vpc.data.aws_availability_zones.available: Reading...
+module.swarms_api.module.kp.aws_key_pair.mdupont-deployer: Refreshing state... [id=mdupont-deployer-key]
+module.swarms_api.module.vpc.module.vpc.aws_vpc.this[0]: Refreshing state... [id=vpc-0b4cedd083227068d]
+module.swarms_api.module.alb.module.tg.aws_lb_target_group.this: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-2:916723593639:targetgroup/swarms2024121620041957850000000a/e915743119e96771]
+module.swarms_api.module.vpc.data.aws_availability_zones.available: Read complete after 0s [id=us-east-2]
+module.swarms_api.module.vpc.module.vpc.aws_default_security_group.this[0]: Refreshing state... [id=sg-0a42c3ef338285431]
+module.swarms_api.module.vpc.module.vpc.aws_default_route_table.default[0]: Refreshing state... [id=rtb-053dc8c3d37f2f58f]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.public[0]: Refreshing state... [id=rtb-0445a2ea1c510657b]
+module.swarms_api.module.vpc.module.vpc.aws_default_network_acl.this[0]: Refreshing state... [id=acl-07d9084294e0492bd]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-051fecdee9028af79]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.public[2]: Refreshing state... [id=subnet-027f4abd09a6543f0]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-04b3bdd4b0dc877f0]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.private[0]: Refreshing state... [id=rtb-033eec802f743baca]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.private[2]: Refreshing state... [id=rtb-081f2bb265d2703ee]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.private[1]: Refreshing state... [id=rtb-0bbc3caa1cdc40cd0]
+module.swarms_api.module.vpc.module.vpc.aws_internet_gateway.this[0]: Refreshing state... [id=igw-022da11de86f41ae0]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-0ea44af2f97e12b1a]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-0de17633cfb166d29]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.private[2]: Refreshing state... [id=subnet-0e926a2b5ae3f5acc]
+module.swarms_api.module.security.module.asg_sg_internal.aws_security_group.this_name_prefix[0]: Refreshing state... [id=sg-0516329c97694b300]
+module.swarms_api.module.security.module.asg_sg.aws_security_group.this_name_prefix[0]: Refreshing state... [id=sg-09e0227357b33ab1e]
+module.swarms_api.module.vpc.module.vpc.aws_route.public_internet_gateway[0]: Refreshing state... [id=r-rtb-0445a2ea1c510657b1080289494]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.public[2]: Refreshing state... [id=rtbassoc-0b047c79fe554852d]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-000d8799150d904e6]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-033c4fa608f79a594]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.private[2]: Refreshing state... [id=rtbassoc-0657562cf0177710a]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-06f87a2b8106090d9]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-085a04c2858a3164e]
+module.swarms_api.module.security.module.asg_sg_internal.aws_security_group_rule.egress_rules[0]: Refreshing state... [id=sgrule-1938904650]
+module.swarms_api.module.security.module.asg_sg.aws_security_group_rule.ingress_rules[1]: Refreshing state... [id=sgrule-1557830365]
+module.swarms_api.module.security.module.asg_sg.aws_security_group_rule.ingress_rules[0]: Refreshing state... [id=sgrule-2188377888]
+module.swarms_api.module.security.module.asg_sg.aws_security_group_rule.egress_rules[0]: Refreshing state... [id=sgrule-2310235202]
+module.swarms_api.module.security.module.asg_sg_internal.aws_security_group_rule.ingress_with_source_security_group_id[0]: Refreshing state... [id=sgrule-513653582]
+module.swarms_api.module.lt_dynamic["t3.medium"].aws_launch_template.ec2_launch_template: Refreshing state... [id=lt-0ef5358bfbb143f2d]
+
+OpenTofu used the selected providers to generate the following execution plan. Resource actions are indicated with
+the following symbols:
+  - destroy
+
+OpenTofu will perform the following actions:
+
+  # module.swarms_api.module.alb.module.tg.aws_lb_target_group.this will be destroyed
+  # (because aws_lb_target_group.this is not in configuration)
+  - resource "aws_lb_target_group" "this" {
+      - arn                                = "arn:aws:elasticloadbalancing:us-east-2:916723593639:targetgroup/swarms2024121620041957850000000a/e915743119e96771" -> null
+      - arn_suffix                         = "targetgroup/swarms2024121620041957850000000a/e915743119e96771" -> null
+      - deregistration_delay               = "10" -> null
+      - id                                 = "arn:aws:elasticloadbalancing:us-east-2:916723593639:targetgroup/swarms2024121620041957850000000a/e915743119e96771" -> null
+      - ip_address_type                    = "ipv4" -> null
+      - lambda_multi_value_headers_enabled = false -> null
+      - load_balancer_arns                 = [] -> null
+      - load_balancing_algorithm_type      = "round_robin" -> null
+      - load_balancing_anomaly_mitigation  = "off" -> null
+      - load_balancing_cross_zone_enabled  = "use_load_balancer_configuration" -> null
+      - name                               = "swarms2024121620041957850000000a" -> null
+      - name_prefix                        = "swarms" -> null
+      - port                               = 80 -> null
+      - protocol                           = "HTTP" -> null
+      - protocol_version                   = "HTTP1" -> null
+      - proxy_protocol_v2                  = false -> null
+      - slow_start                         = 0 -> null
+      - tags                               = {} -> null
+      - tags_all                           = {} -> null
+      - target_type                        = "instance" -> null
+      - vpc_id                             = "vpc-0b4cedd083227068d" -> null
+
+      - health_check {
+          - enabled             = true -> null
+          - healthy_threshold   = 10 -> null
+          - interval            = 130 -> null
+          - matcher             = "200" -> null
+          - path                = "/v1/docs" -> null
+          - port                = "traffic-port" -> null
+          - protocol            = "HTTP" -> null
+          - timeout             = 120 -> null
+          - unhealthy_threshold = 10 -> null
+        }
+
+      - stickiness {
+          - cookie_duration = 86400 -> null
+          - enabled         = false -> null
+          - type            = "lb_cookie" -> null
+        }
+
+      - target_failover {}
+
+      - target_group_health {
+          - dns_failover {
+              - minimum_healthy_targets_count      = "1" -> null
+              - minimum_healthy_targets_percentage = "off" -> null
+            }
+          - unhealthy_state_routing {
+              - minimum_healthy_targets_count      = 1 -> null
+              - minimum_healthy_targets_percentage = "off" -> null
+            }
+        }
+
+      - target_health_state {}
+    }
+
+Plan: 0 to add, 0 to change, 1 to destroy.
+module.swarms_api.module.alb.module.tg.aws_lb_target_group.this: Destroying... [id=arn:aws:elasticloadbalancing:us-east-2:916723593639:targetgroup/swarms2024121620041957850000000a/e915743119e96771]
+module.swarms_api.module.alb.module.tg.aws_lb_target_group.this: Destruction complete after 1s
+
+Apply complete! Resources: 0 added, 0 changed, 1 destroyed.
+
+Outputs:
+
+account = "916723593639"
+dns = "api.swarms.ai"
+profile = "swarms"
+region = "us-east-2"
+mdupont@mdupont-G470:~/2024/12/swarms-terraform/accounts/swarms$ tofu output
+account = "916723593639"
+dns = "api.swarms.ai"
+profile = "swarms"
+region = "us-east-2"
+mdupont@mdupont-G470:~/2024/12/swarms-terraform/accounts/swarms$ tofu output
+account = "916723593639"
+dns = "api.swarms.ai"
+profile = "swarms"
+region = "us-east-2"
+mdupont@mdupont-G470:~/2024/12/swarms-terraform/accounts/swarms$ tofu apply
+module.swarms_api.module.vpc.data.aws_availability_zones.available: Reading...
+module.swarms_api.module.kp.aws_key_pair.mdupont-deployer: Refreshing state... [id=mdupont-deployer-key]
+module.swarms_api.module.vpc.module.vpc.aws_vpc.this[0]: Refreshing state... [id=vpc-0b4cedd083227068d]
+module.swarms_api.module.vpc.data.aws_availability_zones.available: Read complete after 0s [id=us-east-2]
+module.swarms_api.module.vpc.module.vpc.aws_default_route_table.default[0]: Refreshing state... [id=rtb-053dc8c3d37f2f58f]
+module.swarms_api.module.vpc.module.vpc.aws_default_security_group.this[0]: Refreshing state... [id=sg-0a42c3ef338285431]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.public[0]: Refreshing state... [id=rtb-0445a2ea1c510657b]
+module.swarms_api.module.vpc.module.vpc.aws_default_network_acl.this[0]: Refreshing state... [id=acl-07d9084294e0492bd]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.private[2]: Refreshing state... [id=subnet-0e926a2b5ae3f5acc]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.public[2]: Refreshing state... [id=subnet-027f4abd09a6543f0]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-0ea44af2f97e12b1a]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-04b3bdd4b0dc877f0]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-051fecdee9028af79]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-0de17633cfb166d29]
+module.swarms_api.module.vpc.module.vpc.aws_internet_gateway.this[0]: Refreshing state... [id=igw-022da11de86f41ae0]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.private[0]: Refreshing state... [id=rtb-033eec802f743baca]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.private[1]: Refreshing state... [id=rtb-0bbc3caa1cdc40cd0]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.private[2]: Refreshing state... [id=rtb-081f2bb265d2703ee]
+module.swarms_api.module.security.module.asg_sg_internal.aws_security_group.this_name_prefix[0]: Refreshing state... [id=sg-0516329c97694b300]
+module.swarms_api.module.security.module.asg_sg.aws_security_group.this_name_prefix[0]: Refreshing state... [id=sg-09e0227357b33ab1e]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-000d8799150d904e6]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.public[2]: Refreshing state... [id=rtbassoc-0b047c79fe554852d]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-033c4fa608f79a594]
+module.swarms_api.module.vpc.module.vpc.aws_route.public_internet_gateway[0]: Refreshing state... [id=r-rtb-0445a2ea1c510657b1080289494]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-06f87a2b8106090d9]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.private[2]: Refreshing state... [id=rtbassoc-0657562cf0177710a]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-085a04c2858a3164e]
+module.swarms_api.module.security.module.asg_sg_internal.aws_security_group_rule.egress_rules[0]: Refreshing state... [id=sgrule-1938904650]
+module.swarms_api.module.lt_dynamic["t3.medium"].aws_launch_template.ec2_launch_template: Refreshing state... [id=lt-0ef5358bfbb143f2d]
+module.swarms_api.module.security.module.asg_sg.aws_security_group_rule.ingress_rules[0]: Refreshing state... [id=sgrule-2188377888]
+module.swarms_api.module.security.module.asg_sg.aws_security_group_rule.ingress_rules[1]: Refreshing state... [id=sgrule-1557830365]
+module.swarms_api.module.security.module.asg_sg.aws_security_group_rule.egress_rules[0]: Refreshing state... [id=sgrule-2310235202]
+module.swarms_api.module.security.module.asg_sg_internal.aws_security_group_rule.ingress_with_source_security_group_id[0]: Refreshing state... [id=sgrule-513653582]
+
+Changes to Outputs:
+  + api     = {
+      + security_group_id = "sg-09e0227357b33ab1e"
+    }
+
+You can apply this plan to save these new output values to the OpenTofu state, without changing any real
+infrastructure.
+
+Do you want to perform these actions?
+  OpenTofu will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+
+Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+account = "916723593639"
+api = {
+  "security_group_id" = "sg-09e0227357b33ab1e"
+}
+dns = "api.swarms.ai"
+profile = "swarms"
+region = "us-east-2"
+mdupont@mdupont-G470:~/2024/12/swarms-terraform/accounts/swarms$ tofu apply
+module.swarms_api.module.vpc.data.aws_availability_zones.available: Reading...
+module.swarms_api.module.kp.aws_key_pair.mdupont-deployer: Refreshing state... [id=mdupont-deployer-key]
+module.swarms_api.module.vpc.module.vpc.aws_vpc.this[0]: Refreshing state... [id=vpc-0b4cedd083227068d]
+module.swarms_api.module.vpc.data.aws_availability_zones.available: Read complete after 0s [id=us-east-2]
+module.swarms_api.module.vpc.module.vpc.aws_default_route_table.default[0]: Refreshing state... [id=rtb-053dc8c3d37f2f58f]
+module.swarms_api.module.vpc.module.vpc.aws_default_network_acl.this[0]: Refreshing state... [id=acl-07d9084294e0492bd]
+module.swarms_api.module.vpc.module.vpc.aws_default_security_group.this[0]: Refreshing state... [id=sg-0a42c3ef338285431]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.public[2]: Refreshing state... [id=subnet-027f4abd09a6543f0]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-04b3bdd4b0dc877f0]
+module.swarms_api.module.vpc.module.vpc.aws_internet_gateway.this[0]: Refreshing state... [id=igw-022da11de86f41ae0]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-051fecdee9028af79]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.public[0]: Refreshing state... [id=rtb-0445a2ea1c510657b]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.private[1]: Refreshing state... [id=rtb-0bbc3caa1cdc40cd0]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.private[0]: Refreshing state... [id=rtb-033eec802f743baca]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.private[2]: Refreshing state... [id=rtb-081f2bb265d2703ee]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-0ea44af2f97e12b1a]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.private[2]: Refreshing state... [id=subnet-0e926a2b5ae3f5acc]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-0de17633cfb166d29]
+module.swarms_api.module.security.module.asg_sg.aws_security_group.this_name_prefix[0]: Refreshing state... [id=sg-09e0227357b33ab1e]
+module.swarms_api.module.security.module.asg_sg_internal.aws_security_group.this_name_prefix[0]: Refreshing state... [id=sg-0516329c97694b300]
+module.swarms_api.module.vpc.module.vpc.aws_route.public_internet_gateway[0]: Refreshing state... [id=r-rtb-0445a2ea1c510657b1080289494]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-033c4fa608f79a594]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.public[2]: Refreshing state... [id=rtbassoc-0b047c79fe554852d]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-000d8799150d904e6]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-085a04c2858a3164e]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-06f87a2b8106090d9]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.private[2]: Refreshing state... [id=rtbassoc-0657562cf0177710a]
+module.swarms_api.module.security.module.asg_sg_internal.aws_security_group_rule.egress_rules[0]: Refreshing state... [id=sgrule-1938904650]
+module.swarms_api.module.security.module.asg_sg.aws_security_group_rule.ingress_rules[1]: Refreshing state... [id=sgrule-1557830365]
+module.swarms_api.module.security.module.asg_sg.aws_security_group_rule.ingress_rules[0]: Refreshing state... [id=sgrule-2188377888]
+module.swarms_api.module.security.module.asg_sg.aws_security_group_rule.egress_rules[0]: Refreshing state... [id=sgrule-2310235202]
+module.swarms_api.module.security.module.asg_sg_internal.aws_security_group_rule.ingress_with_source_security_group_id[0]: Refreshing state... [id=sgrule-513653582]
+module.swarms_api.module.lt_dynamic["t3.medium"].aws_launch_template.ec2_launch_template: Refreshing state... [id=lt-0ef5358bfbb143f2d]
+
+No changes. Your infrastructure matches the configuration.
+
+OpenTofu has compared your real infrastructure against your configuration and found no differences, so no changes are
+needed.
+
+Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+account = "916723593639"
+api = {
+  "security_group_id" = "sg-09e0227357b33ab1e"
+}
+dns = "api.swarms.ai"
+profile = "swarms"
+region = "us-east-2"
+mdupont@mdupont-G470:~/2024/12/swarms-terraform/accounts/swarms$ tofu apply
+module.swarms_api.module.vpc.data.aws_availability_zones.available: Reading...
+module.swarms_api.module.kp.aws_key_pair.mdupont-deployer: Refreshing state... [id=mdupont-deployer-key]
+module.swarms_api.module.vpc.module.vpc.aws_vpc.this[0]: Refreshing state... [id=vpc-0b4cedd083227068d]
+module.swarms_api.module.vpc.data.aws_availability_zones.available: Read complete after 0s [id=us-east-2]
+module.swarms_api.module.vpc.module.vpc.aws_default_route_table.default[0]: Refreshing state... [id=rtb-053dc8c3d37f2f58f]
+module.swarms_api.module.vpc.module.vpc.aws_default_security_group.this[0]: Refreshing state... [id=sg-0a42c3ef338285431]
+module.swarms_api.module.vpc.module.vpc.aws_default_network_acl.this[0]: Refreshing state... [id=acl-07d9084294e0492bd]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.private[2]: Refreshing state... [id=subnet-0e926a2b5ae3f5acc]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-0de17633cfb166d29]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-0ea44af2f97e12b1a]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-04b3bdd4b0dc877f0]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-051fecdee9028af79]
+module.swarms_api.module.vpc.module.vpc.aws_subnet.public[2]: Refreshing state... [id=subnet-027f4abd09a6543f0]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.private[2]: Refreshing state... [id=rtb-081f2bb265d2703ee]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.private[0]: Refreshing state... [id=rtb-033eec802f743baca]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.private[1]: Refreshing state... [id=rtb-0bbc3caa1cdc40cd0]
+module.swarms_api.module.vpc.module.vpc.aws_internet_gateway.this[0]: Refreshing state... [id=igw-022da11de86f41ae0]
+module.swarms_api.module.vpc.module.vpc.aws_route_table.public[0]: Refreshing state... [id=rtb-0445a2ea1c510657b]
+module.swarms_api.module.security.module.asg_sg_internal.aws_security_group.this_name_prefix[0]: Refreshing state... [id=sg-0516329c97694b300]
+module.swarms_api.module.security.module.asg_sg.aws_security_group.this_name_prefix[0]: Refreshing state... [id=sg-09e0227357b33ab1e]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-06f87a2b8106090d9]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.private[2]: Refreshing state... [id=rtbassoc-0657562cf0177710a]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-085a04c2858a3164e]
+module.swarms_api.module.vpc.module.vpc.aws_route.public_internet_gateway[0]: Refreshing state... [id=r-rtb-0445a2ea1c510657b1080289494]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-033c4fa608f79a594]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-000d8799150d904e6]
+module.swarms_api.module.vpc.module.vpc.aws_route_table_association.public[2]: Refreshing state... [id=rtbassoc-0b047c79fe554852d]
+module.swarms_api.module.security.module.asg_sg_internal.aws_security_group_rule.egress_rules[0]: Refreshing state... [id=sgrule-1938904650]
+module.swarms_api.module.security.module.asg_sg.aws_security_group_rule.egress_rules[0]: Refreshing state... [id=sgrule-2310235202]
+module.swarms_api.module.security.module.asg_sg_internal.aws_security_group_rule.ingress_with_source_security_group_id[0]: Refreshing state... [id=sgrule-513653582]
+module.swarms_api.module.security.module.asg_sg.aws_security_group_rule.ingress_rules[0]: Refreshing state... [id=sgrule-2188377888]
+module.swarms_api.module.lt_dynamic["t3.medium"].aws_launch_template.ec2_launch_template: Refreshing state... [id=lt-0ef5358bfbb143f2d]
+module.swarms_api.module.security.module.asg_sg.aws_security_group_rule.ingress_rules[1]: Refreshing state... [id=sgrule-1557830365]
+
+Changes to Outputs:
+  ~ api     = {
+      + vpc               = {
+          + cgw_arns                              = []
+          + cgw_ids                               = []
+          + default_network_acl_id                = "acl-07d9084294e0492bd"
+          + default_route_table_id                = "rtb-053dc8c3d37f2f58f"
+          + default_security_group_id             = "sg-0a42c3ef338285431"
+          + default_vpc_arn                       = null
+          + default_vpc_cidr_block                = null
+          + default_vpc_default_network_acl_id    = null
+          + default_vpc_default_route_table_id    = null
+          + default_vpc_default_security_group_id = null
+          + default_vpc_enable_dns_hostnames      = null
+          + default_vpc_enable_dns_support        = null
+          + default_vpc_id                        = null
+          + default_vpc_instance_tenancy          = null
+          + default_vpc_main_route_table_id       = null
+          + dhcp_options_id                       = null
+          + ec2_public_subnet_id_1                = 1
+          + ec2_public_subnet_id_2                = 1
+          + egress_only_internet_gateway_id       = null
+          + igw_arn                               = "arn:aws:ec2:us-east-2:916723593639:internet-gateway/igw-022da11de86f41ae0"
+          + igw_id                                = "igw-022da11de86f41ae0"
+          + nat_ids                               = []
+          + nat_public_ips                        = []
+          + natgw_ids                             = []
+          + private_ipv6_egress_route_ids         = []
+          + private_nat_gateway_route_ids         = []
+          + private_network_acl_arn               = null
+          + private_network_acl_id                = null
+          + private_route_table_association_ids   = [
+              + "rtbassoc-06f87a2b8106090d9",
+              + "rtbassoc-085a04c2858a3164e",
+              + "rtbassoc-0657562cf0177710a",
+            ]
+          + private_route_table_ids               = [
+              + "rtb-033eec802f743baca",
+              + "rtb-0bbc3caa1cdc40cd0",
+              + "rtb-081f2bb265d2703ee",
+            ]
+          + private_subnet_arns                   = [
+              + "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-0ea44af2f97e12b1a",
+              + "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-0de17633cfb166d29",
+              + "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-0e926a2b5ae3f5acc",
+            ]
+          + private_subnets                       = [
+              + "subnet-0ea44af2f97e12b1a",
+              + "subnet-0de17633cfb166d29",
+              + "subnet-0e926a2b5ae3f5acc",
+            ]
+          + private_subnets_cidr_blocks           = [
+              + "10.0.0.0/24",
+              + "10.0.1.0/24",
+              + "10.0.2.0/24",
+            ]
+          + private_subnets_ipv6_cidr_blocks      = []
+          + public_internet_gateway_ipv6_route_id = null
+          + public_internet_gateway_route_id      = "r-rtb-0445a2ea1c510657b1080289494"
+          + public_network_acl_arn                = null
+          + public_network_acl_id                 = null
+          + public_route_table_association_ids    = [
+              + "rtbassoc-033c4fa608f79a594",
+              + "rtbassoc-000d8799150d904e6",
+              + "rtbassoc-0b047c79fe554852d",
+            ]
+          + public_route_table_ids                = [
+              + "rtb-0445a2ea1c510657b",
+            ]
+          + public_subnet_arns                    = [
+              + "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-04b3bdd4b0dc877f0",
+              + "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-051fecdee9028af79",
+              + "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-027f4abd09a6543f0",
+            ]
+          + public_subnets                        = [
+              + "subnet-04b3bdd4b0dc877f0",
+              + "subnet-051fecdee9028af79",
+              + "subnet-027f4abd09a6543f0",
+            ]
+          + public_subnets_cidr_blocks            = [
+              + "10.0.4.0/24",
+              + "10.0.5.0/24",
+              + "10.0.6.0/24",
+            ]
+          + public_subnets_ipv6_cidr_blocks       = []
+          + this_customer_gateway                 = {}
+          + vgw_arn                               = null
+          + vgw_id                                = null
+          + vpc                                   = {
+              + azs                                         = [
+                  + "us-east-2a",
+                  + "us-east-2b",
+                  + "us-east-2c",
+                ]
+              + cgw_arns                                    = []
+              + cgw_ids                                     = []
+              + database_internet_gateway_route_id          = null
+              + database_ipv6_egress_route_id               = null
+              + database_nat_gateway_route_ids              = []
+              + database_network_acl_arn                    = null
+              + database_network_acl_id                     = null
+              + database_route_table_association_ids        = []
+              + database_route_table_ids                    = [
+                  + "rtb-033eec802f743baca",
+                  + "rtb-0bbc3caa1cdc40cd0",
+                  + "rtb-081f2bb265d2703ee",
+                ]
+              + database_subnet_arns                        = []
+              + database_subnet_group                       = null
+              + database_subnet_group_name                  = null
+              + database_subnet_objects                     = []
+              + database_subnets                            = []
+              + database_subnets_cidr_blocks                = []
+              + database_subnets_ipv6_cidr_blocks           = []
+              + default_network_acl_id                      = "acl-07d9084294e0492bd"
+              + default_route_table_id                      = "rtb-053dc8c3d37f2f58f"
+              + default_security_group_id                   = "sg-0a42c3ef338285431"
+              + default_vpc_arn                             = null
+              + default_vpc_cidr_block                      = null
+              + default_vpc_default_network_acl_id          = null
+              + default_vpc_default_route_table_id          = null
+              + default_vpc_default_security_group_id       = null
+              + default_vpc_enable_dns_hostnames            = null
+              + default_vpc_enable_dns_support              = null
+              + default_vpc_id                              = null
+              + default_vpc_instance_tenancy                = null
+              + default_vpc_main_route_table_id             = null
+              + dhcp_options_id                             = null
+              + egress_only_internet_gateway_id             = null
+              + elasticache_network_acl_arn                 = null
+              + elasticache_network_acl_id                  = null
+              + elasticache_route_table_association_ids     = []
+              + elasticache_route_table_ids                 = [
+                  + "rtb-033eec802f743baca",
+                  + "rtb-0bbc3caa1cdc40cd0",
+                  + "rtb-081f2bb265d2703ee",
+                ]
+              + elasticache_subnet_arns                     = []
+              + elasticache_subnet_group                    = null
+              + elasticache_subnet_group_name               = null
+              + elasticache_subnet_objects                  = []
+              + elasticache_subnets                         = []
+              + elasticache_subnets_cidr_blocks             = []
+              + elasticache_subnets_ipv6_cidr_blocks        = []
+              + igw_arn                                     = "arn:aws:ec2:us-east-2:916723593639:internet-gateway/igw-022da11de86f41ae0"
+              + igw_id                                      = "igw-022da11de86f41ae0"
+              + intra_network_acl_arn                       = null
+              + intra_network_acl_id                        = null
+              + intra_route_table_association_ids           = []
+              + intra_route_table_ids                       = []
+              + intra_subnet_arns                           = []
+              + intra_subnet_objects                        = []
+              + intra_subnets                               = []
+              + intra_subnets_cidr_blocks                   = []
+              + intra_subnets_ipv6_cidr_blocks              = []
+              + name                                        = "swarms"
+              + nat_ids                                     = []
+              + nat_public_ips                              = []
+              + natgw_ids                                   = []
+              + natgw_interface_ids                         = []
+              + outpost_network_acl_arn                     = null
+              + outpost_network_acl_id                      = null
+              + outpost_subnet_arns                         = []
+              + outpost_subnet_objects                      = []
+              + outpost_subnets                             = []
+              + outpost_subnets_cidr_blocks                 = []
+              + outpost_subnets_ipv6_cidr_blocks            = []
+              + private_ipv6_egress_route_ids               = []
+              + private_nat_gateway_route_ids               = []
+              + private_network_acl_arn                     = null
+              + private_network_acl_id                      = null
+              + private_route_table_association_ids         = [
+                  + "rtbassoc-06f87a2b8106090d9",
+                  + "rtbassoc-085a04c2858a3164e",
+                  + "rtbassoc-0657562cf0177710a",
+                ]
+              + private_route_table_ids                     = [
+                  + "rtb-033eec802f743baca",
+                  + "rtb-0bbc3caa1cdc40cd0",
+                  + "rtb-081f2bb265d2703ee",
+                ]
+              + private_subnet_arns                         = [
+                  + "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-0ea44af2f97e12b1a",
+                  + "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-0de17633cfb166d29",
+                  + "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-0e926a2b5ae3f5acc",
+                ]
+              + private_subnet_objects                      = [
+                  + {
+                      + arn                                            = "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-0ea44af2f97e12b1a"
+                      + assign_ipv6_address_on_creation                = false
+                      + availability_zone                              = "us-east-2a"
+                      + availability_zone_id                           = "use2-az1"
+                      + cidr_block                                     = "10.0.0.0/24"
+                      + customer_owned_ipv4_pool                       = ""
+                      + enable_dns64                                   = false
+                      + enable_lni_at_device_index                     = 0
+                      + enable_resource_name_dns_a_record_on_launch    = false
+                      + enable_resource_name_dns_aaaa_record_on_launch = false
+                      + id                                             = "subnet-0ea44af2f97e12b1a"
+                      + ipv6_cidr_block                                = ""
+                      + ipv6_cidr_block_association_id                 = ""
+                      + ipv6_native                                    = false
+                      + map_customer_owned_ip_on_launch                = false
+                      + map_public_ip_on_launch                        = false
+                      + outpost_arn                                    = ""
+                      + owner_id                                       = "916723593639"
+                      + private_dns_hostname_type_on_launch            = "ip-name"
+                      + tags                                           = {
+                          + Name    = "Private Subnet One"
+                          + project = "swarms"
+                        }
+                      + tags_all                                       = {
+                          + Name    = "Private Subnet One"
+                          + project = "swarms"
+                        }
+                      + timeouts                                       = null
+                      + vpc_id                                         = "vpc-0b4cedd083227068d"
+                    },
+                  + {
+                      + arn                                            = "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-0de17633cfb166d29"
+                      + assign_ipv6_address_on_creation                = false
+                      + availability_zone                              = "us-east-2b"
+                      + availability_zone_id                           = "use2-az2"
+                      + cidr_block                                     = "10.0.1.0/24"
+                      + customer_owned_ipv4_pool                       = ""
+                      + enable_dns64                                   = false
+                      + enable_lni_at_device_index                     = 0
+                      + enable_resource_name_dns_a_record_on_launch    = false
+                      + enable_resource_name_dns_aaaa_record_on_launch = false
+                      + id                                             = "subnet-0de17633cfb166d29"
+                      + ipv6_cidr_block                                = ""
+                      + ipv6_cidr_block_association_id                 = ""
+                      + ipv6_native                                    = false
+                      + map_customer_owned_ip_on_launch                = false
+                      + map_public_ip_on_launch                        = false
+                      + outpost_arn                                    = ""
+                      + owner_id                                       = "916723593639"
+                      + private_dns_hostname_type_on_launch            = "ip-name"
+                      + tags                                           = {
+                          + Name    = "Private Subnet Two"
+                          + project = "swarms"
+                        }
+                      + tags_all                                       = {
+                          + Name    = "Private Subnet Two"
+                          + project = "swarms"
+                        }
+                      + timeouts                                       = null
+                      + vpc_id                                         = "vpc-0b4cedd083227068d"
+                    },
+                  + {
+                      + arn                                            = "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-0e926a2b5ae3f5acc"
+                      + assign_ipv6_address_on_creation                = false
+                      + availability_zone                              = "us-east-2c"
+                      + availability_zone_id                           = "use2-az3"
+                      + cidr_block                                     = "10.0.2.0/24"
+                      + customer_owned_ipv4_pool                       = ""
+                      + enable_dns64                                   = false
+                      + enable_lni_at_device_index                     = 0
+                      + enable_resource_name_dns_a_record_on_launch    = false
+                      + enable_resource_name_dns_aaaa_record_on_launch = false
+                      + id                                             = "subnet-0e926a2b5ae3f5acc"
+                      + ipv6_cidr_block                                = ""
+                      + ipv6_cidr_block_association_id                 = ""
+                      + ipv6_native                                    = false
+                      + map_customer_owned_ip_on_launch                = false
+                      + map_public_ip_on_launch                        = false
+                      + outpost_arn                                    = ""
+                      + owner_id                                       = "916723593639"
+                      + private_dns_hostname_type_on_launch            = "ip-name"
+                      + tags                                           = {
+                          + Name    = "swarms-private-us-east-2c"
+                          + project = "swarms"
+                        }
+                      + tags_all                                       = {
+                          + Name    = "swarms-private-us-east-2c"
+                          + project = "swarms"
+                        }
+                      + timeouts                                       = null
+                      + vpc_id                                         = "vpc-0b4cedd083227068d"
+                    },
+                ]
+              + private_subnets                             = [
+                  + "subnet-0ea44af2f97e12b1a",
+                  + "subnet-0de17633cfb166d29",
+                  + "subnet-0e926a2b5ae3f5acc",
+                ]
+              + private_subnets_cidr_blocks                 = [
+                  + "10.0.0.0/24",
+                  + "10.0.1.0/24",
+                  + "10.0.2.0/24",
+                ]
+              + private_subnets_ipv6_cidr_blocks            = []
+              + public_internet_gateway_ipv6_route_id       = null
+              + public_internet_gateway_route_id            = "r-rtb-0445a2ea1c510657b1080289494"
+              + public_network_acl_arn                      = null
+              + public_network_acl_id                       = null
+              + public_route_table_association_ids          = [
+                  + "rtbassoc-033c4fa608f79a594",
+                  + "rtbassoc-000d8799150d904e6",
+                  + "rtbassoc-0b047c79fe554852d",
+                ]
+              + public_route_table_ids                      = [
+                  + "rtb-0445a2ea1c510657b",
+                ]
+              + public_subnet_arns                          = [
+                  + "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-04b3bdd4b0dc877f0",
+                  + "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-051fecdee9028af79",
+                  + "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-027f4abd09a6543f0",
+                ]
+              + public_subnet_objects                       = [
+                  + {
+                      + arn                                            = "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-04b3bdd4b0dc877f0"
+                      + assign_ipv6_address_on_creation                = false
+                      + availability_zone                              = "us-east-2a"
+                      + availability_zone_id                           = "use2-az1"
+                      + cidr_block                                     = "10.0.4.0/24"
+                      + customer_owned_ipv4_pool                       = ""
+                      + enable_dns64                                   = false
+                      + enable_lni_at_device_index                     = 0
+                      + enable_resource_name_dns_a_record_on_launch    = false
+                      + enable_resource_name_dns_aaaa_record_on_launch = false
+                      + id                                             = "subnet-04b3bdd4b0dc877f0"
+                      + ipv6_cidr_block                                = ""
+                      + ipv6_cidr_block_association_id                 = ""
+                      + ipv6_native                                    = false
+                      + map_customer_owned_ip_on_launch                = false
+                      + map_public_ip_on_launch                        = false
+                      + outpost_arn                                    = ""
+                      + owner_id                                       = "916723593639"
+                      + private_dns_hostname_type_on_launch            = "ip-name"
+                      + tags                                           = {
+                          + Name    = "swarms-public-us-east-2a"
+                          + project = "swarms"
+                        }
+                      + tags_all                                       = {
+                          + Name    = "swarms-public-us-east-2a"
+                          + project = "swarms"
+                        }
+                      + timeouts                                       = null
+                      + vpc_id                                         = "vpc-0b4cedd083227068d"
+                    },
+                  + {
+                      + arn                                            = "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-051fecdee9028af79"
+                      + assign_ipv6_address_on_creation                = false
+                      + availability_zone                              = "us-east-2b"
+                      + availability_zone_id                           = "use2-az2"
+                      + cidr_block                                     = "10.0.5.0/24"
+                      + customer_owned_ipv4_pool                       = ""
+                      + enable_dns64                                   = false
+                      + enable_lni_at_device_index                     = 0
+                      + enable_resource_name_dns_a_record_on_launch    = false
+                      + enable_resource_name_dns_aaaa_record_on_launch = false
+                      + id                                             = "subnet-051fecdee9028af79"
+                      + ipv6_cidr_block                                = ""
+                      + ipv6_cidr_block_association_id                 = ""
+                      + ipv6_native                                    = false
+                      + map_customer_owned_ip_on_launch                = false
+                      + map_public_ip_on_launch                        = false
+                      + outpost_arn                                    = ""
+                      + owner_id                                       = "916723593639"
+                      + private_dns_hostname_type_on_launch            = "ip-name"
+                      + tags                                           = {
+                          + Name    = "swarms-public-us-east-2b"
+                          + project = "swarms"
+                        }
+                      + tags_all                                       = {
+                          + Name    = "swarms-public-us-east-2b"
+                          + project = "swarms"
+                        }
+                      + timeouts                                       = null
+                      + vpc_id                                         = "vpc-0b4cedd083227068d"
+                    },
+                  + {
+                      + arn                                            = "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-027f4abd09a6543f0"
+                      + assign_ipv6_address_on_creation                = false
+                      + availability_zone                              = "us-east-2c"
+                      + availability_zone_id                           = "use2-az3"
+                      + cidr_block                                     = "10.0.6.0/24"
+                      + customer_owned_ipv4_pool                       = ""
+                      + enable_dns64                                   = false
+                      + enable_lni_at_device_index                     = 0
+                      + enable_resource_name_dns_a_record_on_launch    = false
+                      + enable_resource_name_dns_aaaa_record_on_launch = false
+                      + id                                             = "subnet-027f4abd09a6543f0"
+                      + ipv6_cidr_block                                = ""
+                      + ipv6_cidr_block_association_id                 = ""
+                      + ipv6_native                                    = false
+                      + map_customer_owned_ip_on_launch                = false
+                      + map_public_ip_on_launch                        = false
+                      + outpost_arn                                    = ""
+                      + owner_id                                       = "916723593639"
+                      + private_dns_hostname_type_on_launch            = "ip-name"
+                      + tags                                           = {
+                          + Name    = "swarms-public-us-east-2c"
+                          + project = "swarms"
+                        }
+                      + tags_all                                       = {
+                          + Name    = "swarms-public-us-east-2c"
+                          + project = "swarms"
+                        }
+                      + timeouts                                       = null
+                      + vpc_id                                         = "vpc-0b4cedd083227068d"
+                    },
+                ]
+              + public_subnets                              = [
+                  + "subnet-04b3bdd4b0dc877f0",
+                  + "subnet-051fecdee9028af79",
+                  + "subnet-027f4abd09a6543f0",
+                ]
+              + public_subnets_cidr_blocks                  = [
+                  + "10.0.4.0/24",
+                  + "10.0.5.0/24",
+                  + "10.0.6.0/24",
+                ]
+              + public_subnets_ipv6_cidr_blocks             = []
+              + redshift_network_acl_arn                    = null
+              + redshift_network_acl_id                     = null
+              + redshift_public_route_table_association_ids = []
+              + redshift_route_table_association_ids        = []
+              + redshift_route_table_ids                    = [
+                  + "rtb-033eec802f743baca",
+                  + "rtb-0bbc3caa1cdc40cd0",
+                  + "rtb-081f2bb265d2703ee",
+                ]
+              + redshift_subnet_arns                        = []
+              + redshift_subnet_group                       = null
+              + redshift_subnet_objects                     = []
+              + redshift_subnets                            = []
+              + redshift_subnets_cidr_blocks                = []
+              + redshift_subnets_ipv6_cidr_blocks           = []
+              + this_customer_gateway                       = {}
+              + vgw_arn                                     = null
+              + vgw_id                                      = null
+              + vpc_arn                                     = "arn:aws:ec2:us-east-2:916723593639:vpc/vpc-0b4cedd083227068d"
+              + vpc_cidr_block                              = "10.0.0.0/16"
+              + vpc_enable_dns_hostnames                    = true
+              + vpc_enable_dns_support                      = true
+              + vpc_flow_log_cloudwatch_iam_role_arn        = ""
+              + vpc_flow_log_deliver_cross_account_role     = null
+              + vpc_flow_log_destination_arn                = ""
+              + vpc_flow_log_destination_type               = "cloud-watch-logs"
+              + vpc_flow_log_id                             = null
+              + vpc_id                                      = "vpc-0b4cedd083227068d"
+              + vpc_instance_tenancy                        = "default"
+              + vpc_ipv6_association_id                     = ""
+              + vpc_ipv6_cidr_block                         = ""
+              + vpc_main_route_table_id                     = "rtb-053dc8c3d37f2f58f"
+              + vpc_owner_id                                = "916723593639"
+              + vpc_secondary_cidr_blocks                   = []
+            }
+          + vpc_arn                               = "arn:aws:ec2:us-east-2:916723593639:vpc/vpc-0b4cedd083227068d"
+          + vpc_cidr_block                        = "10.0.0.0/16"
+          + vpc_enable_dns_hostnames              = true
+          + vpc_enable_dns_support                = true
+          + vpc_flow_log_cloudwatch_iam_role_arn  = ""
+          + vpc_flow_log_destination_arn          = ""
+          + vpc_flow_log_destination_type         = "cloud-watch-logs"
+          + vpc_flow_log_id                       = null
+          + vpc_id                                = "vpc-0b4cedd083227068d"
+          + vpc_instance_tenancy                  = "default"
+          + vpc_ipv6_association_id               = ""
+          + vpc_ipv6_cidr_block                   = ""
+          + vpc_main_route_table_id               = "rtb-053dc8c3d37f2f58f"
+          + vpc_owner_id                          = "916723593639"
+          + vpc_secondary_cidr_blocks             = []
+        }
+        # (1 unchanged attribute hidden)
+    }
+
+You can apply this plan to save these new output values to the OpenTofu state, without changing any real
+infrastructure.
+
+Do you want to perform these actions?
+  OpenTofu will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+
+Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+account = "916723593639"
+api = {
+  "security_group_id" = "sg-09e0227357b33ab1e"
+  "vpc" = {
+    "cgw_arns" = []
+    "cgw_ids" = []
+    "default_network_acl_id" = "acl-07d9084294e0492bd"
+    "default_route_table_id" = "rtb-053dc8c3d37f2f58f"
+    "default_security_group_id" = "sg-0a42c3ef338285431"
+    "default_vpc_arn" = null
+    "default_vpc_cidr_block" = null
+    "default_vpc_default_network_acl_id" = null
+    "default_vpc_default_route_table_id" = null
+    "default_vpc_default_security_group_id" = null
+    "default_vpc_enable_dns_hostnames" = null
+    "default_vpc_enable_dns_support" = null
+    "default_vpc_id" = null
+    "default_vpc_instance_tenancy" = null
+    "default_vpc_main_route_table_id" = null
+    "dhcp_options_id" = null
+    "ec2_public_subnet_id_1" = 1
+    "ec2_public_subnet_id_2" = 1
+    "egress_only_internet_gateway_id" = null
+    "igw_arn" = "arn:aws:ec2:us-east-2:916723593639:internet-gateway/igw-022da11de86f41ae0"
+    "igw_id" = "igw-022da11de86f41ae0"
+    "nat_ids" = []
+    "nat_public_ips" = tolist([])
+    "natgw_ids" = []
+    "private_ipv6_egress_route_ids" = []
+    "private_nat_gateway_route_ids" = []
+    "private_network_acl_arn" = null
+    "private_network_acl_id" = null
+    "private_route_table_association_ids" = [
+      "rtbassoc-06f87a2b8106090d9",
+      "rtbassoc-085a04c2858a3164e",
+      "rtbassoc-0657562cf0177710a",
+    ]
+    "private_route_table_ids" = [
+      "rtb-033eec802f743baca",
+      "rtb-0bbc3caa1cdc40cd0",
+      "rtb-081f2bb265d2703ee",
+    ]
+    "private_subnet_arns" = [
+      "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-0ea44af2f97e12b1a",
+      "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-0de17633cfb166d29",
+      "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-0e926a2b5ae3f5acc",
+    ]
+    "private_subnets" = [
+      "subnet-0ea44af2f97e12b1a",
+      "subnet-0de17633cfb166d29",
+      "subnet-0e926a2b5ae3f5acc",
+    ]
+    "private_subnets_cidr_blocks" = tolist([
+      "10.0.0.0/24",
+      "10.0.1.0/24",
+      "10.0.2.0/24",
+    ])
+    "private_subnets_ipv6_cidr_blocks" = tolist([])
+    "public_internet_gateway_ipv6_route_id" = null
+    "public_internet_gateway_route_id" = "r-rtb-0445a2ea1c510657b1080289494"
+    "public_network_acl_arn" = null
+    "public_network_acl_id" = null
+    "public_route_table_association_ids" = [
+      "rtbassoc-033c4fa608f79a594",
+      "rtbassoc-000d8799150d904e6",
+      "rtbassoc-0b047c79fe554852d",
+    ]
+    "public_route_table_ids" = [
+      "rtb-0445a2ea1c510657b",
+    ]
+    "public_subnet_arns" = [
+      "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-04b3bdd4b0dc877f0",
+      "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-051fecdee9028af79",
+      "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-027f4abd09a6543f0",
+    ]
+    "public_subnets" = [
+      "subnet-04b3bdd4b0dc877f0",
+      "subnet-051fecdee9028af79",
+      "subnet-027f4abd09a6543f0",
+    ]
+    "public_subnets_cidr_blocks" = tolist([
+      "10.0.4.0/24",
+      "10.0.5.0/24",
+      "10.0.6.0/24",
+    ])
+    "public_subnets_ipv6_cidr_blocks" = tolist([])
+    "this_customer_gateway" = {}
+    "vgw_arn" = null
+    "vgw_id" = null
+    "vpc" = {
+      "azs" = tolist([
+        "us-east-2a",
+        "us-east-2b",
+        "us-east-2c",
+      ])
+      "cgw_arns" = []
+      "cgw_ids" = []
+      "database_internet_gateway_route_id" = null
+      "database_ipv6_egress_route_id" = null
+      "database_nat_gateway_route_ids" = []
+      "database_network_acl_arn" = null
+      "database_network_acl_id" = null
+      "database_route_table_association_ids" = []
+      "database_route_table_ids" = tolist([
+        "rtb-033eec802f743baca",
+        "rtb-0bbc3caa1cdc40cd0",
+        "rtb-081f2bb265d2703ee",
+      ])
+      "database_subnet_arns" = []
+      "database_subnet_group" = null
+      "database_subnet_group_name" = null
+      "database_subnet_objects" = []
+      "database_subnets" = []
+      "database_subnets_cidr_blocks" = tolist([])
+      "database_subnets_ipv6_cidr_blocks" = tolist([])
+      "default_network_acl_id" = "acl-07d9084294e0492bd"
+      "default_route_table_id" = "rtb-053dc8c3d37f2f58f"
+      "default_security_group_id" = "sg-0a42c3ef338285431"
+      "default_vpc_arn" = null
+      "default_vpc_cidr_block" = null
+      "default_vpc_default_network_acl_id" = null
+      "default_vpc_default_route_table_id" = null
+      "default_vpc_default_security_group_id" = null
+      "default_vpc_enable_dns_hostnames" = null
+      "default_vpc_enable_dns_support" = null
+      "default_vpc_id" = null
+      "default_vpc_instance_tenancy" = null
+      "default_vpc_main_route_table_id" = null
+      "dhcp_options_id" = null
+      "egress_only_internet_gateway_id" = null
+      "elasticache_network_acl_arn" = null
+      "elasticache_network_acl_id" = null
+      "elasticache_route_table_association_ids" = []
+      "elasticache_route_table_ids" = [
+        "rtb-033eec802f743baca",
+        "rtb-0bbc3caa1cdc40cd0",
+        "rtb-081f2bb265d2703ee",
+      ]
+      "elasticache_subnet_arns" = []
+      "elasticache_subnet_group" = null
+      "elasticache_subnet_group_name" = null
+      "elasticache_subnet_objects" = []
+      "elasticache_subnets" = []
+      "elasticache_subnets_cidr_blocks" = tolist([])
+      "elasticache_subnets_ipv6_cidr_blocks" = tolist([])
+      "igw_arn" = "arn:aws:ec2:us-east-2:916723593639:internet-gateway/igw-022da11de86f41ae0"
+      "igw_id" = "igw-022da11de86f41ae0"
+      "intra_network_acl_arn" = null
+      "intra_network_acl_id" = null
+      "intra_route_table_association_ids" = []
+      "intra_route_table_ids" = []
+      "intra_subnet_arns" = []
+      "intra_subnet_objects" = []
+      "intra_subnets" = []
+      "intra_subnets_cidr_blocks" = tolist([])
+      "intra_subnets_ipv6_cidr_blocks" = tolist([])
+      "name" = "swarms"
+      "nat_ids" = []
+      "nat_public_ips" = tolist([])
+      "natgw_ids" = []
+      "natgw_interface_ids" = []
+      "outpost_network_acl_arn" = null
+      "outpost_network_acl_id" = null
+      "outpost_subnet_arns" = []
+      "outpost_subnet_objects" = []
+      "outpost_subnets" = []
+      "outpost_subnets_cidr_blocks" = tolist([])
+      "outpost_subnets_ipv6_cidr_blocks" = tolist([])
+      "private_ipv6_egress_route_ids" = []
+      "private_nat_gateway_route_ids" = []
+      "private_network_acl_arn" = null
+      "private_network_acl_id" = null
+      "private_route_table_association_ids" = [
+        "rtbassoc-06f87a2b8106090d9",
+        "rtbassoc-085a04c2858a3164e",
+        "rtbassoc-0657562cf0177710a",
+      ]
+      "private_route_table_ids" = [
+        "rtb-033eec802f743baca",
+        "rtb-0bbc3caa1cdc40cd0",
+        "rtb-081f2bb265d2703ee",
+      ]
+      "private_subnet_arns" = [
+        "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-0ea44af2f97e12b1a",
+        "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-0de17633cfb166d29",
+        "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-0e926a2b5ae3f5acc",
+      ]
+      "private_subnet_objects" = [
+        {
+          "arn" = "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-0ea44af2f97e12b1a"
+          "assign_ipv6_address_on_creation" = false
+          "availability_zone" = "us-east-2a"
+          "availability_zone_id" = "use2-az1"
+          "cidr_block" = "10.0.0.0/24"
+          "customer_owned_ipv4_pool" = ""
+          "enable_dns64" = false
+          "enable_lni_at_device_index" = 0
+          "enable_resource_name_dns_a_record_on_launch" = false
+          "enable_resource_name_dns_aaaa_record_on_launch" = false
+          "id" = "subnet-0ea44af2f97e12b1a"
+          "ipv6_cidr_block" = ""
+          "ipv6_cidr_block_association_id" = ""
+          "ipv6_native" = false
+          "map_customer_owned_ip_on_launch" = false
+          "map_public_ip_on_launch" = false
+          "outpost_arn" = ""
+          "owner_id" = "916723593639"
+          "private_dns_hostname_type_on_launch" = "ip-name"
+          "tags" = tomap({
+            "Name" = "Private Subnet One"
+            "project" = "swarms"
+          })
+          "tags_all" = tomap({
+            "Name" = "Private Subnet One"
+            "project" = "swarms"
+          })
+          "timeouts" = null /* object */
+          "vpc_id" = "vpc-0b4cedd083227068d"
+        },
+        {
+          "arn" = "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-0de17633cfb166d29"
+          "assign_ipv6_address_on_creation" = false
+          "availability_zone" = "us-east-2b"
+          "availability_zone_id" = "use2-az2"
+          "cidr_block" = "10.0.1.0/24"
+          "customer_owned_ipv4_pool" = ""
+          "enable_dns64" = false
+          "enable_lni_at_device_index" = 0
+          "enable_resource_name_dns_a_record_on_launch" = false
+          "enable_resource_name_dns_aaaa_record_on_launch" = false
+          "id" = "subnet-0de17633cfb166d29"
+          "ipv6_cidr_block" = ""
+          "ipv6_cidr_block_association_id" = ""
+          "ipv6_native" = false
+          "map_customer_owned_ip_on_launch" = false
+          "map_public_ip_on_launch" = false
+          "outpost_arn" = ""
+          "owner_id" = "916723593639"
+          "private_dns_hostname_type_on_launch" = "ip-name"
+          "tags" = tomap({
+            "Name" = "Private Subnet Two"
+            "project" = "swarms"
+          })
+          "tags_all" = tomap({
+            "Name" = "Private Subnet Two"
+            "project" = "swarms"
+          })
+          "timeouts" = null /* object */
+          "vpc_id" = "vpc-0b4cedd083227068d"
+        },
+        {
+          "arn" = "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-0e926a2b5ae3f5acc"
+          "assign_ipv6_address_on_creation" = false
+          "availability_zone" = "us-east-2c"
+          "availability_zone_id" = "use2-az3"
+          "cidr_block" = "10.0.2.0/24"
+          "customer_owned_ipv4_pool" = ""
+          "enable_dns64" = false
+          "enable_lni_at_device_index" = 0
+          "enable_resource_name_dns_a_record_on_launch" = false
+          "enable_resource_name_dns_aaaa_record_on_launch" = false
+          "id" = "subnet-0e926a2b5ae3f5acc"
+          "ipv6_cidr_block" = ""
+          "ipv6_cidr_block_association_id" = ""
+          "ipv6_native" = false
+          "map_customer_owned_ip_on_launch" = false
+          "map_public_ip_on_launch" = false
+          "outpost_arn" = ""
+          "owner_id" = "916723593639"
+          "private_dns_hostname_type_on_launch" = "ip-name"
+          "tags" = tomap({
+            "Name" = "swarms-private-us-east-2c"
+            "project" = "swarms"
+          })
+          "tags_all" = tomap({
+            "Name" = "swarms-private-us-east-2c"
+            "project" = "swarms"
+          })
+          "timeouts" = null /* object */
+          "vpc_id" = "vpc-0b4cedd083227068d"
+        },
+      ]
+      "private_subnets" = [
+        "subnet-0ea44af2f97e12b1a",
+        "subnet-0de17633cfb166d29",
+        "subnet-0e926a2b5ae3f5acc",
+      ]
+      "private_subnets_cidr_blocks" = tolist([
+        "10.0.0.0/24",
+        "10.0.1.0/24",
+        "10.0.2.0/24",
+      ])
+      "private_subnets_ipv6_cidr_blocks" = tolist([])
+      "public_internet_gateway_ipv6_route_id" = null
+      "public_internet_gateway_route_id" = "r-rtb-0445a2ea1c510657b1080289494"
+      "public_network_acl_arn" = null
+      "public_network_acl_id" = null
+      "public_route_table_association_ids" = [
+        "rtbassoc-033c4fa608f79a594",
+        "rtbassoc-000d8799150d904e6",
+        "rtbassoc-0b047c79fe554852d",
+      ]
+      "public_route_table_ids" = [
+        "rtb-0445a2ea1c510657b",
+      ]
+      "public_subnet_arns" = [
+        "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-04b3bdd4b0dc877f0",
+        "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-051fecdee9028af79",
+        "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-027f4abd09a6543f0",
+      ]
+      "public_subnet_objects" = [
+        {
+          "arn" = "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-04b3bdd4b0dc877f0"
+          "assign_ipv6_address_on_creation" = false
+          "availability_zone" = "us-east-2a"
+          "availability_zone_id" = "use2-az1"
+          "cidr_block" = "10.0.4.0/24"
+          "customer_owned_ipv4_pool" = ""
+          "enable_dns64" = false
+          "enable_lni_at_device_index" = 0
+          "enable_resource_name_dns_a_record_on_launch" = false
+          "enable_resource_name_dns_aaaa_record_on_launch" = false
+          "id" = "subnet-04b3bdd4b0dc877f0"
+          "ipv6_cidr_block" = ""
+          "ipv6_cidr_block_association_id" = ""
+          "ipv6_native" = false
+          "map_customer_owned_ip_on_launch" = false
+          "map_public_ip_on_launch" = false
+          "outpost_arn" = ""
+          "owner_id" = "916723593639"
+          "private_dns_hostname_type_on_launch" = "ip-name"
+          "tags" = tomap({
+            "Name" = "swarms-public-us-east-2a"
+            "project" = "swarms"
+          })
+          "tags_all" = tomap({
+            "Name" = "swarms-public-us-east-2a"
+            "project" = "swarms"
+          })
+          "timeouts" = null /* object */
+          "vpc_id" = "vpc-0b4cedd083227068d"
+        },
+        {
+          "arn" = "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-051fecdee9028af79"
+          "assign_ipv6_address_on_creation" = false
+          "availability_zone" = "us-east-2b"
+          "availability_zone_id" = "use2-az2"
+          "cidr_block" = "10.0.5.0/24"
+          "customer_owned_ipv4_pool" = ""
+          "enable_dns64" = false
+          "enable_lni_at_device_index" = 0
+          "enable_resource_name_dns_a_record_on_launch" = false
+          "enable_resource_name_dns_aaaa_record_on_launch" = false
+          "id" = "subnet-051fecdee9028af79"
+          "ipv6_cidr_block" = ""
+          "ipv6_cidr_block_association_id" = ""
+          "ipv6_native" = false
+          "map_customer_owned_ip_on_launch" = false
+          "map_public_ip_on_launch" = false
+          "outpost_arn" = ""
+          "owner_id" = "916723593639"
+          "private_dns_hostname_type_on_launch" = "ip-name"
+          "tags" = tomap({
+            "Name" = "swarms-public-us-east-2b"
+            "project" = "swarms"
+          })
+          "tags_all" = tomap({
+            "Name" = "swarms-public-us-east-2b"
+            "project" = "swarms"
+          })
+          "timeouts" = null /* object */
+          "vpc_id" = "vpc-0b4cedd083227068d"
+        },
+        {
+          "arn" = "arn:aws:ec2:us-east-2:916723593639:subnet/subnet-027f4abd09a6543f0"
+          "assign_ipv6_address_on_creation" = false
+          "availability_zone" = "us-east-2c"
+          "availability_zone_id" = "use2-az3"
+          "cidr_block" = "10.0.6.0/24"
+          "customer_owned_ipv4_pool" = ""
+          "enable_dns64" = false
+          "enable_lni_at_device_index" = 0
+          "enable_resource_name_dns_a_record_on_launch" = false
+          "enable_resource_name_dns_aaaa_record_on_launch" = false
+          "id" = "subnet-027f4abd09a6543f0"
+          "ipv6_cidr_block" = ""
+          "ipv6_cidr_block_association_id" = ""
+          "ipv6_native" = false
+          "map_customer_owned_ip_on_launch" = false
+          "map_public_ip_on_launch" = false
+          "outpost_arn" = ""
+          "owner_id" = "916723593639"
+          "private_dns_hostname_type_on_launch" = "ip-name"
+          "tags" = tomap({
+            "Name" = "swarms-public-us-east-2c"
+            "project" = "swarms"
+          })
+          "tags_all" = tomap({
+            "Name" = "swarms-public-us-east-2c"
+            "project" = "swarms"
+          })
+          "timeouts" = null /* object */
+          "vpc_id" = "vpc-0b4cedd083227068d"
+        },
+      ]
+      "public_subnets" = [
+        "subnet-04b3bdd4b0dc877f0",
+        "subnet-051fecdee9028af79",
+        "subnet-027f4abd09a6543f0",
+      ]
+      "public_subnets_cidr_blocks" = tolist([
+        "10.0.4.0/24",
+        "10.0.5.0/24",
+        "10.0.6.0/24",
+      ])
+      "public_subnets_ipv6_cidr_blocks" = tolist([])
+      "redshift_network_acl_arn" = null
+      "redshift_network_acl_id" = null
+      "redshift_public_route_table_association_ids" = []
+      "redshift_route_table_association_ids" = []
+      "redshift_route_table_ids" = tolist([
+        "rtb-033eec802f743baca",
+        "rtb-0bbc3caa1cdc40cd0",
+        "rtb-081f2bb265d2703ee",
+      ])
+      "redshift_subnet_arns" = []
+      "redshift_subnet_group" = null
+      "redshift_subnet_objects" = []
+      "redshift_subnets" = []
+      "redshift_subnets_cidr_blocks" = tolist([])
+      "redshift_subnets_ipv6_cidr_blocks" = tolist([])
+      "this_customer_gateway" = {}
+      "vgw_arn" = null
+      "vgw_id" = null
+      "vpc_arn" = "arn:aws:ec2:us-east-2:916723593639:vpc/vpc-0b4cedd083227068d"
+      "vpc_cidr_block" = "10.0.0.0/16"
+      "vpc_enable_dns_hostnames" = true
+      "vpc_enable_dns_support" = true
+      "vpc_flow_log_cloudwatch_iam_role_arn" = ""
+      "vpc_flow_log_deliver_cross_account_role" = null
+      "vpc_flow_log_destination_arn" = ""
+      "vpc_flow_log_destination_type" = "cloud-watch-logs"
+      "vpc_flow_log_id" = null
+      "vpc_id" = "vpc-0b4cedd083227068d"
+      "vpc_instance_tenancy" = "default"
+      "vpc_ipv6_association_id" = ""
+      "vpc_ipv6_cidr_block" = ""
+      "vpc_main_route_table_id" = "rtb-053dc8c3d37f2f58f"
+      "vpc_owner_id" = "916723593639"
+      "vpc_secondary_cidr_blocks" = tolist([])
+    }
+    "vpc_arn" = "arn:aws:ec2:us-east-2:916723593639:vpc/vpc-0b4cedd083227068d"
+    "vpc_cidr_block" = "10.0.0.0/16"
+    "vpc_enable_dns_hostnames" = true
+    "vpc_enable_dns_support" = true
+    "vpc_flow_log_cloudwatch_iam_role_arn" = ""
+    "vpc_flow_log_destination_arn" = ""
+    "vpc_flow_log_destination_type" = "cloud-watch-logs"
+    "vpc_flow_log_id" = null
+    "vpc_id" = "vpc-0b4cedd083227068d"
+    "vpc_instance_tenancy" = "default"
+    "vpc_ipv6_association_id" = ""
+    "vpc_ipv6_cidr_block" = ""
+    "vpc_main_route_table_id" = "rtb-053dc8c3d37f2f58f"
+    "vpc_owner_id" = "916723593639"
+    "vpc_secondary_cidr_blocks" = tolist([])
+  }
+}
+dns = "api.swarms.ai"
+profile = "swarms"
+region = "us-east-2"
+mdupont@mdupont-G470:~/2024/12/swarms-terraform/accounts/swarms$ 

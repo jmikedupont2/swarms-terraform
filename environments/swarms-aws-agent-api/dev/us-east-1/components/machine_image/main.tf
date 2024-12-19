@@ -1,13 +1,6 @@
-provider "aws" {
-  region = "us-east-1"
-}
 
 locals {
-  ami = "ami-0e2c8caa4b6378d8c"
   name   = "swarms"
-  region = "us-east-1"
-  ec2_subnet_id = "subnet-057c90cfe7b2e5646"
-  vpc_id = "vpc-04f28c9347af48b55"
   tags = {
     project="swarms"
   }
