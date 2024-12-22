@@ -1,4 +1,8 @@
 {
+  // File: modules/github/actions/aws/policy/main.json
+  // Description: JSON policy for GitHub actions with AWS.
+  // Author: <Your Name>
+  // Date: 2024-12-22
     "Version": "2012-10-17",
     "Statement": [
         {

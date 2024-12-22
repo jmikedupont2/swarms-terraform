@@ -1,3 +1,7 @@
+# Description: Terraform configuration for setting up AWS SSM.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 module "ssm" {
 #  source                    = "bridgecrewio/session-manager/aws"
   #  version                   = "0.4.2"

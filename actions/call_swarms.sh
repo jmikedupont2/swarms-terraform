@@ -1,3 +1,7 @@
+# Description: Bash script to call swarms using AWS SSM.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 #!/bin/bash
 set -e
 set -x

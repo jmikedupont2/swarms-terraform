@@ -1,3 +1,7 @@
+# Description: Terraform configuration for managing security groups.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 variable  vpc_id { }
 variable  tags { }
 variable  name { }

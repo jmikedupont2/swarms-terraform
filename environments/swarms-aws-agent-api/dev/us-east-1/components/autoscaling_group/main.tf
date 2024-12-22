@@ -1,3 +1,7 @@
+# Description: Terraform configuration for the autoscaling group.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 variable aws_iam_instance_profile_ssm_arn {}
 variable target_group_arn{}
 variable name {}

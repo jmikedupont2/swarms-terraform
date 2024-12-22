@@ -1,3 +1,7 @@
+# Description: Terraform configuration for HTTPS setup on the application load balancer.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 variable alb_arn{}
 variable domain_name{}
 variable zone_id{}

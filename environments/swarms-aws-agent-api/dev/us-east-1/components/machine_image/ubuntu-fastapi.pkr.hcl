@@ -1,3 +1,7 @@
+# Description: Packer configuration for building Ubuntu FastAPI AMIs.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 packer {
   required_plugins {
     amazon = {

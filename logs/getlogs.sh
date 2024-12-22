@@ -1,6 +1,6 @@
-
-
-# [--lookup-attributes <value>]
+# Description: Bash script to retrieve logs using AWS CloudTrail.
+# Author: <Your Name>
+# Date: 2024-12-22
 
 # [--end-time <value>]
 # [--event-category <value>]

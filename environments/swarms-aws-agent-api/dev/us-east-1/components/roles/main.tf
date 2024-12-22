@@ -1,3 +1,7 @@
+# Description: Terraform configuration for managing IAM roles.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 variable tags {}
 
 data "aws_iam_policy_document" "default" {

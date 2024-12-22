@@ -1,3 +1,6 @@
+# Description: Instructions for setting up AWS credentials and deploying with OpenTofu.
+# Author: <Your Name>
+# Date: 2024-12-22
 
 # credentials
 

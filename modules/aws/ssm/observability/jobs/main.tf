@@ -1,3 +1,7 @@
+# Description: Terraform configuration for SSM observability jobs.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 # S3 Bucket for SSM logs and outputs
 resource "aws_s3_bucket" "ssm_logs" {
   bucket = "ssm-operation-logs-${data.aws_caller_identity.current.account_id}"

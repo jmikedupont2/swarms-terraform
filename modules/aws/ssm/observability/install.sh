@@ -1,3 +1,7 @@
+# Description: Bash script to install and configure the CloudWatch agent.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 #!/bin/bash
 # lets make this bash script into a terraform template 
 #aws_ssm_parameter_cw_agent_config_name=${aws_ssm_parameter.cw_agent_config.name}

@@ -1,3 +1,7 @@
+# Description: Terraform configuration for the target group of the application load balancer.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 variable vpc_id  {}
 variable name_prefix {}
 resource "aws_lb_target_group" "this" {

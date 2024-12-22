@@ -1,3 +1,7 @@
+# Description: Terraform configuration for Route 53 DNS records for the application load balancer.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 variable  domain_name    {} #   = local.name
 variable alb_dns_name {}
 variable alb_dns_zone {}

@@ -1,3 +1,7 @@
+# Description: Terraform configuration for managing VPCs.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 #from  https://github.com/terraform-aws-modules/terraform-aws-vpc
 
 data "aws_availability_zones" "available" {}

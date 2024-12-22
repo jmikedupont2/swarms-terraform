@@ -1,3 +1,7 @@
+# Description: Terraform configuration for the launch template in swarms deploy.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 variable install_script {}
 variable iam_instance_profile_name {}
 variable security_group_id {}

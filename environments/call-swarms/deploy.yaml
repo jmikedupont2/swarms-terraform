@@ -1,3 +1,7 @@
+# Description: YAML configuration for deploying swarms.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 ---
 description: |
   ### Document name - Deploy Swarms
