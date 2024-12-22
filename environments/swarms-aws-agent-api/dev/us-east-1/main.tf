@@ -1,3 +1,7 @@
+# Description: Main Terraform configuration for the swarms AWS agent API.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 variable region {}
 variable key_name {
   default = "mdupont-deployer-key" # FIXME: move to settings

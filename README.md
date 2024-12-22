@@ -2,18 +2,148 @@
 
 Terraform project template for deploying infrastructure across multiple environments and regions, following best practices with modular structure and automated syntax checks (GitHub Actions)
 
-## Repo structure
+## Getting Started
+
+To get started with this Terraform project, follow these steps:
+
+### Prerequisites
+
+- Ensure you have [Terraform](https://www.terraform.io/downloads.html) installed on your machine.
+- Install [AWS CLI](https://aws.amazon.com/cli/) and configure it with your credentials.
+- Make sure you have access to the necessary AWS resources and permissions.
+
+### Setup
+
+1. **Clone the Repository**
+
+   Clone this repository to your local machine using the following command:
+
+   ```bash
+   git clone <repository-url>
+   cd terraform-template
+   ```
+
+2. **Initialize Terraform**
+
+   Navigate to the environment directory you wish to deploy and initialize Terraform:
+
+   ```bash
+   cd environments/swarms-aws-agent-api/dev/us-east-1
+   terraform init
+   ```
+
+3. **Plan and Apply**
+
+   Review the changes Terraform will make to your infrastructure:
+
+   ```bash
+   terraform plan
+   ```
+
+   If everything looks good, apply the changes:
+
+   ```bash
+   terraform apply
+   ```
+
+4. **Verify Deployment**
+
+   After deployment, verify that the resources are created successfully in your AWS account.
+
+### Additional Resources
+
+- Refer to the [Terraform Documentation](https://www.terraform.io/docs/index.html) for more details on using Terraform.
+- Check the [AWS Documentation](https://docs.aws.amazon.com/) for information on AWS services.
+
+## Directory Structure Overview
+
+The following is an overview of the directory structure of this Terraform project:
 
 ```
 terraform-template/                   # Root directory of the Terraform template repository
 ├── README.md                         # Project documentation and overview
-├── environments                      
-│   ├── swarms-aws-agent-api
-│   │   ├── dev                       # Development environment configuration for the demo-azure-vm setup
-│   │   │   └── us-east-1
+├── environments                      # Contains environment-specific configurations
+│   ├── swarms-aws-agent-api          # Example service with various setups
+│   │   ├── dev                       # Development environment configuration
+│   │   │   └── us-east-1             # Region-specific configuration
+│   ├── swarms-deploy                 # Deployment configurations
 ├── modules                           # Directory containing reusable Terraform modules
-│   ├── swarms
+│   ├── aws                           # AWS-specific modules
+│   ├── github                        # GitHub-related modules
+├── accounts                          # Account-specific configurations
+│   ├── mdupont                       # User-specific configurations
+│   ├── swarms                        # Swarm-specific configurations
+├── actions                           # Automation scripts and actions
+├── logs                              # Logging scripts and configurations
 ```
+
+This structure is designed to facilitate modular, maintainable, and scalable infrastructure as code using Terraform.
+
+## Detailed File Structure
+
+### Readmes
+- `./README.md`
+- `./accounts/swarms/Readme.md`
+- `./environments/swarms-aws-agent-api/dev/us-east-1/components/Readme.md`
+- `./environments/swarms-aws-agent-api/dev/us-east-1/Readme.md`
+- `./environments/swarms-aws-agent-api/dev/us-east-1/components/application_load_balancer/Readme.md`
+- `./environments/swarms-aws-agent-api/dev/us-east-1/components/autoscaling_group/Readme.md`
+
+### Main API Component
+- `./environments/swarms-aws-agent-api/dev/us-east-1/main.tf`
+
+### Auto Scaling Group
+- `./environments/swarms-aws-agent-api/dev/us-east-1/components/autoscaling_group/main.tf`
+
+### Launch Template
+- `./environments/swarms-aws-agent-api/dev/us-east-1/components/launch_template/main.tf`
+
+### Load Balancer
+- `./environments/swarms-aws-agent-api/dev/us-east-1/components/application_load_balancer/main.tf`
+- `./environments/swarms-aws-agent-api/dev/us-east-1/components/application_load_balancer/route53/main.tf`
+- `./environments/swarms-aws-agent-api/dev/us-east-1/components/application_load_balancer/https/main.tf`
+- `./environments/swarms-aws-agent-api/dev/us-east-1/components/application_load_balancer/target_group/main.tf`
+
+### Roles and Security
+- `./environments/swarms-aws-agent-api/dev/us-east-1/components/roles/main.tf`
+- `./environments/swarms-aws-agent-api/dev/us-east-1/components/security/main.tf`
+- `./environments/swarms-aws-agent-api/dev/us-east-1/components/vpc/main.tf`
+- `./environments/swarms-aws-agent-api/dev/us-east-1/components/keypairs/main.tf`
+
+### Example Another App
+- `./environments/swarms-deploy/dev/us-east-1/components/launch_template/main.tf`
+- `./environments/swarms-deploy/dev/us-east-1/components/autoscaling_group/main.tf`
+- `./environments/swarms-deploy/dev/us-east-1/main.tf`
+- `./environments/swarms-deploy/main.tf`
+
+### Setup SSM Access
+- `./modules/aws/ssm/setup/main.tf`
+- `./modules/aws/ssm/observability/jobs/main.tf`
+- `./modules/aws/ssm/observability/install.sh`
+- `./modules/aws/ssm/observability/main.tf`
+- `./modules/github/actions/aws/policy/main.json`
+
+### Stage 1 Producing AMI
+- `./environments/swarms-aws-agent-api/dev/us-east-1/components/machine_image/Readme.md`
+- `./environments/swarms-aws-agent-api/dev/us-east-1/components/machine_image/variables.tf`
+- `./environments/swarms-aws-agent-api/dev/us-east-1/components/machine_image/ubuntu-fastapi.pkr.hcl`
+- `./environments/swarms-aws-agent-api/dev/us-east-1/components/machine_image/versions.tf`
+- `./environments/swarms-aws-agent-api/dev/us-east-1/components/machine_image/main.tf`
+
+### Call from GitHub
+- `./accounts/swarms/github/main.tf`
+- `./environments/call-swarms/deploy.yaml`
+- `./environments/call-swarms/main.tf`
+- `./.github/workflows/call-swarms.yml`
+- `./.github/workflows/terraform-validate.yml`
+- `./.github/workflows/terraform-security-check.yml`
+- `./actions/call_swarms.sh`
+
+### Observability
+- `./logs/logs/202412211604.log`
+- `./logs/getlogs.sh`
+
+This detailed file structure provides a comprehensive view of the project's components and their respective locations within the repository.
 
 
 ```

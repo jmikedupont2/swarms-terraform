@@ -1,3 +1,7 @@
+# Description: Terraform configuration for SSM observability jobs.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 # S3 Bucket for SSM logs and outputs
 resource "aws_s3_bucket" "ssm_logs" {
   bucket = "ssm-operation-logs-${data.aws_caller_identity.current.account_id}"
@@ -96,7 +100,9 @@ resource "aws_iam_role_policy" "ssm_logging" {
           "s3:GetObject",
           "s3:PutObjectAcl"
         ]
-        Resource = "${aws_s3_bucket.ssm_logs.arn}/*"
+        Resource = [
+          "arn:aws:s3:::specific-bucket-name/*"
+        ]
       },
       {
         Effect = "Allow"
@@ -106,7 +112,9 @@ resource "aws_iam_role_policy" "ssm_logging" {
           "logs:PutLogEvents",
           "logs:DescribeLogStreams"
         ]
-        Resource = "${aws_cloudwatch_log_group.ssm_logs.arn}:*"
+        Resource = [
+          "arn:aws:logs:us-east-2:123456789012:log-group:/aws/ssm/operations:*"
+        ]
       }
     ]
   })

@@ -1,3 +1,7 @@
+# Description: Terraform configuration for managing GitHub actions secrets.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 variable aws_region {}
 variable aws_account_id {}
 variable repos {}

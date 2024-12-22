@@ -1,3 +1,7 @@
+# Description: Main Terraform configuration for the application load balancer.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 variable  vpc_id  {}
 variable  security_group_id    {} #   = local.name
 variable  name    {} #   = local.name

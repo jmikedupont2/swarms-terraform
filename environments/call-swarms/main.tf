@@ -1,3 +1,7 @@
+# Description: Terraform configuration for deploying swarms using SSM documents.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 # from
 # https://github.com/shaikis/terraform-aws-ssm-document.git
 

@@ -1,0 +1,19 @@
+@startuml
+actor User
+participant "GitHub Actions" as GH
+participant "AWS OIDC" as OIDC
+participant "AWS IAM" as IAM
+participant "AWS SSM" as SSM
+participant "EC2 Instance" as EC2
+participant "AWS CloudWatch" as CW
+
+User -> OIDC: Connect GitHub to AWS
+User -> IAM: Add AWS Account ID
+User -> IAM: Whitelist GitHub Repo
+User -> GH: Trigger Workflow
+GH -> SSM: Execute SSM Document
+SSM -> EC2: Run Swarms Installer
+EC2 -> CW: Log Deployment Process
+CW -> User: Display Logs
+
+@enduml

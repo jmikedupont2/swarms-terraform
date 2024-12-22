@@ -1,3 +1,7 @@
+# Description: Detailed plan and to-do list for the swarms AWS agent API components.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 # Plan
 ## Phase 1
 

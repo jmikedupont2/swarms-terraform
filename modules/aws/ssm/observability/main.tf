@@ -1,3 +1,7 @@
+# Description: Terraform configuration for SSM observability setup.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 variable ami_id {}
 # Previous provider and variables configuration remains the same
 #provider "aws" {

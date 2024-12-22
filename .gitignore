@@ -89,3 +89,4 @@ flycheck_*.el
 /network-security.data
 
 /logs/logs/
+.aider*

@@ -1,3 +1,7 @@
+# Description: Main Terraform configuration for the swarms deploy environment.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 variable "ssm_profile_arn" {}
 variable "ssm_profile_name" {}
 variable vpc_id {}

@@ -1,3 +1,7 @@
+# Description: Instructions for managing machine images.
+# Author: <Your Name>
+# Date: 2024-12-22
+
 machine_image
 
 
