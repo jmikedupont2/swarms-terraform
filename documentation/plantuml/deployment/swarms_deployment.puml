@@ -1,0 +1,71 @@
+@startuml
+
+!define RECTANGLE(x) rectangle x as x
+!define DIAMOND(x) diamond x as x
+
+package "Accounts/Swarms" {
+    RECTANGLE("swarms-aws-agent-api") {
+        package "Environments" {
+            RECTANGLE("dev") {
+                RECTANGLE("us-east-1") {
+                    RECTANGLE(Godaddy)
+                    RECTANGLE(Route53)
+                    RECTANGLE(ALB) as alb
+                    RECTANGLE("AutoScalingGroup") as asg
+                    RECTANGLE("LaunchTemplate") as lt
+                    RECTANGLE("AMI") as ami
+                }
+            }
+        }
+    }
+    Godaddy -> Route53: ns api.swarms.ai
+    Route53 -> alb: CNAME
+    alb -> asg
+    asg -> lt
+    lt -> ami: "components/machine_image/ubuntu-fastapi.pkr.hcl"
+
+    package "EC2 Instance" {
+        RECTANGLE("EC2") {
+            RECTANGLE("UserData") as userdata
+            RECTANGLE("InstanceProfile") as ip
+            RECTANGLE("Nginx") as nginx
+            RECTANGLE("Systemd") as systemd
+            RECTANGLE("Uvicorn") as uvicorn
+            RECTANGLE("FastAPI") as fastapi
+
+            EC2 -> userdata: "github clone branch run api/install.sh"
+            EC2 -> ip: "read access to SSM secrets"
+            EC2 -> nginx: "isolates user process"
+            EC2 -> systemd: "manages services"
+            EC2 -> uvicorn: "4 instances of FastAPI"
+        }
+    }
+
+    userdata -> EC2: "execute boot.sh"
+    ip -> EC2: "access tagged secrets"
+    nginx -> systemd: "manage processes"
+}
+
+package "GitHub Actions" {
+    RECTANGLE("OIDC") {
+        RECTANGLE("AWS")
+        RECTANGLE("SSM Document")
+        RECTANGLE("Terraform")
+    }
+    OIDC -> AWS
+    AWS -> SSM Document: "update server"
+    OIDC -> AWS: "create new clusters"
+}
+
+package "Shared Hosted AWS Account" {
+    RECTANGLE("Profiles") {
+        RECTANGLE("Tags")
+        RECTANGLE("VPC")
+    }
+    Profiles -> Tags: "customer resources"
+    Profiles -> VPC: "subnet resources"
+    Profiles -> EC2: "instance roles"
+}
+
+note right of ami: "Designed for\nFastAPI deployments"
+@enduml
