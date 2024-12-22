@@ -2,6 +2,59 @@
 
 Terraform project template for deploying infrastructure across multiple environments and regions, following best practices with modular structure and automated syntax checks (GitHub Actions)
 
+## Getting Started
+
+To get started with this Terraform project, follow these steps:
+
+### Prerequisites
+
+- Ensure you have [Terraform](https://www.terraform.io/downloads.html) installed on your machine.
+- Install [AWS CLI](https://aws.amazon.com/cli/) and configure it with your credentials.
+- Make sure you have access to the necessary AWS resources and permissions.
+
+### Setup
+
+1. **Clone the Repository**
+
+   Clone this repository to your local machine using the following command:
+
+   ```bash
+   git clone <repository-url>
+   cd terraform-template
+   ```
+
+2. **Initialize Terraform**
+
+   Navigate to the environment directory you wish to deploy and initialize Terraform:
+
+   ```bash
+   cd environments/swarms-aws-agent-api/dev/us-east-1
+   terraform init
+   ```
+
+3. **Plan and Apply**
+
+   Review the changes Terraform will make to your infrastructure:
+
+   ```bash
+   terraform plan
+   ```
+
+   If everything looks good, apply the changes:
+
+   ```bash
+   terraform apply
+   ```
+
+4. **Verify Deployment**
+
+   After deployment, verify that the resources are created successfully in your AWS account.
+
+### Additional Resources
+
+- Refer to the [Terraform Documentation](https://www.terraform.io/docs/index.html) for more details on using Terraform.
+- Check the [AWS Documentation](https://docs.aws.amazon.com/) for information on AWS services.
+
 ## Repo structure
 
 ```
