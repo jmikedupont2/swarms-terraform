@@ -100,7 +100,9 @@ resource "aws_iam_role_policy" "ssm_logging" {
           "s3:GetObject",
           "s3:PutObjectAcl"
         ]
-        Resource = "${aws_s3_bucket.ssm_logs.arn}/*"
+        Resource = [
+          "arn:aws:s3:::specific-bucket-name/*"
+        ]
       },
       {
         Effect = "Allow"
@@ -110,7 +112,9 @@ resource "aws_iam_role_policy" "ssm_logging" {
           "logs:PutLogEvents",
           "logs:DescribeLogStreams"
         ]
-        Resource = "${aws_cloudwatch_log_group.ssm_logs.arn}:*"
+        Resource = [
+          "arn:aws:logs:us-east-2:123456789012:log-group:/aws/ssm/operations:*"
+        ]
       }
     ]
   })
