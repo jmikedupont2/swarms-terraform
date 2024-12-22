@@ -55,7 +55,29 @@ To get started with this Terraform project, follow these steps:
 - Refer to the [Terraform Documentation](https://www.terraform.io/docs/index.html) for more details on using Terraform.
 - Check the [AWS Documentation](https://docs.aws.amazon.com/) for information on AWS services.
 
-## Repo structure
+## Directory Structure Overview
+
+The following is an overview of the directory structure of this Terraform project:
+
+```
+terraform-template/                   # Root directory of the Terraform template repository
+├── README.md                         # Project documentation and overview
+├── environments                      # Contains environment-specific configurations
+│   ├── swarms-aws-agent-api          # Example service with various setups
+│   │   ├── dev                       # Development environment configuration
+│   │   │   └── us-east-1             # Region-specific configuration
+│   ├── swarms-deploy                 # Deployment configurations
+├── modules                           # Directory containing reusable Terraform modules
+│   ├── aws                           # AWS-specific modules
+│   ├── github                        # GitHub-related modules
+├── accounts                          # Account-specific configurations
+│   ├── mdupont                       # User-specific configurations
+│   ├── swarms                        # Swarm-specific configurations
+├── actions                           # Automation scripts and actions
+├── logs                              # Logging scripts and configurations
+```
+
+This structure is designed to facilitate modular, maintainable, and scalable infrastructure as code using Terraform.
 
 ```
 terraform-template/                   # Root directory of the Terraform template repository
