@@ -49,6 +49,13 @@ module "route53" {
 
 module "tg" {
   source = "./target_group/"
+  name_prefix = "swarms"
+  vpc_id  = var.vpc_id # module.vpc.vpc_id
+}
+
+module "tg_test" {
+  source = "./target_group/"
+  name_prefix = "test"
   vpc_id  = var.vpc_id # module.vpc.vpc_id
 }
 
@@ -59,10 +66,14 @@ module "https" {
   domain_name = var.domain_name
   alb_arn = module.alb.arn
   aws_lb_target_group_arn = module.tg.alb_target_group_arn
-  #aws_lb_target_group.this.arn
+  new_target_group_arn = module.tg_test.alb_target_group_arn
 }
 
 
 output alb_target_group_arn {
   value = module.tg.alb_target_group_arn
+}
+
+output test_alb_target_group_arn {
+  value = module.tg_test.alb_target_group_arn
 }

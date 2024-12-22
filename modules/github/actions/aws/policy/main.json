@@ -1,0 +1,85 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "SSMOperationsAccess",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:SendCommand",
+                "ssm:GetCommandInvocation",
+                "ssm:ListCommandInvocations",
+                "ssm:DescribeInstanceInformation"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestTag/GitHubRepo": "${aws:PrincipalTag/GitHubRepo}",
+                    "aws:RequestTag/Environment": "${aws:PrincipalTag/Environment}",
+                    "aws:RequestTag/GitHubBranch": "${aws:PrincipalTag/GitHubBranch}"
+                },
+                "StringLike": {
+                    "ssm:resourceTag/Environment": [
+                        "${aws:PrincipalTag/Environment}"
+                    ],
+                    "ssm:resourceTag/GitHubRepo": [
+                        "${aws:PrincipalTag/GitHubRepo}"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "CloudWatchLogsAccess",
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "logs:DescribeLogStreams"
+            ],
+            "Resource": [
+                "arn:aws:logs:*:*:log-group:/aws/ssm/*",
+                "arn:aws:logs:*:*:log-group:/aws/ssm/*:log-stream:*"
+            ]
+        },
+        {
+            "Sid": "S3LogsAccess",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject"
+            ],
+            "Resource": "arn:aws:s3:::ssm-operation-logs-*/*",
+            "Condition": {
+                "StringEquals": {
+                    "s3:x-amz-acl": "bucket-owner-full-control",
+                    "aws:RequestTag/GitHubRepo": "${aws:PrincipalTag/GitHubRepo}",
+                    "aws:RequestTag/Environment": "${aws:PrincipalTag/Environment}"
+                }
+            }
+        },
+        {
+            "Sid": "XRayAccess",
+            "Effect": "Allow",
+            "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "TaggingOperations",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateTags",
+                "ssm:AddTagsToResource"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestTag/GitHubRepo": "${aws:PrincipalTag/GitHubRepo}",
+                    "aws:RequestTag/Environment": "${aws:PrincipalTag/Environment}",
+                    "aws:RequestTag/GitHubBranch": "${aws:PrincipalTag/GitHubBranch}"
+                }
+            }
+        }
+    ]
+}

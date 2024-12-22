@@ -10,9 +10,18 @@ terraform  for ubuntu python uvicorn fastapi nginx systemd server with custom co
 4. create application load balancer
 5. create dns_entry
 6. packer ami for ubuntu python uvicorn fastapi nginx systemd server with custom git modules
-
+7. oidc connect from github to aws
 
 # todo 
+
+0. create role for developers to run ssm job
+to deploy new service.
+1. call from github action.
+2. have least privlege
+3. allow for calling ssm with information about context
+4. route to server
+5. retrieve logs
+6. provision other services to be used by the agents
 
 0. run_only to only run the server without installing everything
 1.  alb sticky sessions :send users back to server via sticky sessions or some id.
@@ -30,3 +39,5 @@ that costs money https://aws.amazon.com/vpc/pricing/
 11. swarms router
 12. fluid api
 13. agent service discovery
+14. setup ticketing interface
+15. 

@@ -25,6 +25,23 @@ resource "aws_route53_record" "api-cname" {
   }
 }
 
+resource "aws_route53_record" "api-cname-test" {
+  zone_id = data.aws_route53_zone.primary.zone_id
+  name    = "test.${var.domain_name}"
+  type    = "CNAME"
+  records = [aws_route53_record.api-cname.fqdn]
+  ttl= 300
+}
+
+resource "aws_route53_record" "api-cname-dev" {
+  zone_id = data.aws_route53_zone.primary.zone_id
+  name    = "dev.${var.domain_name}"
+  type    = "CNAME"
+  records = [aws_route53_record.api-cname.fqdn]
+  ttl= 300
+
+}
+
 output cname {
   value = aws_route53_record.api-cname.fqdn
 }

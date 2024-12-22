@@ -1,6 +1,7 @@
-variable  vpc_id  {} 
+variable vpc_id  {}
+variable name_prefix {}
 resource "aws_lb_target_group" "this" {
-  name_prefix                       = "swarms"
+  name_prefix                       = var.name_prefix
   protocol                          = "HTTP"
   port                              = 80
   target_type                       = "instance"

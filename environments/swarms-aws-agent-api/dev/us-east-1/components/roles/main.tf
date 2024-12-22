@@ -1,25 +1,4 @@
 variable tags {}
-# data "aws_iam_policy_document" "assume_role" {
-#   statement {
-#     effect  = "Allow"
-#     actions = ["sts:AssumeRole"]
-
-#     principals {
-#       type        = "Service"
-#       identifiers = ["ec2.amazonaws.com"]
-#     }
-#   }
-
-#   statement {
-#     effect  = "Allow"
-#     actions = ["sts:AssumeRole"]
-
-#     principals {
-#       type        = "AWS"
-#       identifiers = ["${var.assume_role_arns}"]
-#     }
-#   }
-# }
 
 data "aws_iam_policy_document" "default" {
   statement {
@@ -28,17 +7,76 @@ data "aws_iam_policy_document" "default" {
     effect    = "Allow"
   }
 
+   statement {
+     actions = ["kms:Decrypt"]
+     resources = [ "arn:aws:kms:us-east-2:916723593639:key/cc8e1ee7-a05b-4642-bd81-ba5548635590" ]
+     effect    = "Allow"
+   }
+
+   statement {
+     actions = [
+       "logs:DescribeLogGroups",
+       "logs:DescribeLogStreams",
+       "logs:CreateLogGroup",
+       "logs:CreateLogStream",
+       "logs:PutLogEvents",
+       "logs:PutLogEventsBatch",
+       "cloudwatch:PutMetricData",
+       "ec2:DescribeTags",
+     ]
+     resources = [ "*" ]
+     effect    = "Allow"
+   }
+
+  statement {
+    effect = "Allow"
+    resources = [  "arn:aws:s3:::swarms-session-logs*"  ]
+    actions = [
+      "s3:GetEncryptionConfiguration"
+    ]
+  }
+    
+  statement {
+    effect = "Allow"
+         resources = [ "*" ]
+    actions = [
+      "kms:Encrypt*",
+      "kms:Decrypt*",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:Describe*"
+    ]
+  }
+
+  # statement {
+  #   sid    = "Allow CloudWatch access"
+  #   effect = "Allow"
+  #   principals {
+  #     type        = "Service"
+  #     identifiers = ["logs.us-east-2.amazonaws.com"]
+  #   }
+  #   actions = [
+  #     "kms:Encrypt*",
+  #     "kms:Decrypt*",
+  #     "kms:ReEncrypt*",
+  #     "kms:GenerateDataKey*",
+  #     "kms:Describe*"
+  #   ]
+  #   condition {
+  #     test     = "ArnLike"
+  #     values   = ["arn:aws:logs:region:${data.aws_caller_identity.current.account_id}:*"]
+  #     variable = "kms:EncryptionContext:aws:logs:arn"
+  #   }
+  # }
+
+  #arn:aws:logs:us-east-2:916723593639:log-group::log-stream
+  
 #  statement {
 #    actions   = ["${var.ssm_actions}"]
 #    resources = ["${formatlist("arn:aws:ssm:%s:%s:parameter/%s", var.region, var.account_id, var.ssm_parameters)}"]
 #    effect    = "Allow"
 #  }
 
-  # statement {
-  #   actions   = ["kms:Decrypt"]
-  #   resources = ["${data.aws_kms_key.default.arn}"]
-  #   effect    = "Allow"
-  # }
 }
 
 resource "aws_iam_policy" "default" {
@@ -47,6 +85,10 @@ resource "aws_iam_policy" "default" {
   policy      = data.aws_iam_policy_document.default.json
 }
 
+resource "aws_iam_role_policy_attachment" "AmazonSSMManagedEC2InstanceDefaultPolicy" {
+  role       = join("", aws_iam_role.ssm.*.name)
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedEC2InstanceDefaultPolicy"
+}
 
 resource "aws_iam_role_policy_attachment" "default" {
 #  count = local.policy_only
@@ -59,19 +101,10 @@ resource "aws_iam_role_policy_attachment" "SSM-role-policy-attach" {
   policy_arn = data.aws_iam_policy.AmazonSSMManagedInstanceCore.arn
 }
 
-
-####
-# resource "aws_iam_role" "default" {
-# #  count = local.policy_only
-
-#   name                 = "swarms-ssm"
-#   assume_role_policy   = join("", data.aws_iam_policy_document.assume_role.*.json)
-#   description          = "IAM Role with permissions to perform actions on SSM resources"
-#   max_session_duration = var.max_session_duration
-# }
 data "aws_iam_policy" "AmazonSSMManagedInstanceCore" {
   arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
+
 
 resource "aws_iam_role" "ssm" {
   name = "ssm-swarms-role"

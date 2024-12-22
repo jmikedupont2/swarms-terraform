@@ -167,3 +167,8 @@ tofu plan   -var "github_token=$(gh auth token)"
 tofu apply   -var "github_token=$(gh auth token)" 
 
 ```
+
+# oidc
+
+see this branch for the pike generated policies
+https://github.com/jmikedupont2/terraform-aws-oidc-github/pull/1
