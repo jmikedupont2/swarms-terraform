@@ -134,6 +134,25 @@ module "lt_dynamic_ami_test" {
 }
 
 
+module "lt_dynamic_ami_docker" {
+  branch =  "feature/squash2-docker"
+  vpc_id = local.vpc_id
+  for_each = toset(var.instance_types)
+  instance_type = each.key
+  name   = "swarms-docker-${each.key}"
+  security_group_id = module.security.internal_security_group_id
+  ami_id = local.new_ami_id
+  tags= merge(local.tags, {
+    environment = "test"
+  })
+  source = "./components/launch_template_docker"
+  key_name = var.key_name #"mdupont-deployer-key"
+  ssm_parameter_name_cw_agent_config= "arn:aws:ssm:${var.region}:${var.aws_account_id}:parameter/cloudwatch-agent/config/details"
+  iam_instance_profile_name = module.roles.ssm_profile_name
+  install_script = "/opt/swarms/api/rundocker.sh"
+}
+
+
 
 module "alb" {
   source = "./components/application_load_balancer"
