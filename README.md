@@ -7,7 +7,9 @@ Terraform project template for deploying infrastructure across multiple environm
 ```
 terraform-template/                   # Root directory of the Terraform template repository
 ├── README.md                         # Project documentation and overview
-├── environments                      
+├── accounts
+│   ├── swarms                        # the main swarms account
+├── environments
 │   ├── swarms-aws-agent-api
 │   │   ├── dev                       # Development environment configuration for the demo-azure-vm setup
 │   │   │   └── us-east-1
