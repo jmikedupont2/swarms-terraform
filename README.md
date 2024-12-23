@@ -1,6 +1,6 @@
-# terraform-template
+# swarms-terraform
 
-Terraform project template for deploying infrastructure across multiple environments and regions, following best practices with modular structure and automated syntax checks (GitHub Actions)
+Terraform project for deploying swarms api infrastructure across multiple environments and regions, following best practices with modular structure and automated syntax checks (GitHub Actions)
 
 ## Repo structure
 
