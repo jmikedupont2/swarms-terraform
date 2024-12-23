@@ -200,7 +200,7 @@ module "asg_dynamic_new_ami" {
   instance_type       = each.key
   name       = "swarms-ami-${each.key}"
   launch_template_id   = module.lt_dynamic_ami_prod[each.key].launch_template_id
-  target_group_arn = module.alb.alb_target_group_arn
+  target_group_arn = module.alb.prod_alb_target_group_arn
 }
 
 module "asg_dynamic_new_ami_test" {
@@ -220,7 +220,7 @@ module "asg_dynamic_new_ami_test" {
   target_group_arn = module.alb.test_alb_target_group_arn
 }
 
-module "asg_dynamic_new_ami_test" {
+module "asg_dynamic_new_ami_dev" {
   # built with packer
   #count =0
   tags = merge(local.tags, local.dev_tags)

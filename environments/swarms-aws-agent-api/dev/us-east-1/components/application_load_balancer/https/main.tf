@@ -39,7 +39,7 @@ resource "aws_lb_listener_rule" "route_v1_api" {
 
   action {
     type             = "forward"
-    target_group_arn = var.target_target_group_arn  # New target group's ARN
+    target_group_arn = var.test_target_group_arn  # New target group's ARN
   }
 
   condition {
@@ -70,7 +70,7 @@ resource "aws_lb_listener" "insecure" {
   protocol                    = "HTTP"
   load_balancer_arn = var.alb_arn
   default_action {
-    target_group_arn =var.aws_lb_target_group_arn
+    target_group_arn = var.prod_target_group_arn
     type             = "forward"
   }
 }

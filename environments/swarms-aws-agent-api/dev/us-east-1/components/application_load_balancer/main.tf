@@ -69,16 +69,20 @@ module "https" {
   zone_id     = module.route53.primary_zone_id
   domain_name = var.domain_name
   alb_arn = module.alb.arn
-  prod_target_group_arn = module.tg.alb_target_group_arn
+  prod_target_group_arn = module.tg_prod.alb_target_group_arn
   test_target_group_arn = module.tg_test.alb_target_group_arn
   dev_target_group_arn = module.tg_dev.alb_target_group_arn
 }
 
 
-output alb_target_group_arn {
-  value = module.tg.alb_target_group_arn
+output prod_alb_target_group_arn {
+  value = module.tg_prod.alb_target_group_arn
 }
 
 output test_alb_target_group_arn {
   value = module.tg_test.alb_target_group_arn
+}
+
+output dev_alb_target_group_arn {
+  value = module.tg_dev.alb_target_group_arn
 }

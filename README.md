@@ -2,6 +2,12 @@
 
 Terraform project template for deploying infrastructure across multiple environments and regions, following best practices with modular structure and automated syntax checks (GitHub Actions)
 
+## Status report
+
+Currently we are building out a dev infrastructure using our existing code
+and adding in a docker target, this has the advantage that we can build and test
+the docker outside of aws and then deploy it easily.
+
 ## Repo structure
 
 ```
