@@ -220,6 +220,23 @@ module "asg_dynamic_new_ami_test" {
   target_group_arn = module.alb.test_alb_target_group_arn
 }
 
+module "asg_dynamic_new_ami_test" {
+  # built with packer
+  #count =0
+  tags = merge(local.tags, local.dev_tags)
+  vpc_id = local.vpc_id
+  image_id = local.new_ami_id
+  ec2_subnet_id = module.vpc.ec2_public_subnet_id_1
+  for_each = toset(var.instance_types)
+  aws_iam_instance_profile_ssm_arn = module.roles.ssm_profile_arn
+  source              = "./components/autoscaling_group"
+#  security_group_id   = module.security.internal_security_group_id
+  instance_type       = each.key
+  name       = "docker-swarms-ami-${each.key}"
+  launch_template_id   = module.lt_dynamic_ami_docker[each.key].launch_template_id
+  target_group_arn = module.alb.dev_alb_target_group_arn
+}
+
 output security_group_id {
   value = module.security.security_group_id
 }

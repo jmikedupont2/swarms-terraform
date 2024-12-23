@@ -34,8 +34,6 @@ module "alb" {
 
 
 
-
-
 output dns {
   value = module.alb.dns_name
 }
@@ -47,7 +45,7 @@ module "route53" {
   domain_name = var.domain_name
 }
 
-module "tg" {
+module "tg_prod" {
   source = "./target_group/"
   name_prefix = "swarms"
   vpc_id  = var.vpc_id # module.vpc.vpc_id
@@ -59,14 +57,21 @@ module "tg_test" {
   vpc_id  = var.vpc_id # module.vpc.vpc_id
 }
 
+module "tg_dev" {
+  source = "./target_group/"
+  name_prefix = "dev"
+  vpc_id  = var.vpc_id # module.vpc.vpc_id
+}
+
 module "https" {
   source = "./https/"
   #  vpc_id  = var.vpc_id # module.vpc.vpc_id
   zone_id     = module.route53.primary_zone_id
   domain_name = var.domain_name
   alb_arn = module.alb.arn
-  aws_lb_target_group_arn = module.tg.alb_target_group_arn
-  new_target_group_arn = module.tg_test.alb_target_group_arn
+  prod_target_group_arn = module.tg.alb_target_group_arn
+  test_target_group_arn = module.tg_test.alb_target_group_arn
+  dev_target_group_arn = module.tg_dev.alb_target_group_arn
 }
 
 
