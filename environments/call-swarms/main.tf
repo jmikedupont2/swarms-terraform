@@ -1,11 +1,25 @@
 # from
 # https://github.com/shaikis/terraform-aws-ssm-document.git
 
+locals {
+  module_path        = abspath(path.module)
+  codebase_root_path = abspath("${path.module}/../..")
+}
+
 resource "aws_ssm_document" "deploy" {
   name            = "deploy"
   document_format = "YAML"
   document_type   = "Command"
-  content         = file("../../environments/call-swarms/deploy.yaml")
+  
+  content         = file("${local.codebase_root_path}/environments/call-swarms/deploy.yaml")
+  tags = {env = "test"}
+}
+
+resource "aws_ssm_document" "deploy-docker" {
+  name            = "deploy-docker"
+  document_format = "YAML"
+  document_type   = "Command"
+  content         = file("${local.codebase_root_path}/environments/call-swarms/deploy-docker.yaml")
   tags = {env = "test"}
 }
 

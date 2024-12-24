@@ -149,6 +149,7 @@ module "lt_dynamic_ami_docker" {
   key_name = var.key_name #"mdupont-deployer-key"
   ssm_parameter_name_cw_agent_config= "arn:aws:ssm:${var.region}:${var.aws_account_id}:parameter/cloudwatch-agent/config/details"
   iam_instance_profile_name = module.roles.ssm_profile_name
+  #install_script = "/opt/swarms/api/docker-boot.sh" this is called from ssm for a refresh
   install_script = "/opt/swarms/api/rundocker.sh"
 }
 

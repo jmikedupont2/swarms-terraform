@@ -1,0 +1,39 @@
+---
+description: |
+  ### Document name - Deploy Swarms
+  ## What does this document do?
+  It runs swarms commands
+  ## Input Parameters
+  * git_url: the source
+  * git_version: The version
+  * git_name: The remote name, only set once
+  ## Output Parameters
+  None.
+schemaVersion: '2.2'
+parameters:
+  GitUrl:
+    type: String
+    description: "(Required) The url."
+    allowedPattern: "^.+$"
+  GitName:
+    type: String
+    description: "(Required) The url."
+    allowedPattern: "^.+$"
+  GitVersion:
+    type: String
+    description: "(Required) The version."
+    allowedPattern: "^.+$"
+
+mainSteps:
+- action: aws:runShellScript
+  name: Deploy Docker
+  inputs:
+    runCommand:
+      - |
+        #!/bin/bash
+        cd /opt/swarms/
+        sudo git remote add {{GitName}} {{GitUrl}}  || echo oops
+        sudo git checkout --force {{GitVersion}}
+        sudo su -c "bash -e -x /opt/swarms/api/docker-boot.sh" swarms
+        sudo systemctl daemon-reload
+        systemctl restart swarms-docker || journalctl -xeu swarms-docker.service

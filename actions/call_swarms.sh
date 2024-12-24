@@ -1,18 +1,48 @@
 #!/bin/bash
+echo <<EOF
+Welcome to the the call swarms ssm framework,
+it allows invocation of the swarms agent on a remote ssm server via the aws api.
+This can be almost any cloud server that is reachable via ssm, that can be on prem
+and in theory on another cloud.
+
+The file actions/call_swarms.sh is a Bash script designed to interact with AWS  
+services. It sets up environment variables for AWS region, tag keys and values, 
+Git repository details, and other parameters. The script defines functions to   
+retrieve instance IDs, send commands to instances via AWS SSM, and fetch command
+outputs. It iterates over the instances, sends commands, waits for execution,   
+and retrieves outputs, logging them to CloudWatch. The script is structured to  
+facilitate remote invocation of a swarms agent on cloud servers.                
+
+EOF
 set -e
 set -x
 # Constants
 export REGION="${REGION:-us-east-2}"
 #export AWS_PROFILE="${AWS_PROFILE:-swarms}"
 #export AWS_PROFILE="${AWS_PROFILE}" only needed for testing locally
-TAG_KEY="${TAG_KEY:-Name}" 
-TAG_VALUE="${TAG_VALUE:-test-swarms-ami-t3.medium}"
-GIT_URL="${GIT_URL:-https://github.com/kyegomez/swarms}"
-export GIT_NAME="${GIT_NAME:-kye}"
-export GIT_VERSION="${GIT_VERSION:-master}"
+TAG_KEY="${TAG_KEY:-Name}"
 
-DOCUMENT_NAME="${DOCUMENT_NAME:-deploy}"
-DOCUMENT_VERSION="${DOCUMENT_VERSION:-2}"
+# which servers to target
+TAG_VALUE="${TAG_VALUE:-docker-swarms-ami-t3.medium}" 
+
+#what git remote
+GIT_URL="${GIT_URL:-https://github.com/jmikedupont/swarms}"
+
+# what to name the repo
+export GIT_NAME="${GIT_NAME:-mdupont}"
+
+# what version of swarms to deploy
+export GIT_VERSION="${GIT_VERSION:-feature/squash2-docker}" 
+
+# what script to call?
+DOCUMENT_NAME="${DOCUMENT_NAME:-deploy-docker}"
+
+# this script is defined in
+# environments/call-swarms/main.tf
+
+# what version
+DOCUMENT_VERSION="${DOCUMENT_VERSION:-1}"
+
 TIMEOUT_SECONDS="${TIMEOUT_SECONDS:-600}"
 MAX_CONCURRENCY="${MAX_CONCURRENCY:-50}"
 MAX_ERRORS="${MAX_ERRORS:-0}"

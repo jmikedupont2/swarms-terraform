@@ -35,7 +35,7 @@ resource "aws_lb_listener" "this" {
 # make a new one for checking for name is test.api.swarms.ai
 resource "aws_lb_listener_rule" "route_v1_api" {
   listener_arn = aws_lb_listener.this.arn
-  priority     = 100  # Set priority as needed, must be unique
+  priority     = 200  # Set priority as needed, must be unique
 
   action {
     type             = "forward"
