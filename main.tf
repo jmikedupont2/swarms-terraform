@@ -1,4 +1,4 @@
 # this
-module swarms {
+module "swarms" {
   source = "./accounts/swarms"
 }

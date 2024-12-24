@@ -3,15 +3,15 @@
 data "aws_availability_zones" "available" {}
 
 locals {
-  name   = "swarms"
+  name = "swarms"
 
   vpc_cidr = "10.0.0.0/16"
   azs      = slice(data.aws_availability_zones.available.names, 0, 3)
 
   tags = {
-    project    = local.name
-#    GithubRepo = "terraform-aws-vpc"
-#    GithubOrg  = "terraform-aws-modules"
+    project = local.name
+    #    GithubRepo = "terraform-aws-vpc"
+    #    GithubOrg  = "terraform-aws-modules"
   }
 }
 
@@ -41,12 +41,12 @@ locals {
 ################################################################################
 
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
-  name = local.name
-  cidr = local.vpc_cidr
-  azs                 = local.azs
-  private_subnets     = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k)]
-  public_subnets      = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 4)]
+  source          = "terraform-aws-modules/vpc/aws"
+  name            = local.name
+  cidr            = local.vpc_cidr
+  azs             = local.azs
+  private_subnets = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k)]
+  public_subnets  = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 4)]
   #   database_subnets    = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 8)]
   #   elasticache_subnets = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 12)]
   #   redshift_subnets    = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 16)]
@@ -80,7 +80,7 @@ module "vpc" {
   #   enable_dhcp_options              = true
   #   dhcp_options_domain_name         = "service.consul"
   #   dhcp_options_domain_name_servers = ["127.0.0.1", "10.10.0.2"]
-  
+
   #   # VPC Flow Logs (Cloudwatch log group and IAM role will be created)
   #   vpc_flow_log_iam_role_name            = "vpc-complete-example-role"
   #   vpc_flow_log_iam_role_use_name_prefix = false
@@ -88,8 +88,8 @@ module "vpc" {
   #   create_flow_log_cloudwatch_log_group  = true
   #   create_flow_log_cloudwatch_iam_role   = true
   #   flow_log_max_aggregation_interval     = 60
-  
-   tags = local.tags
+
+  tags = local.tags
 }
 
 # ################################################################################
@@ -230,5 +230,5 @@ module "vpc" {
 #   tags = local.tags
 # }
 output "vpc" {
-value = module.vpc
+  value = module.vpc
 }

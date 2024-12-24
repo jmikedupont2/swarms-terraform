@@ -10,9 +10,9 @@ resource "aws_ssm_document" "deploy" {
   name            = "deploy"
   document_format = "YAML"
   document_type   = "Command"
-  
-  content         = file("${local.codebase_root_path}/environments/call-swarms/deploy.yaml")
-  tags = {env = "test"}
+
+  content = file("${local.codebase_root_path}/environments/call-swarms/deploy.yaml")
+  tags    = { env = "test" }
 }
 
 resource "aws_ssm_document" "deploy-docker" {
@@ -20,7 +20,7 @@ resource "aws_ssm_document" "deploy-docker" {
   document_format = "YAML"
   document_type   = "Command"
   content         = file("${local.codebase_root_path}/environments/call-swarms/deploy-docker.yaml")
-  tags = {env = "test"}
+  tags            = { env = "test" }
 }
 
 
@@ -73,7 +73,7 @@ resource "aws_ssm_document" "deploy-docker" {
 # resource "aws_iam_policy" "github_ssm_policy" {
 #   name        = "GitHubSSMPolicy"
 #   description = "Policy to allow SSM commands for GitHub role"
-  
+
 #   policy = jsonencode({
 #     Version = "2012-10-17",
 #     Statement = [

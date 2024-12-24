@@ -1,4 +1,4 @@
-variable tags {}
+variable "tags" {}
 
 data "aws_iam_policy_document" "default" {
   statement {
@@ -7,38 +7,38 @@ data "aws_iam_policy_document" "default" {
     effect    = "Allow"
   }
 
-   statement {
-     actions = ["kms:Decrypt"]
-     resources = [ "arn:aws:kms:us-east-2:916723593639:key/cc8e1ee7-a05b-4642-bd81-ba5548635590" ]
-     effect    = "Allow"
-   }
-
-   statement {
-     actions = [
-       "logs:DescribeLogGroups",
-       "logs:DescribeLogStreams",
-       "logs:CreateLogGroup",
-       "logs:CreateLogStream",
-       "logs:PutLogEvents",
-       "logs:PutLogEventsBatch",
-       "cloudwatch:PutMetricData",
-       "ec2:DescribeTags",
-     ]
-     resources = [ "*" ]
-     effect    = "Allow"
-   }
+  statement {
+    actions   = ["kms:Decrypt"]
+    resources = ["arn:aws:kms:us-east-2:916723593639:key/cc8e1ee7-a05b-4642-bd81-ba5548635590"]
+    effect    = "Allow"
+  }
 
   statement {
-    effect = "Allow"
-    resources = [  "arn:aws:s3:::swarms-session-logs*"  ]
+    actions = [
+      "logs:DescribeLogGroups",
+      "logs:DescribeLogStreams",
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+      "logs:PutLogEventsBatch",
+      "cloudwatch:PutMetricData",
+      "ec2:DescribeTags",
+    ]
+    resources = ["*"]
+    effect    = "Allow"
+  }
+
+  statement {
+    effect    = "Allow"
+    resources = ["arn:aws:s3:::swarms-session-logs*"]
     actions = [
       "s3:GetEncryptionConfiguration"
     ]
   }
-    
+
   statement {
-    effect = "Allow"
-         resources = [ "*" ]
+    effect    = "Allow"
+    resources = ["*"]
     actions = [
       "kms:Encrypt*",
       "kms:Decrypt*",
@@ -70,12 +70,12 @@ data "aws_iam_policy_document" "default" {
   # }
 
   #arn:aws:logs:us-east-2:916723593639:log-group::log-stream
-  
-#  statement {
-#    actions   = ["${var.ssm_actions}"]
-#    resources = ["${formatlist("arn:aws:ssm:%s:%s:parameter/%s", var.region, var.account_id, var.ssm_parameters)}"]
-#    effect    = "Allow"
-#  }
+
+  #  statement {
+  #    actions   = ["${var.ssm_actions}"]
+  #    resources = ["${formatlist("arn:aws:ssm:%s:%s:parameter/%s", var.region, var.account_id, var.ssm_parameters)}"]
+  #    effect    = "Allow"
+  #  }
 
 }
 
@@ -91,7 +91,7 @@ resource "aws_iam_role_policy_attachment" "AmazonSSMManagedEC2InstanceDefaultPol
 }
 
 resource "aws_iam_role_policy_attachment" "default" {
-#  count = local.policy_only
+  #  count = local.policy_only
   role       = join("", aws_iam_role.ssm.*.name)
   policy_arn = join("", aws_iam_policy.default.*.arn)
 }
@@ -132,10 +132,10 @@ resource "aws_iam_instance_profile" "ssm" {
 }
 
 
-output ssm_profile_name {
+output "ssm_profile_name" {
   value = aws_iam_instance_profile.ssm.name
 }
 
-output ssm_profile_arn {
+output "ssm_profile_arn" {
   value = aws_iam_instance_profile.ssm.arn
 }

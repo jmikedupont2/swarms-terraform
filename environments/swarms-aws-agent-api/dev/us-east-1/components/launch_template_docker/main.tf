@@ -1,21 +1,21 @@
 # launch template for running agent api in docker
-variable ssm_parameter_name_cw_agent_config{}
-variable branch {}
-variable install_script {}
-variable iam_instance_profile_name {}
-variable security_group_id {}
-variable name {}
-variable vpc_id {}
-variable ami_id {}
-variable tags {}
-variable key_name {}
-variable instance_type {}
+variable "ssm_parameter_name_cw_agent_config" {}
+variable "branch" {}
+variable "install_script" {}
+variable "iam_instance_profile_name" {}
+variable "security_group_id" {}
+variable "name" {}
+variable "vpc_id" {}
+variable "ami_id" {}
+variable "tags" {}
+variable "key_name" {}
+variable "instance_type" {}
 
 locals {
   tags = {
-    project="swarms"
+    project       = "swarms"
     instance_type = var.instance_type
-    name = var.name
+    name          = var.name
   }
   # FIXME refactor launch template to pass in user data as template parameter,
   # split up user data into reusable chunks that we can use in different forms like docker files
@@ -71,24 +71,24 @@ locals {
 
   bash -x ${var.install_script}
   EOF
-    
+
 }
 data "aws_ssm_parameter" "cw_agent_config" {
-  name        = var.ssm_parameter_name_cw_agent_config
+  name = var.ssm_parameter_name_cw_agent_config
 }
 
 # defined 
 resource "aws_launch_template" "ec2_launch_template" {
-  name_prefix           = "${var.name}-launch-template-"
-  image_id              = var.ami_id
-  key_name = var.key_name
-  instance_type        = var.instance_type
+  name_prefix   = "${var.name}-launch-template-"
+  image_id      = var.ami_id
+  key_name      = var.key_name
+  instance_type = var.instance_type
   network_interfaces {
     associate_public_ip_address = true
-    delete_on_termination = true
-    security_groups          = [var.security_group_id]
+    delete_on_termination       = true
+    security_groups             = [var.security_group_id]
   }
- 
+
   iam_instance_profile {
     #   iam_instance_profile_arn = aws_iam_instance_profile.ssm.arn
     name = var.iam_instance_profile_name #aws_iam_instance_profile.ec2_instance_profile.name
@@ -105,7 +105,7 @@ resource "aws_launch_template" "ec2_launch_template" {
     }
   }
   user_data = base64encode(local.user_data)
-  tags = var.tags  
+  tags      = var.tags
 }
 
 
