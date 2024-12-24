@@ -1,12 +1,12 @@
 module "ssm" {
-#  source                    = "bridgecrewio/session-manager/aws"
+  #  source                    = "bridgecrewio/session-manager/aws"
   #  version                   = "0.4.2"
-  source = "git::https://github.com/jmikedupont2/terraform-aws-session-manager.git?ref=master"
+  source                   = "git::https://github.com/jmikedupont2/terraform-aws-session-manager.git?ref=master"
   bucket_name              = "swarms-session-logs"
   access_log_bucket_name   = "swarms-session-access-logs"
   enable_log_to_s3         = true
   enable_log_to_cloudwatch = true
-  tags = {project="swarms"}
+  tags                     = { project = "swarms" }
   #linux_shell_profile      = "date"
 }
 
@@ -14,17 +14,17 @@ module "ssm" {
 
 
 resource "aws_cloudwatch_log_group" "app_signals" {
-  for_each = toset(["ec2","eks","generic","k8s"])
+  for_each          = toset(["ec2", "eks", "generic", "k8s"])
   name              = "/aws/appsignals/${each.key}"
   retention_in_days = 30
-  kms_key_id = "arn:aws:kms:us-east-2:916723593639:key/cc8e1ee7-a05b-4642-bd81-ba5548635590"
+  kms_key_id        = "arn:aws:kms:us-east-2:916723593639:key/cc8e1ee7-a05b-4642-bd81-ba5548635590"
 }
 
 resource "aws_cloudwatch_log_group" "app_signals2" {
-  for_each = toset(["data"])
+  for_each          = toset(["data"])
   name              = "/aws/application-signals/${each.key}"
   retention_in_days = 30
-  kms_key_id = "arn:aws:kms:us-east-2:916723593639:key/cc8e1ee7-a05b-4642-bd81-ba5548635590"
+  kms_key_id        = "arn:aws:kms:us-east-2:916723593639:key/cc8e1ee7-a05b-4642-bd81-ba5548635590"
 }
 
 # module "session-manager-settings" {
@@ -42,10 +42,10 @@ resource "aws_cloudwatch_log_group" "app_signals2" {
 # # Create or update the S3 bucket with tags
 # resource "aws_s3_bucket" "session_logs" {
 #   bucket = "swarms-session-logs-20241221151754799300000003"
-  
+
 #   # Force destroy can be set to true if you want to allow Terraform to delete the bucket even if it contains objects
 #   force_destroy = false
-  
+
 #   tags = {
 #     Environment = "Production"  # Example tag
 #     Project     = "Swarms"      # Example tag

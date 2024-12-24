@@ -34,6 +34,7 @@ mainSteps:
         cd /opt/swarms/
         sudo git remote add {{GitName}} {{GitUrl}}  || echo oops
         sudo git checkout --force {{GitVersion}}
+        sudo git pull {{GitName}}  || echo oops2
         #sudo bash -x /opt/swarms/api/install.sh
         sudo su -c "bash -e -x /var/swarms/agent_workspace/boot.sh" swarms
         sudo systemctl daemon-reload

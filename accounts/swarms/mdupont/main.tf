@@ -10,12 +10,12 @@ resource "aws_iam_role" "pdev" {
         Effect = "Allow"
         Principal = {
           #AWS = "arn:aws:iam::354918380242:root"
-	  AWS = "arn:aws:iam::767503528736:user/mdupont"
+          AWS = "arn:aws:iam::767503528736:user/mdupont"
         }
         Action = "sts:AssumeRole"
-	#"Condition": { "Bool": { "aws:MultiFactorAuthPresent": "true" } }
+        #"Condition": { "Bool": { "aws:MultiFactorAuthPresent": "true" } }
       }
-      
+
     ]
   })
 }

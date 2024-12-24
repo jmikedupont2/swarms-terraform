@@ -1,24 +1,24 @@
 
 locals {
-  name   = "swarms"
+  name = "swarms"
   tags = {
-    project="swarms"
+    project = "swarms"
   }
 }
 
 module "security_group_instance" {
-  source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 5.0"
+  source      = "terraform-aws-modules/security-group/aws"
+  version     = "~> 5.0"
   name        = "${local.name}-ec2"
   description = "Security Group for EC2 Instance"
-  vpc_id = local.vpc_id
+  vpc_id      = local.vpc_id
   ingress_with_cidr_blocks = [
-     {
-       from_port   = 443
-       to_port     = 443
-       protocol    = "tcp"
-       cidr_blocks = "0.0.0.0/0"
-     },
+    {
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
+      cidr_blocks = "0.0.0.0/0"
+    },
     {
       from_port   = 80
       to_port     = 80
@@ -28,15 +28,15 @@ module "security_group_instance" {
   ]
 
   egress_rules = ["all-all"]
-  tags = local.tags
+  tags         = local.tags
 }
 
 module "ec2" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
+  source                      = "terraform-aws-modules/ec2-instance/aws"
   associate_public_ip_address = true # for now
-  name =  local.name
-  ami   = local.ami # data.aws_ami.ubuntu.id
-  instance_type = "t3.large"
+  name                        = local.name
+  ami                         = local.ami # data.aws_ami.ubuntu.id
+  instance_type               = "t3.large"
   create_iam_instance_profile = true
   iam_role_description        = "IAM role for EC2 instance"
   iam_role_policies = {
@@ -48,11 +48,11 @@ module "ec2" {
     {
       encrypted   = true
       volume_size = 30
-      volume_type           = "gp3"
+      volume_type = "gp3"
     }
   ]
 
-  user_data = <<-EOF
+  user_data            = <<-EOF
 #!/bin/bash
 export HOME=/root
 apt update
@@ -67,9 +67,9 @@ export BRANCH=feature/ec2
 git checkout --force  $BRANCH
 bash -x /opt/swarms/api/install.sh
               EOF
-  tags = local.tags  
+  tags                 = local.tags
   create_spot_instance = true
-  subnet_id     = local.ec2_subnet_id
+  subnet_id            = local.ec2_subnet_id
 }
 
 
@@ -78,6 +78,6 @@ output "ec2_data" {
 }
 
 output "iam_instance_profile_name" {
-  value = module.ec2.iam_instance_profile_id
+  value       = module.ec2.iam_instance_profile_id
   description = "IAM Instance Profile Name created for EC2 instance"
 }

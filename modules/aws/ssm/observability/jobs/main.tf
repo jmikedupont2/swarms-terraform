@@ -219,10 +219,10 @@ resource "aws_cloudwatch_dashboard" "ssm_operations" {
         width  = 12
         height = 6
         properties = {
-          query   = "fields @timestamp, @message | sort @timestamp desc | limit 20"
-          region  = var.aws_region
-          title   = "Recent SSM Operation Logs"
-          view    = "table"
+          query        = "fields @timestamp, @message | sort @timestamp desc | limit 20"
+          region       = var.aws_region
+          title        = "Recent SSM Operation Logs"
+          view         = "table"
           logGroupName = aws_cloudwatch_log_group.ssm_logs.name
         }
       }
@@ -240,11 +240,11 @@ resource "aws_cloudwatch_metric_alarm" "ssm_failures" {
   evaluation_periods  = "1"
   metric_name         = "CommandFailed"
   namespace           = "AWS/SSM"
-  period             = "300"
-  statistic          = "Sum"
-  threshold          = "0"
-  alarm_description  = "This metric monitors failed SSM commands"
-  
+  period              = "300"
+  statistic           = "Sum"
+  threshold           = "0"
+  alarm_description   = "This metric monitors failed SSM commands"
+
   dimensions = {
     DocumentName = aws_ssm_document.python_with_xray.name
   }

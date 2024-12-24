@@ -1,26 +1,26 @@
 variable "ssm_profile_arn" {}
 variable "ssm_profile_name" {}
-variable vpc_id {}
-variable subnet_id {}
+variable "vpc_id" {}
+variable "subnet_id" {}
 locals {
   #  instance_type = "t3.large"
   #  instance_type = "t3.medium"
   ami_name = "ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"
-  name   = "swarmdeploy"
-  region = "us-east-2"
-  domain = var.domain
+  name     = "swarmdeploy"
+  region   = "us-east-2"
+  domain   = var.domain
   tags = {
-    project="swarmdeploy"
+    project = "swarmdeploy"
   }
 }
-variable domain {}
-variable ami_id {}
-variable tags {}
-variable name {}
+variable "domain" {}
+variable "ami_id" {}
+variable "tags" {}
+variable "name" {}
 
 
 locals {
-  ami_id  = var.ami_id
+  ami_id = var.ami_id
   #new_ami_id = "ami-08093b6770af41b14" # environments/swarms-aws-agent-api/dev/us-east-1/components/machine_image/Readme.md
 }
 
@@ -37,8 +37,8 @@ data "aws_vpc" "vpc" {
 }
 
 locals {
-#  ec2_public_subnet_id_1 = module.vpc.ec2_public_subnet_id_1
-#  ec2_public_subnet_id_2 = module.vpc.ec2_public_subnet_id_2
+  #  ec2_public_subnet_id_1 = module.vpc.ec2_public_subnet_id_1
+  #  ec2_public_subnet_id_2 = module.vpc.ec2_public_subnet_id_2
   #vpc_id = module.vpc.vpc_id
   vpc_id = var.vpc_id
 }
@@ -46,8 +46,8 @@ locals {
 module "security" {
   source = "${local.root}/security"
   vpc_id = local.vpc_id
-  tags = local.tags
-  name = local.name
+  tags   = local.tags
+  name   = local.name
 }
 
 #module "kp" {
@@ -69,10 +69,10 @@ module "security" {
 # }
 
 variable "instance_types" {
-  type    = list(string)
+  type = list(string)
   default = [
-   # "t4g.nano", "t3a.nano", "t3.nano", "t2.nano",
-   # "t4g.micro", "t3a.micro", "t3.micro", "t2.micro", "t1.micro",
+    # "t4g.nano", "t3a.nano", "t3.nano", "t2.nano",
+    # "t4g.micro", "t3a.micro", "t3.micro", "t2.micro", "t1.micro",
     #"t4g.small", "t3a.small",
     #"t3.small",
     #"t2.small", not working
@@ -88,14 +88,14 @@ variable "instance_types" {
 #}
 
 module "lt_dynamic" {
-  vpc_id = local.vpc_id
-  for_each = toset(var.instance_types)
-  instance_type       = each.key
-  name       = "swarms-size-${each.key}"
-  security_group_id = module.security.internal_security_group_id
-  ami_id = var.ami_id
-  tags= local.tags
-  source = "./components/launch_template"
+  vpc_id                    = local.vpc_id
+  for_each                  = toset(var.instance_types)
+  instance_type             = each.key
+  name                      = "swarms-size-${each.key}"
+  security_group_id         = module.security.internal_security_group_id
+  ami_id                    = var.ami_id
+  tags                      = local.tags
+  source                    = "./components/launch_template"
   iam_instance_profile_name = var.ssm_profile_name
   #aws_iam_instance_profile.ssm.name
   install_script = "/opt/swarms/install.sh"
@@ -115,7 +115,7 @@ module "lt_dynamic" {
 #   install_script = "/opt/swarms/api/just_run.sh"
 # }
 
-output security_group_id {
+output "security_group_id" {
   value = module.security.security_group_id
 }
 
@@ -139,19 +139,19 @@ output security_group_id {
 # }
 
 module "asg_dynamic" {
-  tags = local.tags
-  vpc_id = local.vpc_id
-  image_id = local.ami_id
-  ec2_subnet_id = var.subnet_id
-  for_each = toset(var.instance_types)
+  tags                             = local.tags
+  vpc_id                           = local.vpc_id
+  image_id                         = local.ami_id
+  ec2_subnet_id                    = var.subnet_id
+  for_each                         = toset(var.instance_types)
   aws_iam_instance_profile_ssm_arn = var.ssm_profile_arn
   #iam_instance_profile_name = module.roles.ssm_profile_name
-  source              = "./components/autoscaling_group"
+  source = "./components/autoscaling_group"
   #  security_group_id   = module.security.internal_security_group_id
-  instance_type       = each.key
-  name       = "swarmdeploy-${each.key}"
-  launch_template_id   = module.lt_dynamic[each.key].launch_template_id
-#  target_group_arn = module.alb.alb_target_group_arn
+  instance_type      = each.key
+  name               = "swarmdeploy-${each.key}"
+  launch_template_id = module.lt_dynamic[each.key].launch_template_id
+  #  target_group_arn = module.alb.alb_target_group_arn
 }
 
 # module "asg_dynamic_new_ami" {

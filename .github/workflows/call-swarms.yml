@@ -1,14 +1,13 @@
 on:
   workflow_dispatch:
-
   push:
     branches:
-      - "feature/call_swarms"
-  pull_request:
-    branches:
-      - "main" 
-    paths:
-      - ".github/workflows/call-swarms.yaml"
+      - "feature/docker"
+#  pull_request:
+#    branches:
+#      - "main" 
+#    paths:
+#      - ".github/workflows/call-swarms.yaml"
 
 name: CallSwarms
 jobs:

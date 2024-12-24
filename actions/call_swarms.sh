@@ -1,18 +1,35 @@
 #!/bin/bash
+# convert this to python boto3
 set -e
 set -x
 # Constants
 export REGION="${REGION:-us-east-2}"
 #export AWS_PROFILE="${AWS_PROFILE:-swarms}"
 #export AWS_PROFILE="${AWS_PROFILE}" only needed for testing locally
-TAG_KEY="${TAG_KEY:-Name}" 
-TAG_VALUE="${TAG_VALUE:-test-swarms-ami-t3.medium}"
-GIT_URL="${GIT_URL:-https://github.com/kyegomez/swarms}"
-export GIT_NAME="${GIT_NAME:-kye}"
-export GIT_VERSION="${GIT_VERSION:-master}"
+TAG_KEY="${TAG_KEY:-Name}"
 
-DOCUMENT_NAME="${DOCUMENT_NAME:-deploy}"
-DOCUMENT_VERSION="${DOCUMENT_VERSION:-2}"
+# which servers to target
+TAG_VALUE="${TAG_VALUE:-docker-swarms-ami-t3.medium}" 
+
+#what git remote
+GIT_URL="${GIT_URL:-https://github.com/jmikedupont2/swarms}"
+#GIT_URL="${GIT_URL:-git@github.com:jmikedupont2/swarms.git}"
+#git@github.com:username/reponame.git
+
+# what to name the repo
+export GIT_NAME="${GIT_NAME:-mdupont}"
+
+# what version of swarms to deploy
+export GIT_VERSION="${GIT_VERSION:-feature/squash2-docker}" 
+
+# what script to call?
+DOCUMENT_NAME="${DOCUMENT_NAME:-deploy-docker}"
+
+# aws ssm send-command --document-name "deploy-docker" --document-version "\$LATEST" --targets '[{"Key":"InstanceIds","Values":["i-0a3dae164f8f3c09a"]}]' --parameters '{"GitUrl":["https://github.com/jmikedupont/swarms"],"GitName":["mdupont"],"GitVersion":["feature/squash2-docker"]}' --timeout-seconds 600 --max-concurrency "50" --max-errors "0" --output-s3-bucket-name "swarms-session-logs-20241221151754799300000003" --cloud-watch-output-config '{"CloudWatchLogGroupName":"/ssm/session-logs-20241221151803393300000006","CloudWatchOutputEnabled":true}' --region us-east-2
+
+# what version
+DOCUMENT_VERSION="${DOCUMENT_VERSION:-\$LATEST}"
+
 TIMEOUT_SECONDS="${TIMEOUT_SECONDS:-600}"
 MAX_CONCURRENCY="${MAX_CONCURRENCY:-50}"
 MAX_ERRORS="${MAX_ERRORS:-0}"
@@ -46,10 +63,11 @@ send_command() {
 # Function to fetch command output
 fetch_command_output() {
     local command_id="$1"
+    #aws ssm list-command-invocations --command-id 82d43144-a4f4-4b6d-a507-23ad5179e0b4 --details --region us-east-2 --profile swarms
     aws ssm list-command-invocations \
         --command-id "$command_id" \
         --details \
-        --region $REGION | jq -r '.CommandInvocations[] | {InstanceId, Status, Output}'
+        --region $REGION | jq . #-r '.CommandInvocations[] | {InstanceId, Status, Output}'
 }
 
 # Main script execution

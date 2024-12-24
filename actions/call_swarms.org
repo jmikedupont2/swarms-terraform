@@ -1,0 +1,272 @@
+mdupont@mdupont-G470:~/swarms-terraform/actions$ AWS_PROFILE=swarms bash ./call_swarms.sh
+
++ export REGION=us-east-2
++ REGION=us-east-2
++ TAG_KEY=Name
++ TAG_VALUE=docker-swarms-ami-t3.medium
++ GIT_URL=https://github.com/jmikedupont/swarms
++ export GIT_NAME=mdupont
++ GIT_NAME=mdupont
++ export GIT_VERSION=feature/squash2-docker
++ GIT_VERSION=feature/squash2-docker
++ DOCUMENT_NAME=deploy-docker
++ DOCUMENT_VERSION=1
++ TIMEOUT_SECONDS=600
++ MAX_CONCURRENCY=50
++ MAX_ERRORS=0
+++ get_instance_ids
+++ aws ec2 describe-instances --filters Name=tag:Name,Values=docker-swarms-ami-t3.medium --query 'Reservations[*].Instances[*].InstanceId' --output text --region us-east-2
++ for instance in $(get_instance_ids)
++ echo 'Instance ID: i-0a3dae164f8f3c09a'
+Instance ID: i-0a3dae164f8f3c09a
+++ send_command i-0a3dae164f8f3c09a
+++ local instance_id=i-0a3dae164f8f3c09a
+++ aws ssm send-command --document-name deploy-docker --document-version 1 --targets '[{"Key":"InstanceIds","Values":["i-0a3dae164f8f3c09a"]}]' --parameters '{"GitUrl":["https://github.com/jmikedupont/swarms"],"GitName":["mdupont"],"GitVersion":["feature/squash2-docker"]}' --timeout-seconds 600 --max-concurrency 50 --max-errors 0 --region us-east-2 --output-s3-bucket-name swarms-session-logs-20241221151754799300000003 --cloud-watch-output-config '{"CloudWatchOutputEnabled":true,"CloudWatchLogGroupName":"/ssm/session-logs-20241221151803393300000006"}'
++ result='{
+    "Command": {
+        "CommandId": "82d43144-a4f4-4b6d-a507-23ad5179e0b4",
+        "DocumentName": "deploy-docker",
+        "DocumentVersion": "1",
+        "Comment": "",
+        "ExpiresAfter": 1735009432.928,
+        "Parameters": {
+            "GitName": [
+                "mdupont"
+            ],
+            "GitUrl": [
+                "https://github.com/jmikedupont/swarms"
+            ],
+            "GitVersion": [
+                "feature/squash2-docker"
+            ]
+        },
+        "InstanceIds": [],
+        "Targets": [
+            {
+                "Key": "InstanceIds",
+                "Values": [
+                    "i-0a3dae164f8f3c09a"
+                ]
+            }
+        ],
+        "RequestedDateTime": 1735005232.928,
+        "Status": "Pending",
+        "StatusDetails": "Pending",
+        "OutputS3Region": "us-east-2",
+        "OutputS3BucketName": "swarms-session-logs-20241221151754799300000003",
+        "OutputS3KeyPrefix": "",
+        "MaxConcurrency": "50",
+        "MaxErrors": "0",
+        "TargetCount": 0,
+        "CompletedCount": 0,
+        "ErrorCount": 0,
+        "DeliveryTimedOutCount": 0,
+        "ServiceRole": "",
+        "NotificationConfig": {
+            "NotificationArn": "",
+            "NotificationEvents": [],
+            "NotificationType": ""
+        },
+        "CloudWatchOutputConfig": {
+            "CloudWatchLogGroupName": "/ssm/session-logs-20241221151803393300000006",
+            "CloudWatchOutputEnabled": true
+        },
+        "TimeoutSeconds": 600,
+        "AlarmConfiguration": {
+            "IgnorePollAlarmFailure": false,
+            "Alarms": []
+        },
+        "TriggeredAlarms": []
+    }
+}'
+++ jq -r .Command.CommandId
+++ echo '{' '"Command":' '{' '"CommandId":' '"82d43144-a4f4-4b6d-a507-23ad5179e0b4",' '"DocumentName":' '"deploy-docker",' '"DocumentVersion":' '"1",' '"Comment":' '"",' '"ExpiresAfter":' 1735009432.928, '"Parameters":' '{' '"GitName":' '[' '"mdupont"' '],' '"GitUrl":' '[' '"https://github.com/jmikedupont/swarms"' '],' '"GitVersion":' '[' '"feature/squash2-docker"' ']' '},' '"InstanceIds":' '[],' '"Targets":' '[' '{' '"Key":' '"InstanceIds",' '"Values":' '[' '"i-0a3dae164f8f3c09a"' ']' '}' '],' '"RequestedDateTime":' 1735005232.928, '"Status":' '"Pending",' '"StatusDetails":' '"Pending",' '"OutputS3Region":' '"us-east-2",' '"OutputS3BucketName":' '"swarms-session-logs-20241221151754799300000003",' '"OutputS3KeyPrefix":' '"",' '"MaxConcurrency":' '"50",' '"MaxErrors":' '"0",' '"TargetCount":' 0, '"CompletedCount":' 0, '"ErrorCount":' 0, '"DeliveryTimedOutCount":' 0, '"ServiceRole":' '"",' '"NotificationConfig":' '{' '"NotificationArn":' '"",' '"NotificationEvents":' '[],' '"NotificationType":' '""' '},' '"CloudWatchOutputConfig":' '{' '"CloudWatchLogGroupName":' '"/ssm/session-logs-20241221151803393300000006",' '"CloudWatchOutputEnabled":' true '},' '"TimeoutSeconds":' 600, '"AlarmConfiguration":' '{' '"IgnorePollAlarmFailure":' false, '"Alarms":' '[]' '},' '"TriggeredAlarms":' '[]' '}' '}'
++ command_id=82d43144-a4f4-4b6d-a507-23ad5179e0b4
++ aws ssm wait command-executed --command-id 82d43144-a4f4-4b6d-a507-23ad5179e0b4 --region us-east-2 --instance i-0a3dae164f8f3c09a
++ fetch_command_output 82d43144-a4f4-4b6d-a507-23ad5179e0b4
++ local command_id=82d43144-a4f4-4b6d-a507-23ad5179e0b4
++ jq -r '.CommandInvocations[] | {InstanceId, Status, Output}'
+
+Lets get the log outputs and the cloudtrails and the cloudwatch logs for this command
++ aws ssm list-command-invocations --command-id 82d43144-a4f4-4b6d-a507-23ad5179e0b4 --details --region us-east-2
+{
+  "InstanceId": "i-0a3dae164f8f3c09a",
+  "Status": "Success",
+  "Output": null
+}
+
+
+To obtain the log outputs, cloudtrail logs, and cloudwatch logs for the specified AWS Systems
+Manager (SSM) command, follow these steps:
+
+*** Step 1: Retrieve the Output from the Command Execution
+
+Since the output is ~null~ in your provided response, we'll first try to fetch the output directly.
+#+BEGIN_SRC sh
+aws ssm list-command-invocations --command-id 82d43144-a4f4-4b6d-a507-23ad5179e0b4 --details --region us-east-2 --profile swarms
+#+END_SRC
+
+Lets fetch the results
+#+RESULTS:
+| {                          |                                                                                                                                                                                     |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "CommandInvocations":      | [                                                                                                                                                                                   |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| {                          |                                                                                                                                                                                     |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "CommandId":               | "82d43144-a4f4-4b6d-a507-23ad5179e0b4",                                                                                                                                             |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "InstanceId":              | "i-0a3dae164f8f3c09a",                                                                                                                                                              |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "InstanceName":            | "ip-10-0-4-93.us-east-2.compute.internal",                                                                                                                                          |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "Comment":                 | "",                                                                                                                                                                                 |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "DocumentName":            | "deploy-docker",                                                                                                                                                                    |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "DocumentVersion":         | "1",                                                                                                                                                                                |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "RequestedDateTime":       | 1735005232.999,                                                                                                                                                                     |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "Status":                  | "Success",                                                                                                                                                                          |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "StatusDetails":           | "Success",                                                                                                                                                                          |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "StandardOutputUrl":       | "https://s3.us-east-2.amazonaws.com/swarms-session-logs-20241221151754799300000003/82d43144-a4f4-4b6d-a507-23ad5179e0b4/i-0a3dae164f8f3c09a/awsrunShellScript/DeployDocker/stdout", |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "StandardErrorUrl":        | "https://s3.us-east-2.amazonaws.com/swarms-session-logs-20241221151754799300000003/82d43144-a4f4-4b6d-a507-23ad5179e0b4/i-0a3dae164f8f3c09a/awsrunShellScript/DeployDocker/stderr", |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "CommandPlugins":          | [                                                                                                                                                                                   |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| {                          |                                                                                                                                                                                     |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "Name":                    | "DeployDocker",                                                                                                                                                                     |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "Status":                  | "Success",                                                                                                                                                                          |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "StatusDetails":           | "Success",                                                                                                                                                                          |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "ResponseCode":            | 0,                                                                                                                                                                                  |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "ResponseStartDateTime":   | 1735005233.167,                                                                                                                                                                     |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "ResponseFinishDateTime":  | 1735005237.002,                                                                                                                                                                     |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "Output":                  | "oops\nYour                                                                                                                                                                         | branch | is | up | to | date | with | 'origin/feature/squash2-docker'.\n-- | No | entries | --\n\n----------ERROR-------\nerror: | remote | mdupont | already | exists.\nAlready | on | 'feature/squash2-docker'\nbash: | /opt/swarms/api/docker-boot.sh: | No | such | file | or | directory\nFailed | to | restart | swarms-docker.service: | Unit | swarms-docker.service | not | found.\n", |
+| "StandardOutputUrl":       | "https://s3.us-east-2.amazonaws.com/swarms-session-logs-20241221151754799300000003/82d43144-a4f4-4b6d-a507-23ad5179e0b4/i-0a3dae164f8f3c09a/awsrunShellScript/DeployDocker/stdout", |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "StandardErrorUrl":        | "https://s3.us-east-2.amazonaws.com/swarms-session-logs-20241221151754799300000003/82d43144-a4f4-4b6d-a507-23ad5179e0b4/i-0a3dae164f8f3c09a/awsrunShellScript/DeployDocker/stderr", |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "OutputS3Region":          | "us-east-2",                                                                                                                                                                        |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "OutputS3BucketName":      | "swarms-session-logs-20241221151754799300000003",                                                                                                                                   |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "OutputS3KeyPrefix":       | 82d43144-a4f4-4b6d-a507-23ad5179e0b4/i-0a3dae164f8f3c09a/awsrunShellScript                                                                                                          |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| }                          |                                                                                                                                                                                     |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| ],                         |                                                                                                                                                                                     |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "ServiceRole":             | "",                                                                                                                                                                                 |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "NotificationConfig":      | {                                                                                                                                                                                   |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "NotificationArn":         | "",                                                                                                                                                                                 |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "NotificationEvents":      | [],                                                                                                                                                                                 |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "NotificationType":        |                                                                                                                                                                                     |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| },                         |                                                                                                                                                                                     |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "CloudWatchOutputConfig":  | {                                                                                                                                                                                   |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "CloudWatchLogGroupName":  | "/ssm/session-logs-20241221151803393300000006",                                                                                                                                     |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| "CloudWatchOutputEnabled": | true                                                                                                                                                                                |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| }                          |                                                                                                                                                                                     |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| }                          |                                                                                                                                                                                     |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| ]                          |                                                                                                                                                                                     |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+| }                          |                                                                                                                                                                                     |        |    |    |    |      |      |                                      |    |         |                                      |        |         |         |                  |    |                                 |                                 |    |      |      |    |                   |    |         |                        |      |                       |     |            |
+
+If the ~--details~ flag doesn't provide the output, you may need to retrieve it using another
+method. One common approach is to use CloudWatch Logs.
+
+*** Step 2: Retrieve Output from CloudWatch Logs
+
+Assuming the SSM command execution generated logs in CloudWatch Logs, you can find the specific log
+group and stream associated with your command ID.
+
+1. *Get the Log Group Name*:
+   The log group name typically follows a pattern like ~/aws/ssm/<region>/<account-id>~. You need to
+   determine which exact account ID is used for this output.
+
+2. *Search for Logs in CloudWatch Logs*:
+   Use the AWS Management Console or ~aws logs~ command line tool to search for logs in the
+   appropriate log group.
+
+**** Using AWS CLI:
+#+BEGIN_SRC sh
+aws logs get-log-events --log-group-name /aws/ssm/us-east-2/123456789012 --start-time 1672531200000
+--end-time 1675123200000
+#+END_SRC
+
+Replace ~123456789012~ with your actual account ID and set the time range to match when the command
+was executed.
+
+**** Using AWS Management Console:
+
+1. Open the CloudWatch Logs console.
+2. Navigate to the log group ~/aws/ssm/us-east-2/123456789012~.
+3. Use the search bar to filter logs for the command ID ~82d43144-a4f4-4b6d-a507-23ad5179e0b4~.
+
+*** Step 3: Retrieve CloudTrail Logs
+
+CloudTrail records all API calls made by AWS users. You can find the logs that correspond to your
+SSM command execution.
+
+1. *Open the CloudTrail Console*:
+   Navigate to the CloudTrail console and select your trail or go directly to the event management
+   page.
+
+2. *Search for Events*:
+   Use the search bar to filter events based on ~EventName~ being ~StartCommand~, ~CancelCommand~,
+   etc., and use the command ID ~82d43144-a4f4-4b6d-a507-23ad5179e0b4~.
+
+*** Step 4: Analyze Logs
+
+Once you have the logs, analyze them to understand the outcome of your SSM command execution. Look
+for any errors or exceptions that might have occurred during the process.
+
+By following these steps, you should be able to retrieve the necessary log outputs and related data
+for your AWS Systems Manager command execution.
+
+
+The output you provided contains details from a command invocation executed in an AWS
+environment. The command was part of the ~deploy-docker~ document and targeted the instance
+~i-0a3dae164f8f3c09a~. Here is a summary of the results:
+
+*** Command Summary
+
+- *Command ID*: ~82d43144-a4f4-4b6d-a507-23ad5179e0b4~
+- *Instance ID*: ~i-0a3dae164f8f3c09a~
+- *Instance Name*: ~ip-10-0-4-93.us-east-2.compute.internal~
+- *Document Name*: ~deploy-docker~
+- *Document Version*: ~1~
+- *Requested DateTime*: ~1735005232.999~ (Epoch time, approximately December 18, 2024)
+- *Status*: ~Success~
+- *Output S3 Bucket and Key*: 
+  - ~Region~: ~us-east-2~
+  - ~Bucket Name~: ~swarms-session-logs-20241221151754799300000003~
+  - ~Key Prefix~: ~82d43144-a4f4-4b6d-a507-23ad5179e0b4/i-0a3dae164f8f3c09a/awsrunShellScript~
+
+*** Output and Error Details
+
+The output of the command contained several issues:
+
+1. *Git Status*:
+#+END_SRC
+   Your branch is up to date with 'origin/feature/squash2-docker'.
+#+END_SRC
+
+2. *Git Remote Issue*:
+#+END_SRC
+   -- 
+   No entries --
+   ----------ERROR-------
+   error: remote mdupont already exists.
+   Already on 'feature/squash2-docker'
+   bash: /opt/swarms/api/docker-boot.sh: No such file or directory
+   Failed to restart swarms-docker.service: Unit swarms-docker.service not found.
+#+END_SRC
+
+*** Summary of Errors:
+
+- *Git Remote Conflict*: The ~mdupont~ remote already exists in the repository. You need to either
+   remove or update this remote.
+- *Missing Script File*: ~/opt/swarms/api/docker-boot.sh~ does not exist on the server.
+- *Service Not Found*: ~swarms-docker.service~ is not found on the system.
+
+*** Recommendations:
+
+1. *Remove Duplicate Remote*:
+#+BEGIN_SRC sh
+   git remote remove mdupont
+#+END_SRC
+
+2. *Verify Script Location*:
+   - Ensure that ~/opt/swarms/api/docker-boot.sh~ exists and has the correct permissions.
+   - If it doesn't exist, you may need to upload or create this script on the server.
+
+3. *Check Service Availability*:
+   - Verify if ~swarms-docker.service~ is available on your system.
+   - If not, you might need to install or create this service unit file.
+
+4. *Review Logs*:
+   - Access the logs from S3 for more detailed error messages and context.
+
+This should help in troubleshooting and resolving the issues encountered during the command
+execution.

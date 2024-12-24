@@ -1,3 +1,4 @@
+# launch template for running agent api in docker
 variable "ssm_parameter_name_cw_agent_config" {}
 variable "branch" {}
 variable "install_script" {}
@@ -16,11 +17,29 @@ locals {
     instance_type = var.instance_type
     name          = var.name
   }
+  # FIXME refactor launch template to pass in user data as template parameter,
+  # split up user data into reusable chunks that we can use in different forms like docker files
   user_data = <<-EOF
   #!/bin/bash
   export HOME=/root
   apt update
-  apt-get install -y ec2-instance-connect git virtualenv
+  apt-get install -y ec2-instance-connect git 
+
+  # Install docker
+  apt-get install -y cloud-utils apt-transport-https ca-certificates curl software-properties-common
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+  apt-get update
+  apt-get install -y docker-ce
+  usermod -aG docker ubuntu
+
+  # Install docker-compose
+  curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+  chmod +x /usr/local/bin/docker-compose
+
   snap install amazon-ssm-agent --classic || echo oops1
   snap start amazon-ssm-agent || echo oops2
   apt-get install -y --no-install-recommends ca-certificates=20230311 curl=7.88.1-10+deb12u7 |  echo oops
@@ -55,10 +74,9 @@ locals {
 
 }
 data "aws_ssm_parameter" "cw_agent_config" {
-  #arn:aws:ssm:us-east-2:916723593639:parameter/cloudwatch-agent/config
   name = var.ssm_parameter_name_cw_agent_config
-  #"/cloudwatch-agent/config"
 }
+
 # defined 
 resource "aws_launch_template" "ec2_launch_template" {
   name_prefix   = "${var.name}-launch-template-"

@@ -1,4 +1,4 @@
-variable ami_id {}
+variable "ami_id" {}
 # Previous provider and variables configuration remains the same
 #provider "aws" {
 #  region = var.aws_region
@@ -19,7 +19,7 @@ variable "instance_type" {
 variable "patch_schedule" {
   description = "Cron expression for patch schedule"
   type        = string
-  default     = "cron(0 0 ? * SUN *)"  # Run at midnight every Sunday
+  default     = "cron(0 0 ? * SUN *)" # Run at midnight every Sunday
 }
 
 # Update EC2 role to include SSM permissions
@@ -61,7 +61,7 @@ resource "aws_iam_instance_profile" "monitoring_profile" {
 resource "aws_ssm_patch_baseline" "os_patches" {
   name             = "ec2-patch-baseline"
   operating_system = "AMAZON_LINUX_2"
-  
+
   approval_rule {
     approve_after_days = 7
     compliance_level   = "HIGH"
@@ -90,8 +90,8 @@ resource "aws_ssm_patch_group" "patch_group" {
 }
 
 # SSM Maintenance Window
-resource "aws_ssm_maintenance_window" "patch_window"{
-  cutoff = 1
+resource "aws_ssm_maintenance_window" "patch_window" {
+  cutoff                     = 1
   name                       = "production-patch-window"
   schedule                   = var.patch_schedule
   duration                   = 4 #"PT4H"    # 4 hours
@@ -101,9 +101,9 @@ resource "aws_ssm_maintenance_window" "patch_window"{
 # Maintenance Window Target
 resource "aws_ssm_maintenance_window_target" "patch_target" {
   resource_type = "INSTANCE"
-  window_id = aws_ssm_maintenance_window.patch_window.id
-  name      = "patch-production-servers"
-  
+  window_id     = aws_ssm_maintenance_window.patch_window.id
+  name          = "patch-production-servers"
+
   targets {
     key    = "tag:PatchGroup"
     values = ["production-servers"]
@@ -167,7 +167,7 @@ resource "aws_iam_role_policy_attachment" "maintenance_window_policy" {
 # resource "aws_instance" "monitored_instance" {
 #   ami           = var.ami_id
 #   instance_type = var.instance_type
-  
+
 #   iam_instance_profile = aws_iam_instance_profile.monitoring_profile.name
 #   monitoring           = true
 
@@ -226,142 +226,142 @@ resource "aws_ssm_association" "cloudwatch_agent_update" {
 
 locals {
   normal_config = {
-    "agent": {
-        "metrics_collection_interval": 60
+    "agent" : {
+      "metrics_collection_interval" : 60
     },
-    "metrics": {
-        "namespace": "CWAgent",
-        "append_dimensions": {
-          "InstanceId": "$${aws:InstanceId}"
+    "metrics" : {
+      "namespace" : "CWAgent",
+      "append_dimensions" : {
+        "InstanceId" : "$${aws:InstanceId}"
+      },
+      "metrics_collected" : {
+        "mem" : {
+          "measurement" : [
+            "used_percent",
+            "used",
+            "total",
+            "inactive",
+            "free",
+            "cached",
+            "buffered",
+            "available_percent",
+            "available",
+            "active"
+          ]
         },
-        "metrics_collected": {
-            "mem": {
-                "measurement": [
-                    "used_percent",
-                    "used",
-                    "total",
-                    "inactive",
-                    "free",
-                    "cached",
-                    "buffered",
-                    "available_percent",
-                    "available",
-                    "active"
-                ]
-            },
-            "cpu": {
-                "measurement": [
-                    "usage_active",
-                    "time_guest_nice",
-                    "time_idle",
-                    "time_irq",
-                    "time_iowait",
-                    "time_guest",
-                    "time_active",
-                    "time_softirq",
-                    "time_nice",
-                    "time_system",
-                    "time_user",
-                    "time_steal",
-                    "usage_guest",
-                    "usage_guest_nice",
-                    "usage_idle",
-                    "usage_iowait",
-                    "usage_irq",
-                    "usage_nice",
-                    "usage_softirq",
-                    "usage_steal"
-                ]
-            },
-            "disk": {
-                "measurement": [
-                    "used_percent",
-                    "free",
-                    "inodes_free",
-                    "inodes_total",
-                    "inodes_used",
-                    "total",
-                    "used"
-                ]
-            },
-            "diskio": {
-                "measurement": [
-                    "read_bytes",
-                    "write_bytes",
-                    "iops_in_progress",
-                    "io_time",
-                    "reads",
-                    "writes",
-                    "read_time",
-                    "write_time"
-                ]
-            },
-            "net": {
-                "measurement": [
-                    "bytes_sent",
-                    "bytes_recv",
-                    "drop_in",
-                    "drop_out",
-                    "err_in",
-                    "err_out",
-                    "packets_sent",
-                    "packets_recv"
-                ]
-            },
-            "netstat": {
-                "measurement": [
-                    "tcp_established",
-                    "tcp_close",
-                    "tcp_close_wait",
-                    "tcp_closing",
-                    "tcp_fin_wait1",
-                    "tcp_last_ack",
-                    "tcp_listen",
-                    "tcp_fin_wait2",
-                    "tcp_none",
-                    "tcp_syn_recv",
-                    "tcp_time_wait",
-                    "tcp_syn_sent",
-                    "udp_socket"
-                ]
-            },
-            "processes": {
-                "measurement": [
-                    "running",
-                    "wait",
-                    "zombies",
-                    "total_threads",
-                    "total",
-                    "paging",
-                    "sleeping",
-                    "stopped",
-                    "dead",
-                    "blocked",
-                    "idle"
-                ]
-            },
-            "swap": {
-                "measurement": [
-                    "used_percent",
-                    "free",
-                    "used"
-                ]
-            }
+        "cpu" : {
+          "measurement" : [
+            "usage_active",
+            "time_guest_nice",
+            "time_idle",
+            "time_irq",
+            "time_iowait",
+            "time_guest",
+            "time_active",
+            "time_softirq",
+            "time_nice",
+            "time_system",
+            "time_user",
+            "time_steal",
+            "usage_guest",
+            "usage_guest_nice",
+            "usage_idle",
+            "usage_iowait",
+            "usage_irq",
+            "usage_nice",
+            "usage_softirq",
+            "usage_steal"
+          ]
+        },
+        "disk" : {
+          "measurement" : [
+            "used_percent",
+            "free",
+            "inodes_free",
+            "inodes_total",
+            "inodes_used",
+            "total",
+            "used"
+          ]
+        },
+        "diskio" : {
+          "measurement" : [
+            "read_bytes",
+            "write_bytes",
+            "iops_in_progress",
+            "io_time",
+            "reads",
+            "writes",
+            "read_time",
+            "write_time"
+          ]
+        },
+        "net" : {
+          "measurement" : [
+            "bytes_sent",
+            "bytes_recv",
+            "drop_in",
+            "drop_out",
+            "err_in",
+            "err_out",
+            "packets_sent",
+            "packets_recv"
+          ]
+        },
+        "netstat" : {
+          "measurement" : [
+            "tcp_established",
+            "tcp_close",
+            "tcp_close_wait",
+            "tcp_closing",
+            "tcp_fin_wait1",
+            "tcp_last_ack",
+            "tcp_listen",
+            "tcp_fin_wait2",
+            "tcp_none",
+            "tcp_syn_recv",
+            "tcp_time_wait",
+            "tcp_syn_sent",
+            "udp_socket"
+          ]
+        },
+        "processes" : {
+          "measurement" : [
+            "running",
+            "wait",
+            "zombies",
+            "total_threads",
+            "total",
+            "paging",
+            "sleeping",
+            "stopped",
+            "dead",
+            "blocked",
+            "idle"
+          ]
+        },
+        "swap" : {
+          "measurement" : [
+            "used_percent",
+            "free",
+            "used"
+          ]
         }
+      }
     },
-    "traces": {
-        "traces_collected": {
-            "xray": {},
-            "otlp": {},
-            "application_signals": {}
-        }
+    "traces" : {
+      "traces_collected" : {
+        "xray" : {},
+        "otlp" : {},
+        "application_signals" : {}
+      }
     }
   }
-  
+
   detailed_config = {
     agent = {
       metrics_collection_interval = 60
-      run_as_user               = "root"
+      run_as_user                 = "root"
     }
     metrics = {
       namespace = "CustomEC2Metrics"
@@ -374,7 +374,7 @@ locals {
             "cpu_usage_system",
             "cpu_usage_iowait"
           ]
-          totalcpu = true
+          totalcpu                    = true
           metrics_collection_interval = 60
         }
         mem = {
@@ -408,49 +408,49 @@ locals {
       }
     }
     logs = {
-      log_stream_name="logs"
-      force_flush_interval=60
+      log_stream_name      = "logs"
+      force_flush_interval = 60
       logs_collected = {
         files = {
           collect_list = [
             {
-              file_path = "/var/log/messages"
-              log_group_name = "/ec2/system"
+              file_path       = "/var/log/messages"
+              log_group_name  = "/ec2/system"
               log_stream_name = "{instance_id}"
-              timezone = "UTC"
+              timezone        = "UTC"
             },
-	    
-	   # nginx
+
+            # nginx
             {
-              file_path = "/var/log/nginx/swarms/access.log"
-              log_group_name = "/swarms/ngnix_access"
+              file_path       = "/var/log/nginx/swarms/access.log"
+              log_group_name  = "/swarms/ngnix_access"
               log_stream_name = "{instance_id}"
-              timezone = "UTC"
+              timezone        = "UTC"
             },
             {
-              file_path = "/var/log/nginx/swarms/error.log"
-              log_group_name = "/swarms/nginx_error"
+              file_path       = "/var/log/nginx/swarms/error.log"
+              log_group_name  = "/swarms/nginx_error"
               log_stream_name = "{instance_id}"
-              timezone = "UTC"
+              timezone        = "UTC"
             },
 
             {
-              file_path = "/var/log/cloud-init-output.log"
-              log_group_name = "/ec2/init"
+              file_path       = "/var/log/cloud-init-output.log"
+              log_group_name  = "/ec2/init"
               log_stream_name = "{instance_id}"
-              timezone = "UTC"
+              timezone        = "UTC"
             },
             {
-              file_path = "/var/log/swarms_systemd.log"
-              log_group_name = "/swarms/systemd"
+              file_path       = "/var/log/swarms_systemd.log"
+              log_group_name  = "/swarms/systemd"
               log_stream_name = "{instance_id}"
-              timezone = "UTC"
+              timezone        = "UTC"
             },
             {
-              file_path = "/var/log/secure"
-              log_group_name = "/ec2/secure"
+              file_path       = "/var/log/secure"
+              log_group_name  = "/ec2/secure"
               log_stream_name = "{instance_id}"
-              timezone = "UTC"
+              timezone        = "UTC"
             }
           ]
         }
@@ -477,7 +477,7 @@ resource "aws_ssm_association" "update_cloudwatch_config" {
 
   parameters = {
     commands = "amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c ssm:${aws_ssm_parameter.cw_agent_config.name}\n      systemctl restart amazon-cloudwatch-agent"
-    
+
   }
 }
 
@@ -485,23 +485,23 @@ resource "aws_cloudwatch_log_group" "log_groups" {
   for_each = toset([
     "/swarms/ngnix_access",
     "/swarms/nginx_error",
-    "/swarms/systemd", "/ec2/init"  ])
-  name     = each.key
+  "/swarms/systemd", "/ec2/init"])
+  name              = each.key
   retention_in_days = 30
-  kms_key_id = "arn:aws:kms:us-east-2:916723593639:key/cc8e1ee7-a05b-4642-bd81-ba5548635590"
+  kms_key_id        = "arn:aws:kms:us-east-2:916723593639:key/cc8e1ee7-a05b-4642-bd81-ba5548635590"
 }
 
 # CloudWatch Log Groups for collected logs
 resource "aws_cloudwatch_log_group" "system_logs" {
   name              = "/ec2/system"
   retention_in_days = 30
-  kms_key_id = "arn:aws:kms:us-east-2:916723593639:key/cc8e1ee7-a05b-4642-bd81-ba5548635590"
+  kms_key_id        = "arn:aws:kms:us-east-2:916723593639:key/cc8e1ee7-a05b-4642-bd81-ba5548635590"
 }
 
 resource "aws_cloudwatch_log_group" "secure_logs" {
   name              = "/ec2/secure"
   retention_in_days = 30
-  kms_key_id = "arn:aws:kms:us-east-2:916723593639:key/cc8e1ee7-a05b-4642-bd81-ba5548635590"
+  kms_key_id        = "arn:aws:kms:us-east-2:916723593639:key/cc8e1ee7-a05b-4642-bd81-ba5548635590"
 }
 
 # SSM Document for CloudWatch agent troubleshooting

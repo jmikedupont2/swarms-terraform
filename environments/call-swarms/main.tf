@@ -1,12 +1,26 @@
 # from
 # https://github.com/shaikis/terraform-aws-ssm-document.git
 
+locals {
+  module_path        = abspath(path.module)
+  codebase_root_path = abspath("${path.module}/../..")
+}
+
 resource "aws_ssm_document" "deploy" {
   name            = "deploy"
   document_format = "YAML"
   document_type   = "Command"
-  content         = file("../../environments/call-swarms/deploy.yaml")
-  tags = {env = "test"}
+
+  content = file("${local.codebase_root_path}/environments/call-swarms/deploy.yaml")
+  tags    = { env = "test" }
+}
+
+resource "aws_ssm_document" "deploy-docker" {
+  name            = "deploy-docker"
+  document_format = "YAML"
+  document_type   = "Command"
+  content         = file("${local.codebase_root_path}/environments/call-swarms/deploy-docker.yaml")
+  tags            = { env = "test" }
 }
 
 
@@ -59,7 +73,7 @@ resource "aws_ssm_document" "deploy" {
 # resource "aws_iam_policy" "github_ssm_policy" {
 #   name        = "GitHubSSMPolicy"
 #   description = "Policy to allow SSM commands for GitHub role"
-  
+
 #   policy = jsonencode({
 #     Version = "2012-10-17",
 #     Statement = [

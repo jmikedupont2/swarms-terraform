@@ -12,9 +12,9 @@ resource "aws_iam_role" "pdev" {
           AWS = "arn:aws:iam::354918380242:root"
         }
         Action = "sts:AssumeRole"
-#	"Condition": { "Bool": { "aws:MultiFactorAuthPresent": "true" } }
+        #	"Condition": { "Bool": { "aws:MultiFactorAuthPresent": "true" } }
       }
-      
+
     ]
   })
 }
