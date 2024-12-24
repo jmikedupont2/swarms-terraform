@@ -1,7 +1,5 @@
 #!/bin/bash
-echo <<EOF
-
-EOF
+# convert this to python boto3
 set -e
 set -x
 # Constants
@@ -14,7 +12,9 @@ TAG_KEY="${TAG_KEY:-Name}"
 TAG_VALUE="${TAG_VALUE:-docker-swarms-ami-t3.medium}" 
 
 #what git remote
-GIT_URL="${GIT_URL:-https://github.com/jmikedupont/swarms}"
+GIT_URL="${GIT_URL:-https://github.com/jmikedupont2/swarms}"
+#GIT_URL="${GIT_URL:-git@github.com:jmikedupont2/swarms.git}"
+#git@github.com:username/reponame.git
 
 # what to name the repo
 export GIT_NAME="${GIT_NAME:-mdupont}"
@@ -25,9 +25,10 @@ export GIT_VERSION="${GIT_VERSION:-feature/squash2-docker}"
 # what script to call?
 DOCUMENT_NAME="${DOCUMENT_NAME:-deploy-docker}"
 
+# aws ssm send-command --document-name "deploy-docker" --document-version "\$LATEST" --targets '[{"Key":"InstanceIds","Values":["i-0a3dae164f8f3c09a"]}]' --parameters '{"GitUrl":["https://github.com/jmikedupont/swarms"],"GitName":["mdupont"],"GitVersion":["feature/squash2-docker"]}' --timeout-seconds 600 --max-concurrency "50" --max-errors "0" --output-s3-bucket-name "swarms-session-logs-20241221151754799300000003" --cloud-watch-output-config '{"CloudWatchLogGroupName":"/ssm/session-logs-20241221151803393300000006","CloudWatchOutputEnabled":true}' --region us-east-2
 
 # what version
-DOCUMENT_VERSION="${DOCUMENT_VERSION:-1}"
+DOCUMENT_VERSION="${DOCUMENT_VERSION:-\$LATEST}"
 
 TIMEOUT_SECONDS="${TIMEOUT_SECONDS:-600}"
 MAX_CONCURRENCY="${MAX_CONCURRENCY:-50}"

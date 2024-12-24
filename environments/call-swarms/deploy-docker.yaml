@@ -31,10 +31,27 @@ mainSteps:
     runCommand:
       - |
         #!/bin/bash
+        set -x
+        # now change the ownership of /opt/swarms to the user swarms
+        chown -R swarms:swarms  /opt/swarms
+        # echo generate this script to run as swarms to pull in latest version
+        tee /opt/swarms/update_docker_swarms.sh <<'EOF'
         cd /opt/swarms/
-        sudo git remote add {{GitName}} {{GitUrl}}  || echo oops
-        sudo git pull {{GitName}}  || echo oops
+        export HOME=/home/swarms/
+        git config --global user.email "git-agent@swarms.ai"
+        git config --global user.name "git agent"
+        git remote add {{GitName}} {{GitUrl}}  || echo oops
+        git remote set-url {{GitName}} {{GitUrl}}  || echo oops2
+        echo git url {{GitUrl}}
+        git fetch --all|| echo oops        
+        git pull {{GitName}}  {{GitVersion}}|| echo oops        
+        git checkout --force {{GitVersion}} || echo checkout
+        git log -3 || echo git fail
+        ls /opt/swarms/api/*.sh || echo no files
+        EOF
         
-        sudo git checkout --force {{GitVersion}}
-        sudo ls /opt/swarms/api/*.sh
+        sudo chown swarms /opt/swarms/update_docker_swarms.sh
+        su -c "bash -e -x /opt/swarms/update_docker_swarms.sh" swarms
+        
         sudo bash -e -x /opt/swarms/api/docker-boot.sh # needs root access
+

@@ -14,7 +14,9 @@ facilitate remote invocation of a swarms agent on cloud servers.
 The script called is defined in `environments/call-swarms/main.tf` and applied in accounts/swarms/ like
 ```bash
 pushd ../../accounts/swarms/
-tofu apply
+#tofu apply
+# apply only the one change
+tofu apply -auto-approve --target module.call_swarms.aws_ssm_document.deploy-docker
 # terraform apply
 popd
 ```
