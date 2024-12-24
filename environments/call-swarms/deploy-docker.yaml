@@ -33,7 +33,8 @@ mainSteps:
         #!/bin/bash
         cd /opt/swarms/
         sudo git remote add {{GitName}} {{GitUrl}}  || echo oops
+        sudo git pull {{GitName}}  || echo oops
+        
         sudo git checkout --force {{GitVersion}}
-        sudo su -c "bash -e -x /opt/swarms/api/docker-boot.sh" swarms
-        sudo systemctl daemon-reload
-        systemctl restart swarms-docker || journalctl -xeu swarms-docker.service
+        sudo ls /opt/swarms/api/*.sh
+        sudo bash -e -x /opt/swarms/api/docker-boot.sh # needs root access

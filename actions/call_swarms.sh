@@ -1,17 +1,5 @@
 #!/bin/bash
 echo <<EOF
-Welcome to the the call swarms ssm framework,
-it allows invocation of the swarms agent on a remote ssm server via the aws api.
-This can be almost any cloud server that is reachable via ssm, that can be on prem
-and in theory on another cloud.
-
-The file actions/call_swarms.sh is a Bash script designed to interact with AWS  
-services. It sets up environment variables for AWS region, tag keys and values, 
-Git repository details, and other parameters. The script defines functions to   
-retrieve instance IDs, send commands to instances via AWS SSM, and fetch command
-outputs. It iterates over the instances, sends commands, waits for execution,   
-and retrieves outputs, logging them to CloudWatch. The script is structured to  
-facilitate remote invocation of a swarms agent on cloud servers.                
 
 EOF
 set -e
@@ -37,8 +25,6 @@ export GIT_VERSION="${GIT_VERSION:-feature/squash2-docker}"
 # what script to call?
 DOCUMENT_NAME="${DOCUMENT_NAME:-deploy-docker}"
 
-# this script is defined in
-# environments/call-swarms/main.tf
 
 # what version
 DOCUMENT_VERSION="${DOCUMENT_VERSION:-1}"
@@ -76,10 +62,11 @@ send_command() {
 # Function to fetch command output
 fetch_command_output() {
     local command_id="$1"
+    #aws ssm list-command-invocations --command-id 82d43144-a4f4-4b6d-a507-23ad5179e0b4 --details --region us-east-2 --profile swarms
     aws ssm list-command-invocations \
         --command-id "$command_id" \
         --details \
-        --region $REGION | jq -r '.CommandInvocations[] | {InstanceId, Status, Output}'
+        --region $REGION | jq . #-r '.CommandInvocations[] | {InstanceId, Status, Output}'
 }
 
 # Main script execution
