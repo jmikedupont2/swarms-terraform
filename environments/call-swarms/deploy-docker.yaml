@@ -26,7 +26,7 @@ parameters:
 
 mainSteps:
 - action: aws:runShellScript
-  name: Deploy Docker
+  name: DeployDocker
   inputs:
     runCommand:
       - |
